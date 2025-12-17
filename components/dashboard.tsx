@@ -1,6 +1,6 @@
 import React from 'react';
 import { ProjectData } from '../types';
-import { MainChart, DistributionChart } from './Charts';
+import { MainChart, DistributionChart } from './charts';
 import { ArrowUpRight, ArrowDownRight, Minus } from 'lucide-react';
 
 interface DashboardProps {

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { TabView, ProjectData } from './types';
 import { PROJECTS, PROFILE } from './constants';
 import ProjectCard from './components/ProjectCard';
-import Dashboard from './components/Dashboard';
+import Dashboard from './components/dashboard';
 import { Linkedin, FileText, User, ExternalLink } from 'lucide-react';
 
 const App: React.FC = () => {

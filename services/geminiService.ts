@@ -1,61 +1,41 @@
-import React from 'react';
-import { ProjectData } from '../types';
-import { ChevronRight, BarChart2, TrendingUp, PieChart } from 'lucide-react';
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import { ProjectData } from "../types";
 
-interface ProjectCardProps {
-  project: ProjectData;
-  isActive: boolean;
-  onClick: () => void;
-}
+// Sử dụng import.meta.env cho Vite
+const API_KEY = import.meta.env.VITE_GEMINI_API_KEY || "";
+const genAI = new GoogleGenerativeAI(API_KEY);
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ project, isActive, onClick }) => {
-  const getThemeColor = (theme: string) => {
-    switch (theme) {
-      case 'blue': return 'bg-blue-50 text-blue-600 border-blue-200 hover:bg-blue-100';
-      case 'purple': return 'bg-purple-50 text-purple-600 border-purple-200 hover:bg-purple-100';
-      case 'green': return 'bg-green-50 text-green-600 border-green-200 hover:bg-green-100';
-      default: return 'bg-gray-50 text-gray-600';
-    }
-  };
+export const analyzeProjectData = async (project: ProjectData): Promise<string> => {
+  try {
+    // Kiểm tra nếu chưa có API Key
+    if (!API_KEY) return "API Key is missing. Please check your .env file.";
 
-  const getActiveStyle = () => {
-     if (!isActive) return 'opacity-70 hover:opacity-100 scale-95';
-     return 'ring-2 ring-offset-2 ring-offset-white shadow-lg scale-100 opacity-100';
-  }
+    // Lấy model (Lưu ý: hiện tại là gemini-1.5-flash, chưa có 2.5)
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-  const getRingColor = (theme: string) => {
-      switch (theme) {
-        case 'blue': return 'ring-blue-400';
-        case 'purple': return 'ring-purple-400';
-        case 'green': return 'ring-green-400';
-        default: return 'ring-gray-400';
-      }
-  }
-
-  return (
-    <button
-      onClick={onClick}
-      className={`
-        relative w-full text-left p-6 rounded-3xl transition-all duration-300 ease-out
-        border backdrop-blur-sm
-        ${getThemeColor(project.colorTheme)}
-        ${getActiveStyle()}
-        ${isActive ? getRingColor(project.colorTheme) : 'border-transparent'}
-      `}
-    >
-      <div className="flex justify-between items-start mb-4">
-        <div className={`p-3 rounded-2xl bg-white bg-opacity-60 shadow-sm`}>
-          {project.colorTheme === 'blue' && <BarChart2 size={24} />}
-          {project.colorTheme === 'purple' && <TrendingUp size={24} />}
-          {project.colorTheme === 'green' && <PieChart size={24} />}
-        </div>
-        {isActive && <ChevronRight className="animate-pulse" />}
-      </div>
+    const kpiSummary = project.kpis.map(k => `${k.label}: ${k.value} (${k.percentage})`).join(', ');
+    const chartSummary = JSON.stringify(project.chartDataMain.slice(0, 5));
+    
+    const prompt = `
+      You are a Business Intelligence Analyst. Analyze the following project data for "${project.title}".
       
-      <h3 className="text-xl font-bold mb-1">{project.title}</h3>
-      <p className="text-sm opacity-80 line-clamp-2 leading-relaxed">{project.description}</p>
-    </button>
-  );
-};
+      KPIs: ${kpiSummary}
+      Trend Data Sample: ${chartSummary}
+      Description: ${project.description}
 
-export default ProjectCard;
+      Provide a concise, 3-bullet point executive summary of insights. 
+      Focus on what is going well and one potential area for improvement. 
+      Keep the tone professional yet encouraging.
+      Return plain text with bullet points.
+    `;
+
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const text = response.text();
+
+    return text || "Could not generate insights at this time.";
+  } catch (error) {
+    console.error("Gemini API Error:", error);
+    return "Unable to connect to AI service. Please check your API Key configuration.";
+  }
+};

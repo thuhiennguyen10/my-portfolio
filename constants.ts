@@ -5,12 +5,12 @@ import { ProjectData, TabView, ProfileData } from './types';
 // ============================================================================
 
 export const PROFILE: ProfileData = {
-  name: "Nguyen Van A", // Your Name
-  role: "Data Analyst & BI Specialist", // Your Job Title
-  linkedinUrl: "https://linkedin.com", // Your LinkedIn Profile URL
+  name: "Thu Hien Nguyen", // Your Name
+  role: "Working Student in Data Analytics", // Your Job Title
+  linkedinUrl: "https://www.linkedin.com/in/hien-nguyen-thu10/", // Your LinkedIn Profile URL
   // INSTRUCTION: Put your PDF file in the 'public' folder and reference it here
   // Example: if file is public/cv.pdf, put '/cv.pdf'
-  cvUrl: "/sample-cv.pdf" 
+  cvUrl: "/hien-cv.pdf" 
 };
 
 export const PROJECTS: Record<TabView, ProjectData> = {

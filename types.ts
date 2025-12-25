@@ -21,6 +21,7 @@ export interface ProjectData {
   chartDataMain: DataPoint[]; // Main Trend
   chartDataDistribution: DataPoint[]; // Pie/Donut
   tableData: any[];
+  reportPath?: string;  // Path to the PDF report file
 }
 
 export interface ProfileData {

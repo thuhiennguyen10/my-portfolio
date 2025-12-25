@@ -48,10 +48,11 @@ export const PROJECTS: Record<TabView, ProjectData> = {
     ]
   },
   [TabView.PROJECT_2]: {
-    id: 'marketing-campaign',
-    title: 'Marketing Campaign ROI',
-    description: 'Evaluation of the "Summer Vibes" marketing campaign across social media channels and email marketing.',
+    id: 'airbnb-price-prediction',
+    title: 'Airbnb Price Prediction',
+    description: 'Developed machine learning models to predict Airbnb listing prices. Implemented and compared linear regression, regularized (Ridge and Lasso), and non-linear ensemble models (Regression Trees, Bagging, Random Forest, and XGBoost), with Random Forest achieving the best performance based on RMSE.',
     colorTheme: 'purple',
+    reportPath: './airbnb-r.html', // Path to the PDF report file
     kpis: [
       { label: 'Ad Spend', value: '$150K', trend: 'neutral', percentage: '0%' },
       { label: 'Impressions', value: '2.4M', trend: 'up', percentage: '+22%' },
@@ -77,12 +78,14 @@ export const PROJECTS: Record<TabView, ProjectData> = {
       { id: 3, channel: 'Facebook', spend: '$30,000', roi: '1.8x', clicks: '120K' },
       { id: 4, channel: 'Email', spend: '$10,000', roi: '8.0x', clicks: '80K' },
     ]
+    
   },
   [TabView.PROJECT_3]: {
-    id: 'customer-satisfaction',
-    title: 'Customer Satisfaction Index',
-    description: 'Year-over-year analysis of customer support tickets, resolution times, and NPS scores.',
+    id: 'churn-classification',
+    title: 'Classification Models for Customer Churn',
+    description: 'Developed machine learning models to predict customer churn in the banking industry. Implemented and compared parametric, semi-parametric, and non-parametric classification models, with CatBoost achieving the best performance based on AUC.',
     colorTheme: 'green',
+    reportPath: './churn-py.html', // Path to the PDF report file
     kpis: [
       { label: 'NPS Score', value: '72', trend: 'up', percentage: '+5pts' },
       { label: 'Avg Resolution', value: '4.2h', trend: 'down', percentage: '-15%' },

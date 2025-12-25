@@ -30,19 +30,6 @@ const Dashboard: React.FC<DashboardProps> = ({ project }) => {
         </div>
       </div>
 
-      {project.reportPath && (
-  <div className="bg-white bg-opacity-60 backdrop-blur-xl p-6 rounded-3xl border border-white shadow-sm mt-8">
-    <h3 className="font-semibold text-slate-700 mb-4">R Analysis Report</h3>
-    <div className="w-full h-[600px] rounded-2xl overflow-hidden border border-slate-100">
-      <iframe 
-        src={project.reportPath} 
-        className="w-full h-full"
-        frameBorder="0"
-      ></iframe>
-    </div>
-  </div>
-)}
-
       {/* KPIs */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {project.kpis.map((kpi, idx) => (
@@ -111,6 +98,19 @@ const Dashboard: React.FC<DashboardProps> = ({ project }) => {
           </table>
         </div>
       </div>
+
+            {project.reportPath && (
+  <div className="bg-white bg-opacity-60 backdrop-blur-xl p-6 rounded-3xl border border-white shadow-sm mt-8">
+    <h3 className="font-semibold text-slate-700 mb-4">R Markdown Report</h3>
+    <div className="w-full h-[600px] rounded-2xl overflow-hidden border border-slate-100">
+      <iframe 
+        src={project.reportPath} 
+        className="w-full h-full"
+        frameBorder="0"
+      ></iframe>
+    </div>
+  </div>
+)}
 
     </div>
   );

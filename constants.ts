@@ -10,7 +10,7 @@ export const PROFILE: ProfileData = {
   linkedinUrl: "https://www.linkedin.com/in/hien-nguyen-thu10/", // Your LinkedIn Profile URL
   // INSTRUCTION: Put your PDF file in the 'public' folder and reference it here
   // Example: if file is public/cv.pdf, put '/cv.pdf'
-  cvUrl: "/hien-cv.pdf" 
+  cvUrl: "./hien-cv.pdf" 
 };
 
 export const PROJECTS: Record<TabView, ProjectData> = {

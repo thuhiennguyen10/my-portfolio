@@ -15,10 +15,11 @@ export const PROFILE: ProfileData = {
 
 export const PROJECTS: Record<TabView, ProjectData> = {
   [TabView.PROJECT_1]: {
-    id: 'ecommerce-growth',
-    title: 'E-Commerce Sales Growth',
+    id: 'youtube-r',
+    title: 'Youtube Data Analysis with R',
     description: 'A comprehensive analysis of Q1-Q4 sales performance, highlighting regional growth and product category dominance.',
     colorTheme: 'blue',
+    reportPath: './youtube-r.html', // Path to the PDF report file
     kpis: [
       { label: 'Total Revenue', value: '$4.2M', trend: 'up', percentage: '+12.5%' },
       { label: 'Active Users', value: '45.2K', trend: 'up', percentage: '+8.3%' },

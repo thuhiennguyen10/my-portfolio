@@ -26,7 +26,7 @@ const Dashboard: React.FC<DashboardProps> = ({ project }) => {
       <div className="flex flex-col justify-start gap-4 border-b border-slate-200/50 pb-6">
         <div>
           <h2 className="text-3xl font-bold text-slate-800">{project.title}</h2>
-          <p className="text-slate-500 mt-2 text-lg leading-relaxed max-w-3xl">{project.description}</p>
+          <p className="text-slate-500 mt-2 text-lg leading-relaxed max-w-3xl text-justify">{project.description}</p>
         </div>
       </div>
 
@@ -101,7 +101,7 @@ const Dashboard: React.FC<DashboardProps> = ({ project }) => {
 
             {project.reportPath && (
   <div className="bg-white bg-opacity-60 backdrop-blur-xl p-6 rounded-3xl border border-white shadow-sm mt-8">
-    <h3 className="font-semibold text-slate-700 mb-4">R Markdown Report</h3>
+    <h3 className="font-semibold text-slate-700 mb-4">Detailed Code</h3>
     <div className="w-full h-[600px] rounded-2xl overflow-hidden border border-slate-100">
       <iframe 
         src={project.reportPath} 

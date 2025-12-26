@@ -91,7 +91,7 @@ const App: React.FC = () => {
 
       {/* Footer */}
       <footer className="mt-24 py-8 text-center text-slate-400 text-sm">
-        <p>© {new Date().getFullYear()} Thu Hien Nguyen.</p>
+        <p>© {new Date().getFullYear()} Thu Hien Nguyen. Built with React & Tailwind.</p>
       </footer>
 
       {/* Custom CSS for blob animation */}

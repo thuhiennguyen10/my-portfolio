@@ -26,7 +26,7 @@ const Dashboard: React.FC<DashboardProps> = ({ project }) => {
       <div className="flex flex-col justify-start gap-4 border-b border-slate-200/50 pb-6">
         <div>
           <h2 className="text-3xl font-bold text-slate-800">{project.title}</h2>
-          <p className="text-slate-500 mt-2 text-lg leading-relaxed max-w-3xl text-justify">{project.description}</p>
+          <p className="text-slate-500 mt-2 text-lg leading-relaxed max-w-full text-justify">{project.description}</p>
         </div>
       </div>
 

@@ -16,7 +16,7 @@ export const PROFILE: ProfileData = {
 export const PROJECTS: Record<TabView, ProjectData> = {
   [TabView.PROJECT_1]: {
     id: 'youtube-r',
-    title: 'Youtube Data Analysis with R',
+    title: 'Youtube Data Analysis',
     description: 'A comprehensive analysis of Q1-Q4 sales performance, highlighting regional growth and product category dominance.',
     colorTheme: 'blue',
     reportPath: './youtube-r.html', // Path to the PDF report file

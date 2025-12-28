@@ -98,13 +98,27 @@ const Dashboard: React.FC<DashboardProps> = ({ project }) => {
           </table>
         </div>
       </div>
-
+      {/* Embedded Report */}
             {project.reportPath && (
   <div className="bg-white bg-opacity-60 backdrop-blur-xl p-6 rounded-3xl border border-white shadow-sm mt-8">
+    <div className="flex justify-between items-center mb-4">
     <h3 className="font-semibold text-slate-700 mb-4">Detailed Code</h3>
-    <div className="w-full h-[600px] rounded-2xl overflow-hidden border border-slate-100">
+    {/* full screen button */}
+      <a 
+        href={project.reportPath} 
+        target="_blank" 
+        rel="noreferrer" 
+        className="px-3 py-1.5 bg-blue-50 text-blue-600 rounded-lg text-xs font-medium hover:bg-blue-100 transition-colors flex items-center gap-1"
+      >
+        Open in full tab <ArrowUpRight size={14} />
+      </a>
+    </div>
+
+    {/* increase height to 1000px for scrollbar */}
+    <div className="w-full h-[1000px] rounded-2xl overflow-hidden border border-slate-100 shadow-inner bg-white">
       <iframe 
         src={project.reportPath} 
+        title="Technical Report"
         className="w-full h-full"
         frameBorder="0"
       ></iframe>

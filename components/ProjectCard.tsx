@@ -1,6 +1,6 @@
 import React from 'react';
 import { ProjectData } from '../types';
-import { ChevronRight, BarChart2, TrendingUp, PieChart } from 'lucide-react';
+import { ChevronRight, BarChart2, TrendingUp, PieChart, Binary } from 'lucide-react';
 
 interface ProjectCardProps {
   project: ProjectData;
@@ -46,7 +46,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, isActive, onClick })
       <div className="flex justify-between items-start mb-4">
         <div className={`p-3 rounded-2xl bg-white bg-opacity-60 shadow-sm`}>
           {project.colorTheme === 'blue' && <BarChart2 size={24} />}
-          {project.colorTheme === 'purple' && <TrendingUpDown size={24} />}
+          {project.colorTheme === 'purple' && <TrendingUp size={24} />}
           {project.colorTheme === 'green' && <Binary size={24} />}
         </div>
         {isActive && <ChevronRight className="animate-pulse" />}

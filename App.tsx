@@ -33,8 +33,7 @@ const App: React.FC = () => {
                     {/* Placeholder for Profile Image */}
                     <img 
       src="https://api.dicebear.com/9.x/avataaars/svg?seed=Valentina&backgroundColor=d1d4f9&accessories=round,sunglasses,wayfarers&clothesColor=25557c&clothing=collarAndSweater&clothingGraphic=bear,cumbia,deer,diamond,hola,pizza,resist,skull,skullOutline,bat&eyebrows=defaultNatural&eyes=default&mouth=twinkle&skinColor=ffdbb4https://api.dicebear.com/7.x/lorelei/svg?seed=Hien&backgroundColor=b6e3f4" 
-      alt="avatar" 
-      className="w-full h-full object-cover" 
+      alt="avatar"  
     />
                  </div>
                  <h1 className="text-2xl font-bold text-slate-800">{PROFILE.name}</h1>

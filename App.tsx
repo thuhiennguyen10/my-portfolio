@@ -32,7 +32,7 @@ const App: React.FC = () => {
                  <div className="w-24 h-24 mx-auto bg-slate-200 rounded-full mb-4 flex items-center justify-center text-slate-400 border-2 border-white shadow-sm">
                     {/* Placeholder for Profile Image */}
                     <img 
-      src="https://api.dicebear.com/9.x/avataaars/svg?seed=Valentina&backgroundColor=d1d4f9&accessories=round,sunglasses,wayfarers&clothesColor=25557c&clothing=collarAndSweater&clothingGraphic=bear,cumbia,deer,diamond,hola,pizza,resist,skull,skullOutline,bat&eyebrows=defaultNatural&eyes=default&mouth=twinkle&skinColor=ffdbb4" 
+      src="https://api.dicebear.com/9.x/avataaars/svg?seed=Valentina&radius=40&backgroundColor=d1d4f9&accessories=round,sunglasses,wayfarers&clothesColor=25557c&clothing=collarAndSweater&clothingGraphic=bear,cumbia,deer,diamond,hola,pizza,resist,skull,skullOutline,bat&eyebrows=defaultNatural&eyes=default&mouth=twinkle&skinColor=ffdbb4" 
       alt="avatar"
       className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
     />

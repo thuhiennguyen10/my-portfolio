@@ -41,11 +41,133 @@ export const PROJECTS: Record<TabView, ProjectData> = {
       { name: 'Sports', value: 200 },
     ],
     tableData: [
-      { id: 1, region: 'North America', sales: '$1,200,000', leads: 5000, conversion: '24%' },
-      { id: 2, region: 'Europe', sales: '$980,000', leads: 4200, conversion: '21%' },
-      { id: 3, region: 'Asia Pacific', sales: '$1,500,000', leads: 6800, conversion: '18%' },
-      { id: 4, region: 'Latin America', sales: '$520,000', leads: 2100, conversion: '15%' },
-    ]
+  {
+    "x": "video_views_for_the_last_30_days",
+    "y": "avg_monthly_earnings",
+    "r": 0.9953,
+    "p": 0,
+    "stars": "***"
+  },
+  {
+    "x": "avg_monthly_earnings",
+    "y": "video_views_for_the_last_30_days",
+    "r": 0.9953,
+    "p": 0,
+    "stars": "***"
+  },
+  {
+    "x": "video_views_mil",
+    "y": "subscribers_mil",
+    "r": 0.8254,
+    "p": 1.621e-245,
+    "stars": "***"
+  },
+  {
+    "x": "subscribers_mil",
+    "y": "video_views_mil",
+    "r": 0.8254,
+    "p": 1.2482e-243,
+    "stars": "***"
+  },
+  {
+    "x": "unemployment_rate",
+    "y": "country_gdp_per_capita_est",
+    "r": 0.6692,
+    "p": 2.055e-113,
+    "stars": "***"
+  },
+  {
+    "x": "country_gdp_per_capita_est",
+    "y": "unemployment_rate",
+    "r": 0.6692,
+    "p": 1.5412e-111,
+    "stars": "***"
+  },
+  {
+    "x": "rank",
+    "y": "subscribers_mil",
+    "r": -0.6504,
+    "p": 3.6416e-119,
+    "stars": "***"
+  },
+  {
+    "x": "subscribers_mil",
+    "y": "rank",
+    "r": -0.6504,
+    "p": 2.7676e-117,
+    "stars": "***"
+  },
+  {
+    "x": "sub_growth_rate_30d",
+    "y": "avg_monthly_earnings",
+    "r": 0.6074,
+    "p": 4.2894e-67,
+    "stars": "***"
+  },
+  {
+    "x": "avg_monthly_earnings",
+    "y": "sub_growth_rate_30d",
+    "r": 0.6074,
+    "p": 3.0455e-65,
+    "stars": "***"
+  },
+  {
+    "x": "video_views_for_the_last_30_days",
+    "y": "sub_growth_rate_30d",
+    "r": 0.6065,
+    "p": 2.3976e-65,
+    "stars": "***"
+  },
+  {
+    "x": "sub_growth_rate_30d",
+    "y": "video_views_for_the_last_30_days",
+    "r": 0.6065,
+    "p": 1.6783e-63,
+    "stars": "***"
+  },
+  {
+    "x": "population",
+    "y": "country_gdp_per_capita_est",
+    "r": -0.5749,
+    "p": 3.0941e-77,
+    "stars": "***"
+  },
+  {
+    "x": "country_gdp_per_capita_est",
+    "y": "population",
+    "r": -0.5749,
+    "p": 2.2587e-75,
+    "stars": "***"
+  },
+  {
+    "x": "video_views_for_the_last_30_days",
+    "y": "video_views_mil",
+    "r": 0.5519,
+    "p": 2.4348e-75,
+    "stars": "***"
+  },
+  {
+    "x": "video_views_mil",
+    "y": "video_views_for_the_last_30_days",
+    "r": 0.5519,
+    "p": 1.753e-73,
+    "stars": "***"
+  },
+  {
+    "x": "video_views_mil",
+    "y": "avg_monthly_earnings",
+    "r": 0.5494,
+    "p": 1.5425e-78,
+    "stars": "***"
+  },
+  {
+    "x": "avg_monthly_earnings",
+    "y": "video_views_mil",
+    "r": 0.5494,
+    "p": 1.1415e-76,
+    "stars": "***"
+  }
+]
   },
   [TabView.PROJECT_2]: {
     id: 'airbnb-price-prediction',

@@ -41,132 +41,13 @@ export const PROJECTS: Record<TabView, ProjectData> = {
       { name: 'Sports', value: 200 },
     ],
     tableData: [
-  {
-    "x": "video_views_for_the_last_30_days",
-    "y": "avg_monthly_earnings",
-    "r": 0.9953,
-    "p": 0,
-    "stars": "***"
-  },
-  {
-    "x": "avg_monthly_earnings",
-    "y": "video_views_for_the_last_30_days",
-    "r": 0.9953,
-    "p": 0,
-    "stars": "***"
-  },
-  {
-    "x": "video_views_mil",
-    "y": "subscribers_mil",
-    "r": 0.8254,
-    "p": 1.621e-245,
-    "stars": "***"
-  },
-  {
-    "x": "subscribers_mil",
-    "y": "video_views_mil",
-    "r": 0.8254,
-    "p": 1.2482e-243,
-    "stars": "***"
-  },
-  {
-    "x": "unemployment_rate",
-    "y": "country_gdp_per_capita_est",
-    "r": 0.6692,
-    "p": 2.055e-113,
-    "stars": "***"
-  },
-  {
-    "x": "country_gdp_per_capita_est",
-    "y": "unemployment_rate",
-    "r": 0.6692,
-    "p": 1.5412e-111,
-    "stars": "***"
-  },
-  {
-    "x": "rank",
-    "y": "subscribers_mil",
-    "r": -0.6504,
-    "p": 3.6416e-119,
-    "stars": "***"
-  },
-  {
-    "x": "subscribers_mil",
-    "y": "rank",
-    "r": -0.6504,
-    "p": 2.7676e-117,
-    "stars": "***"
-  },
-  {
-    "x": "sub_growth_rate_30d",
-    "y": "avg_monthly_earnings",
-    "r": 0.6074,
-    "p": 4.2894e-67,
-    "stars": "***"
-  },
-  {
-    "x": "avg_monthly_earnings",
-    "y": "sub_growth_rate_30d",
-    "r": 0.6074,
-    "p": 3.0455e-65,
-    "stars": "***"
-  },
-  {
-    "x": "video_views_for_the_last_30_days",
-    "y": "sub_growth_rate_30d",
-    "r": 0.6065,
-    "p": 2.3976e-65,
-    "stars": "***"
-  },
-  {
-    "x": "sub_growth_rate_30d",
-    "y": "video_views_for_the_last_30_days",
-    "r": 0.6065,
-    "p": 1.6783e-63,
-    "stars": "***"
-  },
-  {
-    "x": "population",
-    "y": "country_gdp_per_capita_est",
-    "r": -0.5749,
-    "p": 3.0941e-77,
-    "stars": "***"
-  },
-  {
-    "x": "country_gdp_per_capita_est",
-    "y": "population",
-    "r": -0.5749,
-    "p": 2.2587e-75,
-    "stars": "***"
-  },
-  {
-    "x": "video_views_for_the_last_30_days",
-    "y": "video_views_mil",
-    "r": 0.5519,
-    "p": 2.4348e-75,
-    "stars": "***"
-  },
-  {
-    "x": "video_views_mil",
-    "y": "video_views_for_the_last_30_days",
-    "r": 0.5519,
-    "p": 1.753e-73,
-    "stars": "***"
-  },
-  {
-    "x": "video_views_mil",
-    "y": "avg_monthly_earnings",
-    "r": 0.5494,
-    "p": 1.5425e-78,
-    "stars": "***"
-  },
-  {
-    "x": "avg_monthly_earnings",
-    "y": "video_views_mil",
-    "r": 0.5494,
-    "p": 1.1415e-76,
-    "stars": "***"
-  }
+  { id: 1, Variable: "(Intercept)", "Log-Transformed": "5.537", Weighted: "5.517", Robust: "4.043" },
+  { id: 2, Variable: "log_video_views_mil", "Log-Transformed": "0.748", Weighted: "0.709", Robust: "0.861" },
+  { id: 3, Variable: "earnings_per_view", "Log-Transformed": "9,693.84", Weighted: "64,320.90", Robust: "7,416.38" },
+  { id: 4, Variable: "channel_age_years", "Log-Transformed": "-0.012", Weighted: "-0.00231", Robust: "-0.00220" },
+  { id: 5, Variable: "sub_growth_rate_30d", "Log-Transformed": "0.139", Weighted: "—", Robust: "—" },
+  { id: 6, Variable: "unemployment_rate", "Log-Transformed": "-0.0001", Weighted: "—", Robust: "0.036" },
+  { id: 7, Variable: "country_gdp_per_capita", "Log-Transformed": "0.0007", Weighted: "—", Robust: "—" }
 ]
   },
   [TabView.PROJECT_2]: {

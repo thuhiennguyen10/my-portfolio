@@ -74,7 +74,7 @@ const Dashboard: React.FC<DashboardProps> = ({ project }) => {
 
       {/* Data Table */}
       <div className="bg-white bg-opacity-60 backdrop-blur-xl p-6 rounded-3xl border border-white shadow-sm overflow-hidden">
-        <h3 className="font-semibold text-slate-700 mb-6">Detailed Report</h3>
+        <h3 className="font-semibold text-slate-700 mb-6">Statistical Models: Coefficient Estimates Comparison</h3>
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm text-slate-600">
             <thead className="bg-slate-50/50 text-slate-500 font-medium border-b border-slate-100">

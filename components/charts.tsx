@@ -142,6 +142,37 @@ export const RMSEComparisonChart: React.FC<{ data: any[], color: string }> = ({ 
   </div>
 );
 
+export const DonutChart: React.FC<{ data: any[], title: string }> = ({ data, title }) => {
+  const COLORS = ['#ff6666', '#ffb3e6', '#66b3ff', '#c2c2f0'];
+  return (
+    <div className="h-[350px] w-full relative">
+      <ResponsiveContainer width="100%" height="100%">
+        <PieChart>
+          <Pie
+            data={data}
+            cx="50%"
+            cy="50%"
+            innerRadius={70} // Space inside for Donut
+            outerRadius={100}
+            paddingAngle={5}
+            dataKey="value"
+          >
+            {data.map((_, index) => (
+              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} stroke="#000" strokeWidth={1} />
+            ))}
+          </Pie>
+          <Tooltip />
+          <Legend verticalAlign="bottom" iconType="circle" />
+        </PieChart>
+      </ResponsiveContainer>
+      {/* Text in the center of Donut */}
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center pointer-events-none">
+        <p className="text-[10px] font-bold text-slate-400 uppercase leading-tight">{title}</p>
+      </div>
+    </div>
+  );
+};
+
 export const MainChart: React.FC<ChartProps> = ({ data, color = "#3b82f6" }) => {
   return (
     <div className="h-[300px] w-full">

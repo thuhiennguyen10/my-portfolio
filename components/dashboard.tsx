@@ -1,6 +1,6 @@
 import React from 'react';
 import { ArrowUpRight } from 'lucide-react';
-import { MainChart, DistributionChart, Table, CustomBarChart, CustomScatterPlot, ContinentChart, TFIDFChart, RoomTypeChart, RMSEComparisonChart } from './charts';
+import { MainChart, DistributionChart, Table, CustomBarChart, CustomScatterPlot, ContinentChart, TFIDFChart, RoomTypeChart, RMSEComparisonChart, DonutChart } from './charts';
 import { ProjectData } from '../types';
 
 const Dashboard = ({ project }: { project: ProjectData }) => {
@@ -134,9 +134,23 @@ const Dashboard = ({ project }: { project: ProjectData }) => {
             <section>
               <h3 className="font-semibold text-slate-700 mb-4">Visualization and Analysis</h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="bg-white p-4 rounded-2xl shadow-sm"><DistributionChart data={project.chartDataDistribution} theme={project.colorTheme} /></div>
-                <div className="bg-white p-4 rounded-2xl shadow-sm"><CustomBarChart data={project.chartDataMain} color={color} /></div>
-                <div className="bg-white p-4 rounded-2xl shadow-sm"><CustomBarChart data={project.chartDataMain} color={color} /></div>
+
+                {/* 1. Donut Chart */}
+          <div className="bg-white p-6 rounded-3xl shadow-sm border border-white">
+            <p className="text-xs text-slate-400 mb-4 text-center font-medium uppercase tracking-wider">Churn Distribution by Active Membership</p>
+            <DonutChart data={project.chartDataDistribution} title="Membership Status" />
+          </div>
+
+          {/* 2. Column Chart */}
+          <div className="bg-white p-6 rounded-3xl shadow-sm border border-white">
+            <p className="text-xs text-slate-400 mb-4 text-center font-medium uppercase tracking-wider">Churn Rate by Number of Products</p>
+            
+            <CustomBarChart 
+              data={project.chartDataMain} 
+              color={color} 
+            />
+          </div>
+              
               </div>
             </section>
             <section>

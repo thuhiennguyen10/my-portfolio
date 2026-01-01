@@ -380,16 +380,41 @@ line:[{"x":0.4391,"y":11.8743},{"x":228000,"y":230.8477}]}
     colorTheme: 'green',
     reportPath: './churn-py.html', // Path to the PDF report file
     projectSummary: 'This project focuses on building and evaluating various classification models to predict customer churn in the banking sector, utilizing Python for data analysis and model implementation.',
-    chartDataMain: [
-      { name: 'Q1', value: 65, secondaryValue: 40 },
-      { name: 'Q2', value: 68, secondaryValue: 35 },
-      { name: 'Q3', value: 70, secondaryValue: 30 },
-      { name: 'Q4', value: 72, secondaryValue: 28 },
+    chartDataMain: [ // Column Chart
+      {
+    "name": "1",
+    "value": 0.28
+  },
+  {
+    "name": "2",
+    "value": 0.07
+  },
+  {
+    "name": "3",
+    "value": 0.83
+  },
+  {
+    "name": "4",
+    "value": 1.0
+  }
     ],
-    chartDataDistribution: [
-      { name: 'Promoters', value: 60 },
-      { name: 'Passives', value: 30 },
-      { name: 'Detractors', value: 10 },
+    chartDataDistribution: [ // Donut chart
+      {
+    "name": "Not Active: Not Churn",
+    "value": 2831
+  },
+  {
+    "name": "Not Active: Churn",
+    "value": 1068
+  },
+  {
+    "name": "Active: Churn",
+    "value": 579
+  },
+  {
+    "name": "Active: Not Churn",
+    "value": 3522
+  }
     ],
     tableData: [
       { id: 1, type: 'Technical', volume: 450, avg_time: '5h', satisfaction: '4.8/5' },

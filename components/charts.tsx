@@ -125,8 +125,8 @@ export const RoomTypeChart: React.FC<{ data: any[], color: string }> = ({ data, 
 export const RMSEComparisonChart: React.FC<{ data: any[], color: string }> = ({ data, color }) => (
   <div className="h-[400px] w-full">
     <ResponsiveContainer width="100%" height="100%">
-      <BarChart layout="vertical" data={data} margin={{ left: 60, right: 40 }}>
-        <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} stroke="#e2e8f0" />
+      <BarChart layout="vertical" data={data} margin={{ left: 40, right: 40, bottom: 40 }}>
+        {/* <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} stroke="#e2e8f0" /> */}
         <XAxis type="number" tick={{fontSize: 10}} label={{ value: 'RMSE', position: 'insideBottom', offset: -5 }} />
         <YAxis dataKey="name" type="category" tick={{fontSize: 10}} width={100} />
         <Tooltip cursor={{fill: '#f8fafc'}} />
@@ -136,7 +136,7 @@ export const RMSEComparisonChart: React.FC<{ data: any[], color: string }> = ({ 
         <Bar name="Validation RMSE" dataKey="value" fill={color} radius={[0, 4, 4, 0]} barSize={15} />
         
         {/* Training RMSE - Cột phụ (màu nhạt hơn) */}
-        <Bar name="Training RMSE" dataKey="secondaryValue" fill={`${color}80`} radius={[0, 4, 4, 0]} barSize={15} />
+        <Bar name="Training RMSE" dataKey="secondaryValue" fill={`${color}60`} radius={[0, 4, 4, 0]} barSize={15} />
       </BarChart>
     </ResponsiveContainer>
   </div>

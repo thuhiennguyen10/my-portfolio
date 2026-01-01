@@ -275,31 +275,6 @@ line:[{"x":0.4391,"y":11.8743},{"x":228000,"y":230.8477}]}
 
     chartDataMain: [
       {
-    "name": "Linear Regression",
-    "value": 62.749,
-    "secondaryValue": 61.5553
-  },
-  {
-    "name": "Ridge Regression",
-    "value": 62.7136,
-    "secondaryValue": 61.6114
-  },
-  {
-    "name": "Lasso Regression",
-    "value": 62.7494,
-    "secondaryValue": 61.5564
-  },
-  {
-    "name": "Regression Trees",
-    "value": 61.9737,
-    "secondaryValue": 55.5387
-  },
-  {
-    "name": "Bagging",
-    "value": 57.606,
-    "secondaryValue": 24.7194
-  },
-  {
     "name": "Random Forest",
     "value": 56.0558,
     "secondaryValue": 29.8187
@@ -313,6 +288,31 @@ line:[{"x":0.4391,"y":11.8743},{"x":228000,"y":230.8477}]}
     "name": "XGBoost",
     "value": 57.4043,
     "secondaryValue": 45.1759
+  },
+  {
+    "name": "Bagging",
+    "value": 57.606,
+    "secondaryValue": 24.7194
+  },
+  {
+    "name": "Regression Trees",
+    "value": 61.9737,
+    "secondaryValue": 55.5387
+  },
+  {
+    "name": "Ridge Regression",
+    "value": 62.7136,
+    "secondaryValue": 61.6114
+  },
+  {
+    "name": "Linear Regression",
+    "value": 62.749,
+    "secondaryValue": 61.5553
+  },
+  {
+    "name": "Lasso Regression",
+    "value": 62.7494,
+    "secondaryValue": 61.5564
   }
     ],
     chartDataDistribution: [

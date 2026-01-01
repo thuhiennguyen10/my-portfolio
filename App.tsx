@@ -1,12 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TabView, ProjectData } from './types';
 import { PROJECTS, PROFILE } from './constants';
 import ProjectCard from './components/ProjectCard';
 import Dashboard from './components/dashboard';
-import { Linkedin, FileText, User, ExternalLink } from 'lucide-react';
+import { Linkedin, FileText, ExternalLink } from 'lucide-react';
 
 const App: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<TabView>(TabView.PROJECT_1);
+  // 1. Logic khởi tạo Tab từ URL Hash (để giữ vị trí trang khi F5)
+  const [activeTab, setActiveTab] = useState<TabView>(() => {
+    const hash = window.location.hash.replace('#', '');
+    if (hash === 'project2') return TabView.PROJECT_2;
+    if (hash === 'project3') return TabView.PROJECT_3;
+    return TabView.PROJECT_1;
+  });
+
+  // 2. Cập nhật Hash khi thay đổi Tab (Ví dụ: nhấn vào Prj 2 sẽ hiện .../#project2)
+  useEffect(() => {
+    const tabToHash: Record<string, string> = {
+      [TabView.PROJECT_1]: 'project1',
+      [TabView.PROJECT_2]: 'project2',
+      [TabView.PROJECT_3]: 'project3',
+    };
+    window.location.hash = tabToHash[activeTab];
+  }, [activeTab]);
+
   const activeProject: ProjectData = PROJECTS[activeTab];
 
   return (
@@ -20,7 +37,6 @@ const App: React.FC = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-8 md:py-12">
-        
         <div className="flex flex-col lg:flex-row gap-8">
           
           {/* LEFT SIDEBAR: Profile & Navigation */}
@@ -29,13 +45,12 @@ const App: React.FC = () => {
               
               {/* Profile Card */}
               <div className="bg-white/40 backdrop-blur-md border border-white p-6 rounded-3xl shadow-sm text-center">
-                 <div className="w-24 h-24 mx-auto bg-slate-200 rounded-full mb-4 flex items-center justify-center text-slate-400 border-2 border-white shadow-sm">
-                    {/* Placeholder for Profile Image */}
+                 <div className="w-24 h-24 mx-auto bg-slate-200 rounded-full mb-4 flex items-center justify-center text-slate-400 border-2 border-white shadow-sm overflow-hidden">
                     <img 
-      src="https://api.dicebear.com/9.x/avataaars/svg?seed=Valentina&radius=25&backgroundColor=d1d4f9&accessories=round,sunglasses,wayfarers&clothesColor=25557c&clothing=collarAndSweater&clothingGraphic=bear,cumbia,deer,diamond,hola,pizza,resist,skull,skullOutline,bat&eyebrows=defaultNatural&eyes=default&mouth=twinkle&skinColor=ffdbb4" 
-      alt="avatar"
-      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-    />
+                      src="https://api.dicebear.com/9.x/avataaars/svg?seed=Valentina&radius=25&backgroundColor=d1d4f9&accessories=round,sunglasses,wayfarers&clothesColor=25557c&clothing=collarAndSweater&clothingGraphic=bear,cumbia,deer,diamond,hola,pizza,resist,skull,skullOutline,bat&eyebrows=defaultNatural&eyes=default&mouth=twinkle&skinColor=ffdbb4" 
+                      alt="avatar"
+                      className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+                    />
                  </div>
                  <h1 className="text-2xl font-bold text-slate-800">{PROFILE.name}</h1>
                  <p className="text-slate-500 text-sm mb-6">{PROFILE.role}</p>
@@ -51,7 +66,6 @@ const App: React.FC = () => {
                       LinkedIn Profile
                     </a>
                     
-                    {/* CV Button: Opens in new tab for viewing/downloading */}
                     <a 
                       href={PROFILE.cvUrl} 
                       target="_blank"
@@ -69,17 +83,14 @@ const App: React.FC = () => {
               <div className="space-y-4">
                 <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest px-2">Projects</h2>
                 <div className="space-y-3">
-                  {Object.values(PROJECTS).map((proj) => {
-                     const tabKey = Object.keys(PROJECTS).find(key => PROJECTS[key as TabView] === proj) as TabView;
-                     return (
-                       <ProjectCard 
-                         key={proj.id} 
-                         project={proj} 
-                         isActive={activeTab === tabKey}
-                         onClick={() => setActiveTab(tabKey)}
-                       />
-                     );
-                  })}
+                  {(Object.keys(PROJECTS) as TabView[]).map((tabKey) => (
+                    <ProjectCard 
+                      key={PROJECTS[tabKey].id} 
+                      project={PROJECTS[tabKey]} 
+                      isActive={activeTab === tabKey}
+                      onClick={() => setActiveTab(tabKey)}
+                    />
+                  ))}
                 </div>
               </div>
 
@@ -88,17 +99,15 @@ const App: React.FC = () => {
 
           {/* RIGHT CONTENT: Dashboard */}
           <main className="flex-1 min-w-0">
-             <Dashboard project={activeProject} />
+              <Dashboard project={activeProject} />
           </main>
         </div>
       </div>
 
-      {/* Footer */}
       <footer className="mt-24 py-8 text-center text-slate-400 text-sm">
         <p>© {new Date().getFullYear()} Thu Hien Nguyen. Built with React & Tailwind.</p>
       </footer>
 
-      {/* Custom CSS for blob animation */}
       <style>{`
         @keyframes blob {
           0% { transform: translate(0px, 0px) scale(1); }

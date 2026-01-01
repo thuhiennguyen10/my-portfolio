@@ -235,12 +235,13 @@ export const CustomBoxPlot: React.FC<{ data: any[] }> = ({ data }) => (
       <BarChart data={data} margin={{ top: 20, right: 30, left: 10, bottom: 5 }}>
         <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
         <XAxis dataKey="name" axisLine={false} tickLine={false} />
-        <YAxis domain={['auto', 'auto']} axisLine={false} tickLine={false} />
+        {/* Quan trọng: Thêm domain auto để trục Y bao quát hết giá trị tuổi */}
+        <YAxis domain={['dataMin - 5', 'dataMax + 5']} axisLine={false} tickLine={false} />
         <Tooltip />
         <Bar 
           dataKey="q3" 
+          // Sửa yAxisScale thành yScale để khớp với nội bộ Recharts
           shape={(props: any) => <RenderBoxPlotShape {...props} yAxisScale={props.yScale} />} 
-          // Truyền các giá trị thống kê vào để shape xử lý
         />
       </BarChart>
     </ResponsiveContainer>

@@ -261,7 +261,7 @@ line:[{"x":0.4391,"y":11.8743},{"x":228000,"y":230.8477}]}
 ]
   },
   [TabView.PROJECT_2]: {
-    id: 'airbnb-price-prediction',
+    id: 'airbnb-r',
     title: 'Airbnb Price Prediction',
     description: 'Developed machine learning models to predict Airbnb listing prices. Implemented and compared linear regression, regularized (Ridge and Lasso), and non-linear ensemble models (Regression Trees, Bagging, Random Forest, and XGBoost), with Random Forest achieving the best performance based on RMSE.',
     colorTheme: 'purple',

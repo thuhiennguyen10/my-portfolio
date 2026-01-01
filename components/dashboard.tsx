@@ -92,7 +92,7 @@ const Dashboard = ({ project }: { project: ProjectData }) => {
 
                 <div className="lg:col-span-2 bg-white p-6 rounded-3xl shadow-sm border border-white">
             <p className="text-xs text-slate-400 mb-4 text-center font-medium uppercase tracking-wider">Chicago Airbnb Interactive Map</p>
-            {/* Sử dụng iframe để nhúng bản đồ Leaflet từ R */}
+            {/* Use iframe from embed Leaflet map from R */}
             <iframe 
               src="./airbnb_map.html" 
               className="w-full h-[400px] rounded-2xl border-none shadow-inner" 

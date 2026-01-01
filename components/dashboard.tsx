@@ -66,13 +66,13 @@ const Dashboard = ({ project }: { project: ProjectData }) => {
         </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
   <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-50">
-    <h4 className="text-sm font-semibold text-slate-600 mb-4 uppercase">Median Earnings by Continent</h4>
-    <ContinentChart data={project.chartDataMain} color={color} />
-  </div>
-  <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-50">
-    <h4 className="text-sm font-semibold text-slate-600 mb-4 uppercase">Top Words per Channel Type (TF-IDF)</h4>
-    <TFIDFChart data={project.tfidfData || []} color={color} />
-  </div>
+      <p className="text-xs text-slate-400 mb-4 text-center font-medium uppercase tracking-wider">Median Earnings by Continent</p>
+      <ContinentChart data={project.chartDataMain} color={color} />
+    </div>
+  <div className="lg:col-span-2 bg-white p-6 rounded-3xl shadow-sm border border-slate-50">
+      <p className="text-xs text-slate-400 mb-4 text-center font-medium uppercase tracking-wider">Top Words per Channel Type (tf-idf)</p>
+      <TFIDFChart data={project.tfidfData || []} color={color} />
+    </div>
 </div>
 
             </section>

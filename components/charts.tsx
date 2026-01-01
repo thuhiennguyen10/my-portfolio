@@ -35,7 +35,7 @@ export const CustomScatterPlot: React.FC<{ data: ScatterPlotData | any; color: s
             tickLine={false}
             tick={{ fill: '#64748b', fontSize: 10 }}
             // Y axis title
-            label={{ value: yTitle, angle: -90, position: 'insideLeft', fill: '#64748b', fontSize: 12, fontWeight: 500 }}
+            label={{ value: yTitle, angle: -90, position: 'insideLeft', style: { textAnchor: 'middle', fill: '#64748b', fontSize: 12, fontWeight: 500 } }}
           />
           <ZAxis type="number" range={[60, 400]} />
           <Tooltip cursor={{ strokeDasharray: '3 3' }} />

@@ -14,12 +14,14 @@ const Dashboard = ({ project }: { project: ProjectData }) => {
   };
 
   const renderSummary = () => (
-    <div className="bg-white/60 backdrop-blur-xl p-6 rounded-3xl border border-white shadow-sm mb-8">
-      <h3 className="font-semibold text-slate-700 mb-2">Project Summary</h3>
+    <div className="mb-8">
+    <h3 className="font-semibold text-slate-700 mb-4 text-xl">Project Summary</h3> 
+    <div className="bg-white/60 backdrop-blur-xl p-6 rounded-3xl border border-white shadow-sm">
       <p className="text-slate-600 leading-relaxed text-justify w-full max-w-none">
         {project.projectSummary}
       </p>
     </div>
+  </div>
   );
 
   const renderLayout = () => {
@@ -62,13 +64,10 @@ const Dashboard = ({ project }: { project: ProjectData }) => {
               />
           </div>
         </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                <div className="bg-white p-4 rounded-2xl shadow-sm"><MainChart data={project.chartDataMain} color={color} /></div>
-                <div className="bg-white p-4 rounded-2xl shadow-sm"><MainChart data={project.chartDataMain} color={color} /></div>
-                <div className="bg-white p-4 rounded-2xl shadow-sm"><MainChart data={project.chartDataMain} color={color} /></div>
-              </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Column: Continents */}
                 <div className="bg-white p-6 rounded-3xl shadow-sm"><CustomBarChart data={project.chartDataMain} color={color} /></div>
+                {/* Grouped Bar: tf-idf */}
                 <div className="bg-white p-6 rounded-3xl shadow-sm"><CustomBarChart data={project.chartDataMain} color={color} /></div>
               </div>
             </section>
@@ -127,18 +126,33 @@ const Dashboard = ({ project }: { project: ProjectData }) => {
 
   return (
     <div className="space-y-8">
-      <h2 className="text-3xl font-bold text-slate-800">{project.title}</h2>
+      <h2 className="text-3xl font-bold text-slate-800 mb-6">{project.title}</h2>
+      
       {renderSummary()}
+      
       {renderLayout()}
+
       {project.reportPath && (
-        <div className="mt-8 bg-white/60 backdrop-blur-xl p-6 rounded-3xl border border-white shadow-sm">
+        <div className="mt-12">
           <div className="flex justify-between items-center mb-4">
-            <h3 className="font-semibold text-slate-700">Detailed Code</h3>
-            <a href={project.reportPath} target="_blank" rel="noreferrer" className="px-3 py-1.5 bg-blue-50 text-blue-600 rounded-lg text-xs flex items-center gap-1 font-medium transition-colors hover:bg-blue-100">
+            <h3 className="font-semibold text-slate-700 text-xl">Detailed Code</h3>
+            <a 
+              href={project.reportPath} 
+              target="_blank" 
+              rel="noreferrer" 
+              className="px-3 py-1.5 bg-blue-50 text-blue-600 rounded-lg text-xs flex items-center gap-1 font-medium transition-colors hover:bg-blue-100"
+            >
               Open in full tab <ArrowUpRight size={14} />
             </a>
           </div>
-          <iframe src={project.reportPath} className="w-full h-[800px] rounded-xl border-none shadow-inner bg-white" title="Technical Report" />
+
+          <div className="bg-white/60 backdrop-blur-xl p-6 rounded-3xl border border-white shadow-sm">
+            <iframe 
+              src={project.reportPath} 
+              className="w-full h-[800px] rounded-xl border-none shadow-inner bg-white" 
+              title={project.title} 
+            />
+          </div>
         </div>
       )}
     </div>

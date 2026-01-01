@@ -206,13 +206,13 @@ export const GradientBarChart: React.FC<{ data: any[] }> = ({ data }) => {
 export const CustomBoxPlot: React.FC<{ data: any[] }> = ({ data }) => {
   if (!data || data.length === 0) return null;
 
-  // Xử lý dữ liệu để vẽ Box (dùng Bar xếp chồng để tạo thân hộp)
+  // Xử lý dữ liệu chuẩn cho Recharts ComposedChart
   const plotData = data.map(d => ({
     ...d,
-    bottomWhisker: [d.median - d.low], // Độ dài râu dưới
-    topWhisker: [d.high - d.median],   // Độ dài râu trên
-    boxBottom: d.q1,                  // Đáy hộp
-    boxHeight: d.q3 - d.q1            // Chiều cao hộp
+    // Whisker: [giá trị bắt đầu, giá trị kết thúc]
+    lowHigh: [d.low, d.high],
+    // Box: [giá trị đáy q1, giá trị đỉnh q3]
+    q1q3: [d.q1, d.q3]
   }));
 
   return (
@@ -220,8 +220,16 @@ export const CustomBoxPlot: React.FC<{ data: any[] }> = ({ data }) => {
       <ResponsiveContainer width="100%" height="100%">
         <ComposedChart data={plotData} margin={{ top: 20, right: 30, left: 10, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
-          <XAxis dataKey="name" axisLine={false} tickLine={false} />
-          <YAxis domain={['dataMin - 10', 'dataMax + 10']} axisLine={false} tickLine={false} tick={{fontSize: 12}} />
+          <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fontSize: 12}} />
+          
+          {/* Sửa trục Y: không cho phép số âm, khớp với dữ liệu thực tế (Age) */}
+          <YAxis 
+            domain={['dataMin - 5', 'dataMax + 5']} 
+            axisLine={false} 
+            tickLine={false} 
+            tick={{fontSize: 12}}
+          />
+          
           <Tooltip 
             content={({ active, payload }) => {
               if (active && payload && payload.length) {
@@ -229,11 +237,13 @@ export const CustomBoxPlot: React.FC<{ data: any[] }> = ({ data }) => {
                 return (
                   <div className="bg-white p-3 shadow-lg rounded-xl border border-slate-100 text-[10px]">
                     <p className="font-bold mb-1 text-green-700 uppercase">{d.name}</p>
-                    <p>Max: {d.high}</p>
-                    <p>Q3: {d.q3}</p>
-                    <p className="text-blue-600 font-bold border-y border-slate-50 my-1 py-0.5">Median: {d.median}</p>
-                    <p>Q1: {d.q1}</p>
-                    <p>Min: {d.low}</p>
+                    <div className="space-y-0.5 text-slate-600">
+                      <p>Max: <span className="font-medium text-slate-900">{d.high}</span></p>
+                      <p>Q3: <span className="font-medium text-slate-900">{d.q3}</span></p>
+                      <p className="text-blue-600 font-bold border-y border-slate-50 my-1 py-0.5">Median: {d.median}</p>
+                      <p>Q1: <span className="font-medium text-slate-900">{d.q1}</span></p>
+                      <p>Min: <span className="font-medium text-slate-900">{d.low}</span></p>
+                    </div>
                   </div>
                 );
               }
@@ -241,28 +251,25 @@ export const CustomBoxPlot: React.FC<{ data: any[] }> = ({ data }) => {
             }}
           />
           
-          {/* Râu (Whiskers) */}
-          <Scatter dataKey="median" fill="none">
-            <ErrorBar dataKey="topWhisker" width={10} strokeWidth={2} stroke="#15803d" direction="y" />
-            <ErrorBar dataKey="bottomWhisker" width={10} strokeWidth={2} stroke="#15803d" direction="y" />
-          </Scatter>
+          {/* 1. Vẽ Râu (Whiskers) - Dùng Bar với dải dữ liệu low-high */}
+          <Bar dataKey="lowHigh" fill="none" isAnimationActive={false}>
+            <ErrorBar dataKey="lowHigh" width={15} strokeWidth={1.5} stroke="#15803d" direction="y" />
+          </Bar>
 
-          {/* Thân hộp (Box) - Dùng stack để vẽ từ q1 tới q3 */}
-          <Bar dataKey="boxBottom" stackId="a" fill="none" isAnimationActive={false} />
+          {/* 2. Vẽ Thân hộp (Box) - Vẽ chính xác từ Q1 tới Q3 */}
           <Bar 
-            dataKey="boxHeight" 
-            stackId="a" 
+            dataKey="q1q3" 
             fill="#bbf7d0" 
             stroke="#15803d" 
-            strokeWidth={2} 
-            barSize={40}
-            isAnimationActive={false} 
+            strokeWidth={1.5} 
+            barSize={45}
+            isAnimationActive={false}
           />
 
-          {/* Đường trung vị (Median) */}
+          {/* 3. Vẽ đường Median (Trung vị) */}
           <Scatter dataKey="median" shape={(props: any) => {
-            const { cx, cy, payload } = props;
-            return <line x1={cx - 20} y1={cy} x2={cx + 20} y2={cy} stroke="#166534" strokeWidth={3} />;
+            const { cx, cy } = props;
+            return <line x1={cx - 22.5} y1={cy} x2={cx + 22.5} y2={cy} stroke="#166534" strokeWidth={3} />;
           }} />
         </ComposedChart>
       </ResponsiveContainer>

@@ -274,12 +274,46 @@ line:[{"x":0.4391,"y":11.8743},{"x":228000,"y":230.8477}]}
 {"name": "Shared room","value": 50.3}],
 
     chartDataMain: [
-      { name: 'Week 1', value: 120, secondaryValue: 100 },
-      { name: 'Week 2', value: 132, secondaryValue: 110 },
-      { name: 'Week 3', value: 101, secondaryValue: 120 },
-      { name: 'Week 4', value: 134, secondaryValue: 140 },
-      { name: 'Week 5', value: 190, secondaryValue: 160 },
-      { name: 'Week 6', value: 230, secondaryValue: 180 },
+      {
+    "name": "Linear Regression",
+    "value": 62.749,
+    "secondaryValue": 61.5553
+  },
+  {
+    "name": "Ridge Regression",
+    "value": 62.7136,
+    "secondaryValue": 61.6114
+  },
+  {
+    "name": "Lasso Regression",
+    "value": 62.7494,
+    "secondaryValue": 61.5564
+  },
+  {
+    "name": "Regression Trees",
+    "value": 61.9737,
+    "secondaryValue": 55.5387
+  },
+  {
+    "name": "Bagging",
+    "value": 57.606,
+    "secondaryValue": 24.7194
+  },
+  {
+    "name": "Random Forest",
+    "value": 56.0558,
+    "secondaryValue": 29.8187
+  },
+  {
+    "name": "Tuned Random Forest",
+    "value": 56.4509,
+    "secondaryValue": 37.9661
+  },
+  {
+    "name": "XGBoost",
+    "value": 57.4043,
+    "secondaryValue": 45.1759
+  }
     ],
     chartDataDistribution: [
       { name: 'Instagram', value: 45 },
@@ -288,10 +322,54 @@ line:[{"x":0.4391,"y":11.8743},{"x":228000,"y":230.8477}]}
       { name: 'Email', value: 10 },
     ],
     tableData: [
-      { id: 1, channel: 'Instagram', spend: '$50,000', roi: '3.2x', clicks: '450K' },
-      { id: 2, channel: 'TikTok', spend: '$40,000', roi: '4.5x', clicks: '600K' },
-      { id: 3, channel: 'Facebook', spend: '$30,000', roi: '1.8x', clicks: '120K' },
-      { id: 4, channel: 'Email', spend: '$10,000', roi: '8.0x', clicks: '80K' },
+{
+    "model": "Random Forest",
+    "RMSE_training": 29.819,
+    "RMSE_validation": 56.056,
+    "id": 1
+  },
+  {
+    "model": "Tuned Random Forest",
+    "RMSE_training": 37.966,
+    "RMSE_validation": 56.451,
+    "id": 2
+  },
+  {
+    "model": "XGBoost",
+    "RMSE_training": 45.176,
+    "RMSE_validation": 57.404,
+    "id": 3
+  },
+  {
+    "model": "Bagging",
+    "RMSE_training": 24.719,
+    "RMSE_validation": 57.606,
+    "id": 4
+  },
+  {
+    "model": "Regression Trees",
+    "RMSE_training": 55.539,
+    "RMSE_validation": 61.974,
+    "id": 5
+  },
+  {
+    "model": "Ridge Regression",
+    "RMSE_training": 61.611,
+    "RMSE_validation": 62.714,
+    "id": 6
+  },
+  {
+    "model": "Linear Regression",
+    "RMSE_training": 61.555,
+    "RMSE_validation": 62.749,
+    "id": 7
+  },
+  {
+    "model": "Lasso Regression",
+    "RMSE_training": 61.556,
+    "RMSE_validation": 62.749,
+    "id": 8
+  }
     ]
     
   },

@@ -1,6 +1,6 @@
 import React from 'react';
 import { ArrowUpRight } from 'lucide-react';
-import { MainChart, DistributionChart, Table, CustomBarChart, CustomScatterPlot, ContinentChart, TFIDFChart, RoomTypeChart } from './charts';
+import { MainChart, DistributionChart, Table, CustomBarChart, CustomScatterPlot, ContinentChart, TFIDFChart, RoomTypeChart, RMSEComparisonChart } from './charts';
 import { ProjectData } from '../types';
 
 const Dashboard = ({ project }: { project: ProjectData }) => {
@@ -111,9 +111,19 @@ const Dashboard = ({ project }: { project: ProjectData }) => {
             <section>
               <h3 className="font-semibold text-slate-700 mb-4">Model Performance Comparison</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-white p-6 rounded-3xl shadow-sm"><Table data={project.tableData} /></div>
-                <div className="bg-white p-6 rounded-3xl shadow-sm"><CustomBarChart data={project.chartDataMain} color={color} /></div>
-              </div>
+                
+                {/* Table Comparison */}
+          <div className="bg-white p-6 rounded-3xl shadow-sm border border-white overflow-hidden">
+            <p className="text-xs text-slate-400 mb-6 text-center font-medium uppercase">RMSE Metrics by Model</p>
+            <Table data={project.tableData} />
+          </div>
+
+          {/* Clustered Bar Chart */}
+          <div className="bg-white p-6 rounded-3xl shadow-sm border border-white">
+            <p className="text-xs text-slate-400 mb-6 text-center font-medium uppercase">Training vs Validation RMSE</p>
+            <RMSEComparisonChart data={project.chartDataMain} color={color} />
+          </div>
+        </div>
             </section>
           </div>
         );

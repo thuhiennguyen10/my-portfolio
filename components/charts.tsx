@@ -60,6 +60,46 @@ interface ChartProps {
   color?: string;
 }
 
+// Continent Earnings (Column Chart)
+export const ContinentChart: React.FC<{ data: any[], color: string }> = ({ data, color }) => (
+  <div className="h-[300px] w-full">
+    <ResponsiveContainer width="100%" height="100%">
+      <BarChart data={data} margin={{ bottom: 50 }}>
+        <CartesianGrid strokeDasharray="3 3" vertical={false} />
+        <XAxis dataKey="name" angle={-45} textAnchor="end" interval={0} tick={{fontSize: 12}} />
+        <YAxis tickFormatter={(value) => `$${value/1000}k`} />
+        <Tooltip formatter={(value: number) => [`$${value.toLocaleString()}`, "Median Earnings"]} />
+        <Bar dataKey="value" fill={color} radius={[4, 4, 0, 0]} />
+      </BarChart>
+    </ResponsiveContainer>
+  </div>
+);
+
+// TF-IDF
+export const TFIDFChart: React.FC<{ data: any[], color: string }> = ({ data, color }) => {
+  const types = Array.from(new Set(data.map(d => d.channel_type)));
+
+  return (
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full">
+      {types.map(type => (
+        <div key={type} className="bg-slate-50 p-2 rounded-lg border border-slate-100">
+          <p className="text-[10px] font-bold text-center mb-1 text-slate-500 uppercase">{type}</p>
+          <div className="h-[120px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart layout="vertical" data={data.filter(d => d.channel_type === type)}>
+                <XAxis type="number" hide />
+                <YAxis dataKey="word" type="category" tick={{fontSize: 9}} width={50} />
+                <Tooltip />
+                <Bar dataKey="tf_idf" fill={color} radius={[0, 2, 2, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
 export const MainChart: React.FC<ChartProps> = ({ data, color = "#3b82f6" }) => {
   return (
     <div className="h-[300px] w-full">

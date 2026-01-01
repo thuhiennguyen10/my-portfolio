@@ -37,13 +37,209 @@ line:[{"x":0.4391,"y":11.8743},{"x":228000,"y":230.8477}]}
 
 ,
     chartDataMain: [ // Column Chart
-      { name: 'Jan', value: 4000, secondaryValue: 2400 },
-      { name: 'Feb', value: 3000, secondaryValue: 1398 },
-      { name: 'Mar', value: 2000, secondaryValue: 9800 },
-      { name: 'Apr', value: 2780, secondaryValue: 3908 },
-      { name: 'May', value: 1890, secondaryValue: 4800 },
-      { name: 'Jun', value: 2390, secondaryValue: 3800 },
-      { name: 'Jul', value: 3490, secondaryValue: 4300 },
+      {"name":"Africa","value":79850},{"name":"Asia","value":211800},{"name":"Europe","value":100150},{"name":"North America","value":120900},{"name":"Oceania","value":38900},{"name":"South America","value":136125}
+    ],
+    tfidfData: [
+{
+    "channel_type": "Comedy",
+    "word": "show",
+    "tf_idf": 0.0581
+  },
+  {
+    "channel_type": "Comedy",
+    "word": "adam",
+    "tf_idf": 0.0498
+  },
+  {
+    "channel_type": "Comedy",
+    "word": "alan",
+    "tf_idf": 0.0498
+  },
+  {
+    "channel_type": "Comedy",
+    "word": "arif",
+    "tf_idf": 0.0498
+  },
+  {
+    "channel_type": "Comedy",
+    "word": "bean",
+    "tf_idf": 0.0498
+  },
+  {
+    "channel_type": "Education",
+    "word": "songs",
+    "tf_idf": 0.2421
+  },
+  {
+    "channel_type": "Education",
+    "word": "rhymes",
+    "tf_idf": 0.1428
+  },
+  {
+    "channel_type": "Education",
+    "word": "kids",
+    "tf_idf": 0.1379
+  },
+  {
+    "channel_type": "Education",
+    "word": "nursery",
+    "tf_idf": 0.125
+  },
+  {
+    "channel_type": "Education",
+    "word": "infobells",
+    "tf_idf": 0.1211
+  },
+  {
+    "channel_type": "Entertainment",
+    "word": "tv",
+    "tf_idf": 0.1062
+  },
+  {
+    "channel_type": "Entertainment",
+    "word": "ary",
+    "tf_idf": 0.0447
+  },
+  {
+    "channel_type": "Entertainment",
+    "word": "beatboxjcop",
+    "tf_idf": 0.0447
+  },
+  {
+    "channel_type": "Entertainment",
+    "word": "biju",
+    "tf_idf": 0.0447
+  },
+  {
+    "channel_type": "Entertainment",
+    "word": "billions",
+    "tf_idf": 0.0447
+  },
+  {
+    "channel_type": "Games",
+    "word": "aphmau",
+    "tf_idf": 0.0713
+  },
+  {
+    "channel_type": "Games",
+    "word": "banderitax",
+    "tf_idf": 0.0713
+  },
+  {
+    "channel_type": "Games",
+    "word": "beter",
+    "tf_idf": 0.0713
+  },
+  {
+    "channel_type": "Games",
+    "word": "caylus",
+    "tf_idf": 0.0713
+  },
+  {
+    "channel_type": "Games",
+    "word": "cookieswirlc",
+    "tf_idf": 0.0713
+  },
+  {
+    "channel_type": "Howto",
+    "word": "troom",
+    "tf_idf": 0.2778
+  },
+  {
+    "channel_type": "Howto",
+    "word": "crafts",
+    "tf_idf": 0.1852
+  },
+  {
+    "channel_type": "Howto",
+    "word": "minute",
+    "tf_idf": 0.1852
+  },
+  {
+    "channel_type": "Howto",
+    "word": "anaysa",
+    "tf_idf": 0.0463
+  },
+  {
+    "channel_type": "Howto",
+    "word": "athlean",
+    "tf_idf": 0.0463
+  },
+  {
+    "channel_type": "Music",
+    "word": "music",
+    "tf_idf": 0.0927
+  },
+  {
+    "channel_type": "Music",
+    "word": "gaane",
+    "tf_idf": 0.0838
+  },
+  {
+    "channel_type": "Music",
+    "word": "plim",
+    "tf_idf": 0.0838
+  },
+  {
+    "channel_type": "Music",
+    "word": "series",
+    "tf_idf": 0.0618
+  },
+  {
+    "channel_type": "Music",
+    "word": "t",
+    "tf_idf": 0.0618
+  },
+  {
+    "channel_type": "News",
+    "word": "news",
+    "tf_idf": 0.5655
+  },
+  {
+    "channel_type": "News",
+    "word": "bbc",
+    "tf_idf": 0.0943
+  },
+  {
+    "channel_type": "News",
+    "word": "ndtv",
+    "tf_idf": 0.0943
+  },
+  {
+    "channel_type": "News",
+    "word": "gma",
+    "tf_idf": 0.0695
+  },
+  {
+    "channel_type": "News",
+    "word": "aaj",
+    "tf_idf": 0.0471
+  },
+  {
+    "channel_type": "People",
+    "word": "shfa",
+    "tf_idf": 0.0977
+  },
+  {
+    "channel_type": "People",
+    "word": "family",
+    "tf_idf": 0.0721
+  },
+  {
+    "channel_type": "People",
+    "word": "go",
+    "tf_idf": 0.0721
+  },
+  {
+    "channel_type": "People",
+    "word": "ali",
+    "tf_idf": 0.0489
+  },
+  {
+    "channel_type": "People",
+    "word": "ami",
+    "tf_idf": 0.0489
+  }
     ],
     chartDataDistribution: [ // Bar Chart
       { name: 'Electronics', value: 400 },

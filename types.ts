@@ -10,9 +10,15 @@ export interface ScatterPoint {
   y: number;
 }
 
-export interface ScatterPlotData {
+export interface ScatterPlotData { // Scatter plot data structure
   points: ScatterPoint[];
   line: ScatterPoint[];
+}
+
+export interface FacetDataPoint { // TD-IDF data structure
+  channel_type: string;
+  word: string;
+  tf_idf: number;
 }
 
 export interface ProjectData {
@@ -22,7 +28,6 @@ export interface ProjectData {
   colorTheme: 'blue' | 'purple' | 'green' | 'rose';
   projectSummary: string; // Project summary for all 3 projects
   layoutType?: 'default' | 'summary' | 'detailed'; // Layout control
-  chartDataMain: DataPoint[]; // Column/Line
   chartDataDistribution: DataPoint[]; // Pie/Donut 
   chartDataSecondary?: DataPoint[]; // Other graph types
   scatterData?: any[]; 
@@ -33,6 +38,8 @@ export interface ProjectData {
 scatterData1?: ScatterPlotData;
 scatterData2?: ScatterPlotData;
 scatterData3?: ScatterPlotData;
+chartDataMain: DataPoint[]; // Continent
+tfidfData?: FacetDataPoint[]; // TF-IDF
 }
 
 export interface ProfileData {

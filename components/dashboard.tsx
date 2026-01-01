@@ -1,6 +1,6 @@
 import React from 'react';
 import { ArrowUpRight } from 'lucide-react';
-import { MainChart, DistributionChart, Table, CustomBarChart, CustomScatterPlot } from './charts';
+import { MainChart, DistributionChart, Table, CustomBarChart, CustomScatterPlot, ContinentChart, TFIDFChart } from './charts';
 import { ProjectData } from '../types';
 
 const Dashboard = ({ project }: { project: ProjectData }) => {
@@ -15,7 +15,7 @@ const Dashboard = ({ project }: { project: ProjectData }) => {
 
   const renderSummary = () => (
     <div className="mb-8">
-    <h3 className="font-semibold text-slate-700 mb-4 text-xl">Project Summary</h3> 
+    <h3 className="font-semibold text-slate-700 mb-4">Project Summary</h3> 
     <div className="bg-white/60 backdrop-blur-xl p-6 rounded-3xl border border-white shadow-sm">
       <p className="text-slate-600 leading-relaxed text-justify w-full max-w-none">
         {project.projectSummary}
@@ -65,11 +65,16 @@ const Dashboard = ({ project }: { project: ProjectData }) => {
           </div>
         </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Column: Continents */}
-                <div className="bg-white p-6 rounded-3xl shadow-sm"><CustomBarChart data={project.chartDataMain} color={color} /></div>
-                {/* Grouped Bar: tf-idf */}
-                <div className="bg-white p-6 rounded-3xl shadow-sm"><CustomBarChart data={project.chartDataMain} color={color} /></div>
-              </div>
+  <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-50">
+    <h4 className="text-sm font-semibold text-slate-600 mb-4 uppercase">Median Earnings by Continent</h4>
+    <ContinentChart data={project.chartDataMain} color={color} />
+  </div>
+  <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-50">
+    <h4 className="text-sm font-semibold text-slate-600 mb-4 uppercase">Top Words per Channel Type (TF-IDF)</h4>
+    <TFIDFChart data={project.tfidfData || []} color={color} />
+  </div>
+</div>
+
             </section>
             <section>
               <h3 className="font-semibold text-slate-700 mb-4">Model Performance Comparison</h3>
@@ -135,7 +140,7 @@ const Dashboard = ({ project }: { project: ProjectData }) => {
       {project.reportPath && (
         <div className="mt-12">
           <div className="flex justify-between items-center mb-4">
-            <h3 className="font-semibold text-slate-700 text-xl">Detailed Code</h3>
+            <h3 className="font-semibold text-slate-700 mb-4">Detailed Code</h3>
             <a 
               href={project.reportPath} 
               target="_blank" 

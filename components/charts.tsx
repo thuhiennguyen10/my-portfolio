@@ -204,31 +204,33 @@ export const GradientBarChart: React.FC<{ data: any[] }> = ({ data }) => {
 };
 
 const BoxPlotItem = (props: any) => {
-  const { cx, cy, payload, yScale } = props;
+  const { cx, payload, yScale } = props;
+  
+  // Kiểm tra nếu dữ liệu hoặc hàm scale chưa sẵn sàng thì không vẽ
   if (!payload || !yScale) return null;
 
-  // Tính toán tọa độ Y cho từng điểm thống kê
+  // Chuyển đổi giá trị thực tế (Age) sang tọa độ pixel trên màn hình
   const yLow = yScale(payload.low);
   const yQ1 = yScale(payload.q1);
   const yMedian = yScale(payload.median);
   const yQ3 = yScale(payload.q3);
   const yHigh = yScale(payload.high);
   
-  const boxWidth = 40; // Độ rộng của hộp
-  const whiskerWidth = 20; // Độ rộng của vạch ngang râu
+  const boxWidth = 36; // Độ rộng của hộp xanh
+  const whiskerWidth = 18; // Độ rộng của thanh ngang trên/dưới
 
   return (
     <g>
-      {/* 1. Vẽ Râu (Whiskers) - Đường thẳng đứng */}
+      {/* 1. Vẽ Râu (Whiskers) - Đường kẻ đứt quãng từ cực thấp đến cực cao */}
       <line x1={cx} y1={yLow} x2={cx} y2={yHigh} stroke="#15803d" strokeWidth={1.5} strokeDasharray="3 3" />
       
-      {/* Vạch ngang Max */}
-      <line x1={cx - whiskerWidth / 2} y1={yHigh} x2={cx + whiskerWidth / 2} y2={yHigh} stroke="#15803d" strokeWidth={1.5} />
+      {/* Thanh ngang Max */}
+      <line x1={cx - whiskerWidth/2} y1={yHigh} x2={cx + whiskerWidth/2} y2={yHigh} stroke="#15803d" strokeWidth={1.5} />
       
-      {/* Vạch ngang Min */}
-      <line x1={cx - whiskerWidth / 2} y1={yLow} x2={cx + whiskerWidth / 2} y2={yLow} stroke="#15803d" strokeWidth={1.5} />
+      {/* Thanh ngang Min */}
+      <line x1={cx - whiskerWidth/2} y1={yLow} x2={cx + whiskerWidth/2} y2={yLow} stroke="#15803d" strokeWidth={1.5} />
 
-      {/* 2. Vẽ Thân hộp (Box) từ Q1 đến Q3 */}
+      {/* 2. Vẽ Thân hộp (Box) đại diện cho khoảng Q1 đến Q3 */}
       <rect 
         x={cx - boxWidth / 2} 
         y={yQ3} 
@@ -239,7 +241,7 @@ const BoxPlotItem = (props: any) => {
         strokeWidth={1.5} 
       />
 
-      {/* 3. Vạch trung vị (Median Line) */}
+      {/* 3. Vẽ đường trung vị (Median) - Vạch đậm màu xanh đen */}
       <line 
         x1={cx - boxWidth / 2} 
         y={yMedian} 
@@ -253,7 +255,7 @@ const BoxPlotItem = (props: any) => {
 };
 
 export const CustomBoxPlot: React.FC<{ data: any[] }> = ({ data }) => {
-  if (!data || data.length === 0) return null;
+  if (!data || data.length === 0) return <div className="h-[350px] flex items-center justify-center text-slate-400 text-sm italic">No data available</div>;
 
   return (
     <div className="h-[350px] w-full">
@@ -261,40 +263,40 @@ export const CustomBoxPlot: React.FC<{ data: any[] }> = ({ data }) => {
         <ScatterChart margin={{ top: 20, right: 30, left: 10, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
           
-          {/* Trục X hiển thị tên nhóm Churn/Not Churn */}
           <XAxis 
             dataKey="name" 
             type="category" 
             allowDuplicatedCategory={false} 
             axisLine={false} 
             tickLine={false} 
-            tick={{fontSize: 12}}
+            tick={{ fill: '#64748b', fontSize: 12 }}
           />
           
-          {/* Trục Y hiển thị Age (18-95) */}
+          {/* Trục Y: Cố định dải giá trị từ 10 đến 100 để đúng tuổi */}
           <YAxis 
             type="number" 
-            dataKey="median" // Dùng median làm điểm định vị chính
-            domain={['dataMin - 10', 'dataMax + 10']} 
+            domain={[10, 100]} 
             axisLine={false} 
             tickLine={false} 
-            tick={{fontSize: 12}}
+            tick={{ fill: '#64748b', fontSize: 12 }}
           />
           
+          <ZAxis type="number" range={[1]} /> {/* Để các điểm scatter không hiện hình tròn mặc định */}
+
           <Tooltip 
             cursor={{ strokeDasharray: '3 3' }}
             content={({ active, payload }) => {
               if (active && payload && payload.length) {
                 const d = payload[0].payload;
                 return (
-                  <div className="bg-white p-3 shadow-lg rounded-xl border border-slate-100 text-[10px]">
-                    <p className="font-bold mb-1 text-green-700 uppercase">{d.name}</p>
-                    <div className="space-y-0.5 text-slate-600">
-                      <p>Max: <span className="font-medium text-slate-900">{d.high}</span></p>
-                      <p>Q3: <span className="font-medium text-slate-900">{d.q3}</span></p>
-                      <p className="text-blue-600 font-bold border-y border-slate-50 my-1 py-0.5 text-xs">Median: {d.median}</p>
-                      <p>Q1: <span className="font-medium text-slate-900">{d.q1}</span></p>
-                      <p>Min: <span className="font-medium text-slate-900">{d.low}</span></p>
+                  <div className="bg-white p-3 shadow-xl rounded-2xl border border-slate-100 text-[11px] animate-in fade-in zoom-in duration-200">
+                    <p className="font-bold mb-2 text-green-700 border-b border-slate-50 pb-1 uppercase tracking-tight">{d.name}</p>
+                    <div className="space-y-1 text-slate-600">
+                      <p className="flex justify-between gap-4">Max: <span className="font-semibold text-slate-900">{d.high}</span></p>
+                      <p className="flex justify-between gap-4">Q3: <span className="font-semibold text-slate-900">{d.q3}</span></p>
+                      <p className="flex justify-between gap-4 text-blue-600 font-bold bg-blue-50/50 px-1.5 py-0.5 rounded">Median: <span>{d.median}</span></p>
+                      <p className="flex justify-between gap-4">Q1: <span className="font-semibold text-slate-900">{d.q1}</span></p>
+                      <p className="flex justify-between gap-4">Min: <span className="font-semibold text-slate-900">{d.low}</span></p>
                     </div>
                   </div>
                 );
@@ -303,16 +305,17 @@ export const CustomBoxPlot: React.FC<{ data: any[] }> = ({ data }) => {
             }}
           />
           
-          {/* Vẽ Box Plot bằng Scatter với Custom Shape */}
+          {/* Scatter đóng vai trò là "container" để vẽ custom shape cho Box Plot */}
           <Scatter 
-  data={data} 
-  shape={(props: any) => (
-    <BoxPlotItem 
-      {...props} 
-      yScale={props.yAxisMap?.[0]?.scale} 
-    />
-  )} 
-/>
+            name="Age Stats"
+            data={data} 
+            shape={(props: any) => (
+              <BoxPlotItem 
+                {...props} 
+                yScale={props.yAxisMap?.[0]?.scale} 
+              />
+            )} 
+          />
         </ScatterChart>
       </ResponsiveContainer>
     </div>

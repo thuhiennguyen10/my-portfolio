@@ -824,11 +824,70 @@ line:[{"x":0.4391,"y":11.8743},{"x":228000,"y":230.8477}]}
   }
     ],
 
+    aucData: [
+      {
+    "name": "Cat Boost",
+    "value": 0.8909,
+    "secondaryValue": 0.8967
+  },
+  {
+    "name": "XGBoost",
+    "value": 0.8884,
+    "secondaryValue": 0.9093
+  },
+  {
+    "name": "Neural Networks",
+    "value": 0.878,
+    "secondaryValue": 0.8753
+  },
+  {
+    "name": "Random Forest",
+    "value": 0.876,
+    "secondaryValue": 0.9228
+  },
+  {
+    "name": "SVM",
+    "value": 0.8683,
+    "secondaryValue": 0.8578
+  },
+  {
+    "name": "Logistic Regression",
+    "value": 0.8494,
+    "secondaryValue": 0.8351
+  },
+  {
+    "name": "LDA",
+    "value": 0.8488,
+    "secondaryValue": 0.8341
+  },
+  {
+    "name": "SVC",
+    "value": 0.8482,
+    "secondaryValue": 0.8346
+  },
+  {
+    "name": "KNN",
+    "value": 0.8337,
+    "secondaryValue": 0.862
+  },
+  {
+    "name": "Naive Bayes",
+    "value": 0.8132,
+    "secondaryValue": 0.8172
+  }
+    ],
+
     tableData: [
-      { id: 1, type: 'Technical', volume: 450, avg_time: '5h', satisfaction: '4.8/5' },
-      { id: 2, type: 'Billing', volume: 300, avg_time: '2h', satisfaction: '4.2/5' },
-      { id: 3, type: 'Feature Req', volume: 150, avg_time: '24h', satisfaction: '4.9/5' },
-      { id: 4, type: 'General', volume: 300, avg_time: '1h', satisfaction: '4.5/5' },
+      {"Model":"Cat Boost","Training AUC":0.8966503217,"Validation AUC":0.8908812198,"id":1},
+      {"Model":"XGBoost","Training AUC":0.9092532691,"Validation AUC":0.8883917362,"id":2},
+      {"Model":"Neural Networks","Training AUC":0.8752628367,"Validation AUC":0.8779674717,"id":3},
+      {"Model":"Random Forest","Training AUC":0.9228163431,"Validation AUC":0.8760256266,"id":4},
+      {"Model":"SVM","Training AUC":0.8577706494,"Validation AUC":0.8682797692,"id":5},
+      {"Model":"Logistic Regression","Training AUC":0.8351101122,"Validation AUC":0.8493946083,"id":6},
+      {"Model":"LDA","Training AUC":0.834117887,"Validation AUC":0.8487728352,"id":7},
+      {"Model":"SVC","Training AUC":0.8346184785,"Validation AUC":0.8481510622,"id":8},
+      {"Model":"KNN","Training AUC":0.8619864122,"Validation AUC":0.8336876643,"id":9},
+      {"Model":"Naive Bayes","Training AUC":0.8172025818,"Validation AUC":0.8131906763,"id":10}
     ]
   },
 };

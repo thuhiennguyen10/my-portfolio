@@ -325,6 +325,23 @@ export const CustomBoxPlot = ({ data }: { data: BoxPlotDataPoint[] }) => {
   );
 };
 
+export const AUCComparisonChart: React.FC<{ data: any[], color: string }> = ({ data, color }) => (
+  <div className="h-[400px] w-full">
+    <ResponsiveContainer width="100%" height="100%">
+      <BarChart layout="vertical" data={data} margin={{ top: 5, right: 40, bottom: 40, left: 50 }}>
+        <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} stroke="#e2e8f0" />
+        <XAxis type="number" domain={[0, 1]} tick={{fontSize: 10}} />
+        <YAxis dataKey="name" type="category" tick={{fontSize: 10}} width={100} axisLine={false} tickLine={false} />
+        <Tooltip cursor={{fill: '#f8fafc'}} />
+        <Legend verticalAlign="top" align="right" wrapperStyle={{ paddingBottom: '20px', fontSize: '11px' }} />
+        
+        <Bar name="Validation AUC" dataKey="value" fill={color} radius={[0, 4, 4, 0]} barSize={12} />
+        <Bar name="Training AUC" dataKey="secondaryValue" fill={`${color}40`} radius={[0, 4, 4, 0]} barSize={12} />
+      </BarChart>
+    </ResponsiveContainer>
+  </div>
+);
+
 export const MainChart: React.FC<ChartProps> = ({ data, color = "#3b82f6" }) => {
   return (
     <div className="h-[300px] w-full">

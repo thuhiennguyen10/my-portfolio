@@ -1,6 +1,6 @@
   import React from 'react';
   import { ArrowUpRight } from 'lucide-react';
-  import { MainChart, DistributionChart, Table, CustomBarChart, CustomScatterPlot, ContinentChart, TFIDFChart, RoomTypeChart, RMSEComparisonChart, DonutChart, GradientBarChart, CustomBoxPlot } from './charts';
+  import { MainChart, DistributionChart, Table, CustomBarChart, CustomScatterPlot, ContinentChart, TFIDFChart, RoomTypeChart, RMSEComparisonChart, DonutChart, GradientBarChart, CustomBoxPlot, AUCComparisonChart } from './charts';
   import { BoxPlotDataPoint, ProjectData } from '../types';
 
   const Dashboard = ({ project }: { project: ProjectData }) => {
@@ -150,18 +150,25 @@
   {/* 3. Box Plot */}
       <div className="bg-white p-6 rounded-3xl shadow-sm border border-white">
         <p className="text-xs text-slate-400 mb-4 text-center font-medium uppercase tracking-wider">Age Distribution by Churn</p>
-        <CustomBoxPlot data={project.chartDataSecondary as BoxPlotDataPoint[]} />
+        <CustomBoxPlot data={project.boxplotData as BoxPlotDataPoint[]} />
       </div>
 
                 </div>
               </section>
               <section>
                 <h3 className="font-semibold text-slate-700 mb-4">Model Performance Comparison</h3>
-                <div className="bg-white p-6 rounded-3xl shadow-sm mb-6"><Table data={project.tableData} /></div>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div className="bg-white p-4 rounded-2xl shadow-sm"><MainChart data={project.chartDataMain} color={color} /></div>
-                  <div className="bg-white p-4 rounded-2xl shadow-sm"><MainChart data={project.chartDataMain} color={color} /></div>
-                  <div className="bg-white p-4 rounded-2xl shadow-sm"><MainChart data={project.chartDataMain} color={color} /></div>
+                <div className="bg-white p-6 rounded-3xl shadow-sm mb-6">
+                  {/* AUC Table */}
+    <div className="bg-white p-6 rounded-3xl shadow-sm border border-white">
+      <p className="text-xs text-slate-400 mb-6 text-center font-medium uppercase">AUC Metrics by Model</p>
+      <Table data={project.tableData} />
+    </div>
+
+    {/* AUC graph */}
+    <div className="bg-white p-6 rounded-3xl shadow-sm border border-white">
+      <p className="text-xs text-slate-400 mb-6 text-center font-medium uppercase">Training vs Validation AUC</p>
+      <AUCComparisonChart data={project.chartDataMain} color={color} />
+    </div>
                 </div>
               </section>
             </div>

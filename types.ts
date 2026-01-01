@@ -39,7 +39,7 @@ export interface ProjectData {
   projectSummary: string; // Project summary for all 3 projects
   layoutType?: 'default' | 'summary' | 'detailed'; // Layout control
   chartDataDistribution: DataPoint[]; // Pie/Donut 
-  chartDataSecondary?: DataPoint[] | BoxPlotDataPoint[]; // Other graph types
+  chartDataSecondary?: DataPoint[] ; // Other graph types
   scatterData?: any[]; 
   tableTitle?: string;
   tableData: any[];
@@ -50,6 +50,8 @@ scatterData2?: ScatterPlotData;
 scatterData3?: ScatterPlotData;
 chartDataMain: DataPoint[]; // Continent
 tfidfData?: FacetDataPoint[]; // TF-IDF
+aucData?: DataPoint[]; // AUC Comparison
+boxplotData?: BoxPlotDataPoint[]; // Box Plot
 }
 
 export interface ProfileData {

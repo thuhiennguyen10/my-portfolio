@@ -203,80 +203,36 @@ export const GradientBarChart: React.FC<{ data: any[] }> = ({ data }) => {
   );
 };
 
-const BoxPlotItem = (props: any) => {
-  const { cx, payload, yAxisMap } = props;
-  const yScale = yAxisMap?.[0]?.scale;
-  
-  if (!payload || !yScale) return null;
-
-  const yLow = yScale(payload.low);
-  const yQ1 = yScale(payload.q1);
-  const yMedian = yScale(payload.median);
-  const yQ3 = yScale(payload.q3);
-  const yHigh = yScale(payload.high);
-  
-  const boxWidth = 40;
-  const whiskerWidth = 20;
-
-  return (
-    <g>
-      {/* 1. Whiskers */}
-      <line x1={cx} y1={yLow} x2={cx} y2={yHigh} stroke="#15803d" strokeWidth={1.5} strokeDasharray="3 3" />
-      <line x1={cx - whiskerWidth/2} y1={yHigh} x2={cx + whiskerWidth/2} y2={yHigh} stroke="#15803d" strokeWidth={1.5} />
-      <line x1={cx - whiskerWidth/2} y1={yLow} x2={cx + whiskerWidth/2} y2={yLow} stroke="#15803d" strokeWidth={1.5} />
-
-      {/* 2. Box */}
-      <rect 
-        x={cx - boxWidth / 2} 
-        y={yQ3} 
-        width={boxWidth} 
-        height={Math.abs(yQ1 - yQ3)} 
-        fill="#bbf7d0" 
-        stroke="#15803d" 
-        strokeWidth={1.5} 
-      />
-
-      {/* 3. Median Line */}
-      <line x1={cx - boxWidth / 2} y1={yMedian} x2={cx + boxWidth / 2} y2={yMedian} stroke="#166534" strokeWidth={3} />
-    </g>
-  );
-};
-
 export const CustomBoxPlot: React.FC<{ data: any[] }> = ({ data }) => {
   if (!data || data.length === 0) return null;
 
-  // Gán ID số (0, 1, 2...) cho mỗi nhóm để ScatterChart vẽ đúng vị trí trục X
-  const formattedData = data.map((item, index) => ({
-    ...item,
-    xCoord: index 
-  }));
+  // 1. Tạo trục X ảo bằng số để Recharts định vị (0, 1, 2...)
+  const plotData = data.map((d, i) => ({ ...d, x: i }));
 
   return (
     <div className="h-[350px] w-full">
       <ResponsiveContainer width="100%" height="100%">
-        {/* Đổi từ BarChart sang ScatterChart để quản lý tọa độ tuyệt đối */}
         <ScatterChart margin={{ top: 20, right: 30, left: 10, bottom: 20 }}>
           <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
           
           <XAxis 
-            dataKey="xCoord" 
-            type="number"
-            ticks={formattedData.map(d => d.xCoord)}
-            tickFormatter={(val) => data[val]?.name || ''}
-            domain={[-0.5, data.length - 0.5]} // Tạo khoảng trống 2 bên cho hộp
-            axisLine={false} 
-            tickLine={false} 
+            dataKey="x" 
+            type="number" 
+            domain={[-0.5, data.length - 0.5]} 
+            ticks={plotData.map(d => d.x)}
+            tickFormatter={(v) => data[v]?.name}
+            axisLine={false}
+            tickLine={false}
           />
           
           <YAxis 
             type="number" 
-            domain={[0, 100]} 
+            domain={[0, 100]} // Range Age từ 0-100
             axisLine={false} 
             tickLine={false} 
           />
           
-          {/* ZAxis ẩn để tránh hiện nốt chấm mặc định */}
-          <ZAxis type="number" range={[0, 0]} />
+          <ZAxis range={[0, 0]} /> {/* Ẩn các chấm tròn mặc định */}
 
           <Tooltip 
             cursor={{ strokeDasharray: '3 3' }}
@@ -288,7 +244,7 @@ export const CustomBoxPlot: React.FC<{ data: any[] }> = ({ data }) => {
                     <p className="font-bold mb-1 text-green-700 uppercase">{d.name}</p>
                     <p>Max: {d.high}</p>
                     <p>Q3: {d.q3}</p>
-                    <p className="text-blue-600 font-bold border-y border-slate-50 my-1 py-0.5">Median: {d.median}</p>
+                    <p className="text-blue-600 font-bold">Median: {d.median}</p>
                     <p>Q1: {d.q1}</p>
                     <p>Min: {d.low}</p>
                   </div>
@@ -297,11 +253,27 @@ export const CustomBoxPlot: React.FC<{ data: any[] }> = ({ data }) => {
               return null;
             }}
           />
-          
-          <Scatter 
-            data={formattedData} 
-            shape={(props: any) => <BoxPlotItem {...props} />} 
-          />
+
+          {/* 2. Vẽ các thành phần của Box Plot cho từng điểm dữ liệu */}
+          {plotData.map((d) => (
+            <React.Fragment key={d.x}>
+              {/* Râu (Whiskers): Đường thẳng từ Low đến High */}
+              <ReferenceLine segment={[{ x: d.x, y: d.low }, { x: d.x, y: d.high }]} stroke="#15803d" strokeWidth={1.5} strokeDasharray="3 3" />
+              
+              {/* Thanh ngang đầu Râu */}
+              <ReferenceLine segment={[{ x: d.x - 0.1, y: d.high }, { x: d.x + 0.1, y: d.high }]} stroke="#15803d" strokeWidth={1.5} />
+              <ReferenceLine segment={[{ x: d.x - 0.1, y: d.low }, { x: d.x + 0.1, y: d.low }]} stroke="#15803d" strokeWidth={1.5} />
+
+              {/* Thân hộp (Box): Vẽ vùng từ Q1 đến Q3 */}
+              <ReferenceArea x1={d.x - 0.2} x2={d.x + 0.2} y1={d.q1} y2={d.q3} fill="#bbf7d0" stroke="#15803d" strokeWidth={1.5} fillOpacity={1} />
+
+              {/* Đường trung vị (Median): Vạch đậm nằm trong hộp */}
+              <ReferenceLine segment={[{ x: d.x - 0.2, y: d.median }, { x: d.x + 0.2, y: d.median }]} stroke="#166534" strokeWidth={3} />
+            </React.Fragment>
+          ))}
+
+          {/* Cần một thành phần Scatter rỗng để Tooltip có thể hoạt động */}
+          <Scatter data={plotData} fill="none" />
         </ScatterChart>
       </ResponsiveContainer>
     </div>

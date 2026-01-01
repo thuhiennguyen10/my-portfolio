@@ -204,33 +204,28 @@ export const GradientBarChart: React.FC<{ data: any[] }> = ({ data }) => {
 };
 
 const BoxPlotItem = (props: any) => {
-  const { cx, payload, yScale } = props;
+  const { cx, payload, yAxisMap } = props;
+  const yScale = yAxisMap?.[0]?.scale;
   
-  // Kiểm tra nếu dữ liệu hoặc hàm scale chưa sẵn sàng thì không vẽ
   if (!payload || !yScale) return null;
 
-  // Chuyển đổi giá trị thực tế (Age) sang tọa độ pixel trên màn hình
   const yLow = yScale(payload.low);
   const yQ1 = yScale(payload.q1);
   const yMedian = yScale(payload.median);
   const yQ3 = yScale(payload.q3);
   const yHigh = yScale(payload.high);
   
-  const boxWidth = 36; // Độ rộng của hộp xanh
-  const whiskerWidth = 18; // Độ rộng của thanh ngang trên/dưới
+  const boxWidth = 40;
+  const whiskerWidth = 20;
 
   return (
     <g>
-      {/* 1. Vẽ Râu (Whiskers) - Đường kẻ đứt quãng từ cực thấp đến cực cao */}
+      {/* 1. Whiskers */}
       <line x1={cx} y1={yLow} x2={cx} y2={yHigh} stroke="#15803d" strokeWidth={1.5} strokeDasharray="3 3" />
-      
-      {/* Thanh ngang Max */}
       <line x1={cx - whiskerWidth/2} y1={yHigh} x2={cx + whiskerWidth/2} y2={yHigh} stroke="#15803d" strokeWidth={1.5} />
-      
-      {/* Thanh ngang Min */}
       <line x1={cx - whiskerWidth/2} y1={yLow} x2={cx + whiskerWidth/2} y2={yLow} stroke="#15803d" strokeWidth={1.5} />
 
-      {/* 2. Vẽ Thân hộp (Box) đại diện cho khoảng Q1 đến Q3 */}
+      {/* 2. Box */}
       <rect 
         x={cx - boxWidth / 2} 
         y={yQ3} 
@@ -241,47 +236,47 @@ const BoxPlotItem = (props: any) => {
         strokeWidth={1.5} 
       />
 
-      {/* 3. Vẽ đường trung vị (Median) - Vạch đậm màu xanh đen */}
-      <line 
-        x1={cx - boxWidth / 2} 
-        y={yMedian} 
-        x2={cx + boxWidth / 2} 
-        y2={yMedian} 
-        stroke="#166534" 
-        strokeWidth={3} 
-      />
+      {/* 3. Median Line */}
+      <line x1={cx - boxWidth / 2} y1={yMedian} x2={cx + boxWidth / 2} y2={yMedian} stroke="#166534" strokeWidth={3} />
     </g>
   );
 };
 
 export const CustomBoxPlot: React.FC<{ data: any[] }> = ({ data }) => {
-  if (!data || data.length === 0) return <div className="h-[350px] flex items-center justify-center text-slate-400 text-sm italic">No data available</div>;
+  if (!data || data.length === 0) return null;
+
+  // Gán ID số (0, 1, 2...) cho mỗi nhóm để ScatterChart vẽ đúng vị trí trục X
+  const formattedData = data.map((item, index) => ({
+    ...item,
+    xCoord: index 
+  }));
 
   return (
     <div className="h-[350px] w-full">
       <ResponsiveContainer width="100%" height="100%">
-        <ScatterChart margin={{ top: 20, right: 30, left: 10, bottom: 5 }}>
+        {/* Đổi từ BarChart sang ScatterChart để quản lý tọa độ tuyệt đối */}
+        <ScatterChart margin={{ top: 20, right: 30, left: 10, bottom: 20 }}>
           <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
           
           <XAxis 
-            dataKey="name" 
-            type="category" 
-            allowDuplicatedCategory={false} 
+            dataKey="xCoord" 
+            type="number"
+            ticks={formattedData.map(d => d.xCoord)}
+            tickFormatter={(val) => data[val]?.name || ''}
+            domain={[-0.5, data.length - 0.5]} // Tạo khoảng trống 2 bên cho hộp
             axisLine={false} 
             tickLine={false} 
-            tick={{ fill: '#64748b', fontSize: 12 }}
           />
           
-          {/* Trục Y: Cố định dải giá trị từ 10 đến 100 để đúng tuổi */}
           <YAxis 
             type="number" 
-            domain={[10, 100]} 
+            domain={[0, 100]} 
             axisLine={false} 
             tickLine={false} 
-            tick={{ fill: '#64748b', fontSize: 12 }}
           />
           
-          <ZAxis type="number" range={[1]} /> {/* Để các điểm scatter không hiện hình tròn mặc định */}
+          {/* ZAxis ẩn để tránh hiện nốt chấm mặc định */}
+          <ZAxis type="number" range={[0, 0]} />
 
           <Tooltip 
             cursor={{ strokeDasharray: '3 3' }}
@@ -289,15 +284,13 @@ export const CustomBoxPlot: React.FC<{ data: any[] }> = ({ data }) => {
               if (active && payload && payload.length) {
                 const d = payload[0].payload;
                 return (
-                  <div className="bg-white p-3 shadow-xl rounded-2xl border border-slate-100 text-[11px] animate-in fade-in zoom-in duration-200">
-                    <p className="font-bold mb-2 text-green-700 border-b border-slate-50 pb-1 uppercase tracking-tight">{d.name}</p>
-                    <div className="space-y-1 text-slate-600">
-                      <p className="flex justify-between gap-4">Max: <span className="font-semibold text-slate-900">{d.high}</span></p>
-                      <p className="flex justify-between gap-4">Q3: <span className="font-semibold text-slate-900">{d.q3}</span></p>
-                      <p className="flex justify-between gap-4 text-blue-600 font-bold bg-blue-50/50 px-1.5 py-0.5 rounded">Median: <span>{d.median}</span></p>
-                      <p className="flex justify-between gap-4">Q1: <span className="font-semibold text-slate-900">{d.q1}</span></p>
-                      <p className="flex justify-between gap-4">Min: <span className="font-semibold text-slate-900">{d.low}</span></p>
-                    </div>
+                  <div className="bg-white p-3 shadow-lg rounded-xl border border-slate-100 text-[11px]">
+                    <p className="font-bold mb-1 text-green-700 uppercase">{d.name}</p>
+                    <p>Max: {d.high}</p>
+                    <p>Q3: {d.q3}</p>
+                    <p className="text-blue-600 font-bold border-y border-slate-50 my-1 py-0.5">Median: {d.median}</p>
+                    <p>Q1: {d.q1}</p>
+                    <p>Min: {d.low}</p>
                   </div>
                 );
               }
@@ -305,16 +298,9 @@ export const CustomBoxPlot: React.FC<{ data: any[] }> = ({ data }) => {
             }}
           />
           
-          {/* Scatter đóng vai trò là "container" để vẽ custom shape cho Box Plot */}
           <Scatter 
-            name="Age Stats"
-            data={data} 
-            shape={(props: any) => (
-              <BoxPlotItem 
-                {...props} 
-                yScale={props.yAxisMap?.[0]?.scale} 
-              />
-            )} 
+            data={formattedData} 
+            shape={(props: any) => <BoxPlotItem {...props} />} 
           />
         </ScatterChart>
       </ResponsiveContainer>

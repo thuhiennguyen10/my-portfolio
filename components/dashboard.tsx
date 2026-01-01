@@ -167,10 +167,6 @@
     </div>
 
     {/* AUC graph */}
-    <div className="bg-white p-6 rounded-3xl shadow-sm border border-white">
-      <p className="text-xs text-slate-400 mb-6 text-center font-medium uppercase">Training vs Validation AUC</p>
-      <AUCComparisonChart data={project.chartDataMain} color={color} />
-    </div>
 
     <div className="bg-white p-4 rounded-3xl shadow-sm border border-white">
       <p className="text-[10px] text-slate-400 mb-4 text-center font-bold uppercase tracking-widest">
@@ -180,7 +176,7 @@
       <AUCComparisonChart 
         data={project.aucData?.map(d => ({
           ...d, 
-          value: Number((d.value * 100).toFixed(2)), 
+          value: d.value || 0, 
           secondaryValue: (d.secondaryValue || 0) * 100
         })) || []} 
         color={color} 

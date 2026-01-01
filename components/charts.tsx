@@ -203,34 +203,86 @@ export const GradientBarChart: React.FC<{ data: any[] }> = ({ data }) => {
   );
 };
 
+const BoxPlotItem = (props: any) => {
+  const { cx, cy, payload, yScale } = props;
+  if (!payload || !yScale) return null;
+
+  // Tính toán tọa độ Y cho từng điểm thống kê
+  const yLow = yScale(payload.low);
+  const yQ1 = yScale(payload.q1);
+  const yMedian = yScale(payload.median);
+  const yQ3 = yScale(payload.q3);
+  const yHigh = yScale(payload.high);
+  
+  const boxWidth = 40; // Độ rộng của hộp
+  const whiskerWidth = 20; // Độ rộng của vạch ngang râu
+
+  return (
+    <g>
+      {/* 1. Vẽ Râu (Whiskers) - Đường thẳng đứng */}
+      <line x1={cx} y1={yLow} x2={cx} y2={yHigh} stroke="#15803d" strokeWidth={1.5} strokeDasharray="3 3" />
+      
+      {/* Vạch ngang Max */}
+      <line x1={cx - whiskerWidth / 2} y1={yHigh} x2={cx + whiskerWidth / 2} y2={yHigh} stroke="#15803d" strokeWidth={1.5} />
+      
+      {/* Vạch ngang Min */}
+      <line x1={cx - whiskerWidth / 2} y1={yLow} x2={cx + whiskerWidth / 2} y2={yLow} stroke="#15803d" strokeWidth={1.5} />
+
+      {/* 2. Vẽ Thân hộp (Box) từ Q1 đến Q3 */}
+      <rect 
+        x={cx - boxWidth / 2} 
+        y={yQ3} 
+        width={boxWidth} 
+        height={Math.abs(yQ1 - yQ3)} 
+        fill="#bbf7d0" 
+        stroke="#15803d" 
+        strokeWidth={1.5} 
+      />
+
+      {/* 3. Vạch trung vị (Median Line) */}
+      <line 
+        x1={cx - boxWidth / 2} 
+        y={yMedian} 
+        x2={cx + boxWidth / 2} 
+        y2={yMedian} 
+        stroke="#166534" 
+        strokeWidth={3} 
+      />
+    </g>
+  );
+};
+
 export const CustomBoxPlot: React.FC<{ data: any[] }> = ({ data }) => {
   if (!data || data.length === 0) return null;
-
-  // Xử lý dữ liệu chuẩn cho Recharts ComposedChart
-  const plotData = data.map(d => ({
-    ...d,
-    // Whisker: [giá trị bắt đầu, giá trị kết thúc]
-    lowHigh: [d.low, d.high],
-    // Box: [giá trị đáy q1, giá trị đỉnh q3]
-    q1q3: [d.q1, d.q3]
-  }));
 
   return (
     <div className="h-[350px] w-full">
       <ResponsiveContainer width="100%" height="100%">
-        <ComposedChart data={plotData} margin={{ top: 20, right: 30, left: 10, bottom: 5 }}>
+        <ScatterChart margin={{ top: 20, right: 30, left: 10, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
-          <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fontSize: 12}} />
           
-          {/* Sửa trục Y: không cho phép số âm, khớp với dữ liệu thực tế (Age) */}
+          {/* Trục X hiển thị tên nhóm Churn/Not Churn */}
+          <XAxis 
+            dataKey="name" 
+            type="category" 
+            allowDuplicatedCategory={false} 
+            axisLine={false} 
+            tickLine={false} 
+            tick={{fontSize: 12}}
+          />
+          
+          {/* Trục Y hiển thị Age (18-95) */}
           <YAxis 
-            domain={['dataMin - 5', 'dataMax + 5']} 
+            type="number" 
+            dataKey="median" // Dùng median làm điểm định vị chính
+            domain={['dataMin - 10', 'dataMax + 10']} 
             axisLine={false} 
             tickLine={false} 
             tick={{fontSize: 12}}
           />
           
           <Tooltip 
+            cursor={{ strokeDasharray: '3 3' }}
             content={({ active, payload }) => {
               if (active && payload && payload.length) {
                 const d = payload[0].payload;
@@ -240,7 +292,7 @@ export const CustomBoxPlot: React.FC<{ data: any[] }> = ({ data }) => {
                     <div className="space-y-0.5 text-slate-600">
                       <p>Max: <span className="font-medium text-slate-900">{d.high}</span></p>
                       <p>Q3: <span className="font-medium text-slate-900">{d.q3}</span></p>
-                      <p className="text-blue-600 font-bold border-y border-slate-50 my-1 py-0.5">Median: {d.median}</p>
+                      <p className="text-blue-600 font-bold border-y border-slate-50 my-1 py-0.5 text-xs">Median: {d.median}</p>
                       <p>Q1: <span className="font-medium text-slate-900">{d.q1}</span></p>
                       <p>Min: <span className="font-medium text-slate-900">{d.low}</span></p>
                     </div>
@@ -251,27 +303,17 @@ export const CustomBoxPlot: React.FC<{ data: any[] }> = ({ data }) => {
             }}
           />
           
-          {/* 1. Vẽ Râu (Whiskers) - Dùng Bar với dải dữ liệu low-high */}
-          <Bar dataKey="lowHigh" fill="none" isAnimationActive={false}>
-            <ErrorBar dataKey="lowHigh" width={15} strokeWidth={1.5} stroke="#15803d" direction="y" />
-          </Bar>
-
-          {/* 2. Vẽ Thân hộp (Box) - Vẽ chính xác từ Q1 tới Q3 */}
-          <Bar 
-            dataKey="q1q3" 
-            fill="#bbf7d0" 
-            stroke="#15803d" 
-            strokeWidth={1.5} 
-            barSize={45}
-            isAnimationActive={false}
-          />
-
-          {/* 3. Vẽ đường Median (Trung vị) */}
-          <Scatter dataKey="median" shape={(props: any) => {
-            const { cx, cy } = props;
-            return <line x1={cx - 22.5} y1={cy} x2={cx + 22.5} y2={cy} stroke="#166534" strokeWidth={3} />;
-          }} />
-        </ComposedChart>
+          {/* Vẽ Box Plot bằng Scatter với Custom Shape */}
+          <Scatter 
+  data={data} 
+  shape={(props: any) => (
+    <BoxPlotItem 
+      {...props} 
+      yScale={props.yAxisMap?.[0]?.scale} 
+    />
+  )} 
+/>
+        </ScatterChart>
       </ResponsiveContainer>
     </div>
   );

@@ -196,24 +196,28 @@ export const GradientBarChart: React.FC<{ data: any[] }> = ({ data }) => {
 };
 
 const RenderBoxPlotShape = (props: any) => {
-  const { x, width, low, q1, median, q3, high, yAxisScale } = props;
+  // Lấy các giá trị thống kê từ payload (dữ liệu gốc)
+  const { x, width, payload, yScale } = props;
+  if (!payload || !yScale) return null;
+
+  const { low, q1, median, q3, high } = payload;
   
-  // Chuyển đổi giá trị data sang tọa độ pixel trên biểu đồ
-  const yLow = yAxisScale(low);
-  const yQ1 = yAxisScale(q1);
-  const yMedian = yAxisScale(median);
-  const yQ3 = yAxisScale(q3);
-  const yHigh = yAxisScale(high);
+  // Chuyển đổi giá trị data sang tọa độ pixel
+  const yLow = yScale(low);
+  const yQ1 = yScale(q1);
+  const yMedian = yScale(median);
+  const yQ3 = yScale(q3);
+  const yHigh = yScale(high);
   const center = x + width / 2;
 
   return (
     <g stroke="#15803d" strokeWidth={2} fill="none">
-      {/* 1. Vẽ Whisker (Râu) - Đường thẳng từ cực thấp đến cực cao */}
+      {/* 1. Whisker (Râu) */}
       <line x1={center} y1={yLow} x2={center} y2={yHigh} strokeDasharray="4 4" />
-      <line x1={center - 10} y1={yLow} x2={center + 10} y2={yLow} /> {/* Chốt dưới */}
-      <line x1={center - 10} y1={yHigh} x2={center + 10} y2={yHigh} /> {/* Chốt trên */}
+      <line x1={center - 10} y1={yLow} x2={center + 10} y2={yLow} />
+      <line x1={center - 10} y1={yHigh} x2={center + 10} y2={yHigh} />
 
-      {/* 2. Vẽ Box (Từ Q1 đến Q3) */}
+      {/* 2. Box (Q1 to Q3) */}
       <rect 
         x={x} 
         y={yQ3} 
@@ -223,30 +227,33 @@ const RenderBoxPlotShape = (props: any) => {
         stroke="#15803d" 
       />
 
-      {/* 3. Vẽ đường Median (Trung vị) */}
+      {/* 3. Median Line */}
       <line x1={x} y1={yMedian} x2={x + width} y2={yMedian} stroke="#166534" strokeWidth={3} />
     </g>
   );
 };
 
-export const CustomBoxPlot: React.FC<{ data: any[] }> = ({ data }) => (
-  <div className="h-[350px] w-full">
-    <ResponsiveContainer width="100%" height="100%">
-      <BarChart data={data} margin={{ top: 20, right: 30, left: 10, bottom: 5 }}>
-        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
-        <XAxis dataKey="name" axisLine={false} tickLine={false} />
-        {/* Quan trọng: Thêm domain auto để trục Y bao quát hết giá trị tuổi */}
-        <YAxis domain={['dataMin - 5', 'dataMax + 5']} axisLine={false} tickLine={false} />
-        <Tooltip />
-        <Bar 
-          dataKey="q3" 
-          // Sửa yAxisScale thành yScale để khớp với nội bộ Recharts
-          shape={(props: any) => <RenderBoxPlotShape {...props} yAxisScale={props.yScale} />} 
-        />
-      </BarChart>
-    </ResponsiveContainer>
-  </div>
-);
+export const CustomBoxPlot: React.FC<{ data: any[] }> = ({ data }) => {
+  if (!data || data.length === 0) return <div className="h-[350px] flex items-center justify-center text-slate-400">No Data</div>;
+
+  return (
+    <div className="h-[350px] w-full">
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart data={data} margin={{ top: 20, right: 30, left: 10, bottom: 5 }}>
+          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
+          <XAxis dataKey="name" axisLine={false} tickLine={false} />
+          {/* Domain 'auto' rất quan trọng để tránh crash nếu age = 0 */}
+          <YAxis domain={['auto', 'auto']} axisLine={false} tickLine={false} />
+          <Tooltip />
+          <Bar 
+            dataKey="q3" 
+            shape={<RenderBoxPlotShape />} 
+          />
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
+  );
+};
 
 export const MainChart: React.FC<ChartProps> = ({ data, color = "#3b82f6" }) => {
   return (

@@ -7,20 +7,41 @@ import {
 import { DataPoint, ScatterPoint, ScatterPlotData } from '../types';
 
 // Component Scatter Plot
-export const CustomScatterPlot: React.FC<{ data: ScatterPlotData, color: string }> = ({ data, color }) => (
-  <div className="h-[250px] w-full">
-    <ResponsiveContainer width="100%" height="100%">
-      <ScatterChart margin={{ top: 20, right: 20, bottom: 10, left: 10 }}>
-          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
-          <XAxis type="number" dataKey="x" axisLine={false} tickLine={false} />
-          <YAxis type="number" dataKey="y" axisLine={false} tickLine={false} />
+export const CustomScatterPlot: React.FC<{ data: ScatterPlotData | any; color: string; xTitle?: string; yTitle?: string }> = ({ 
+  data, 
+  color, 
+  xTitle = "X Axis", 
+  yTitle = "Y Axis" 
+}) => {
+  if (!data || !data.points) return null;
+
+  return (
+    <div className="h-[250px] w-full">
+      <ResponsiveContainer width="100%" height="100%">
+        <ScatterChart margin={{ top: 20, right: 30, bottom: 20, left: 10 }}>
+          <XAxis 
+            type="number" 
+            dataKey="x" 
+            axisLine={{ stroke: '#e2e8f0' }} 
+            tickLine={false}
+            tick={{ fill: '#64748b', fontSize: 10 }}
+            // X axis title
+            label={{ value: xTitle, position: 'insideBottom', offset: -10, fill: '#64748b', fontSize: 12, fontWeight: 500 }}
+          />
+          <YAxis 
+            type="number" 
+            dataKey="y" 
+            axisLine={{ stroke: '#e2e8f0' }} 
+            tickLine={false}
+            tick={{ fill: '#64748b', fontSize: 10 }}
+            // Y axis title
+            label={{ value: yTitle, angle: -90, position: 'insideLeft', fill: '#64748b', fontSize: 12, fontWeight: 500 }}
+          />
           <ZAxis type="number" range={[60, 400]} />
           <Tooltip cursor={{ strokeDasharray: '3 3' }} />
           
-          {/* Scatter points */}
-          <Scatter name="Data" data={data.points} fill={color} fillOpacity={0.6} stroke={color} />
+          <Scatter name="Data" data={data.points} fill={color} fillOpacity={0.6} />
           
-          {/* Regression Line */}
           <Scatter 
             name="Regression Line" 
             data={data.line} 
@@ -29,9 +50,10 @@ export const CustomScatterPlot: React.FC<{ data: ScatterPlotData, color: string 
             shape={<rect width={0} height={0} />} 
           />
         </ScatterChart>
-    </ResponsiveContainer>
-  </div>
-);
+      </ResponsiveContainer>
+    </div>
+  );
+};
 
 interface ChartProps {
   data: DataPoint[];

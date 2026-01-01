@@ -31,17 +31,35 @@ const Dashboard = ({ project }: { project: ProjectData }) => {
             <section>
               <h3 className="font-semibold text-slate-700 mb-4">Visualization and Analysis</h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            {/* Scatter 1: Subs vs Earnings */}
           <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-50">
-            <p className="text-xs text-slate-400 mb-2 text-center font-medium uppercase tracking-wider">Views vs Earnings</p>
-            <CustomScatterPlot data={project.scatterData1 || { points: [], line: [] }} color={color} />
+            <p className="text-xs text-slate-400 mb-2 text-center font-medium uppercase tracking-wider">Subs vs Earnings</p>
+            <CustomScatterPlot 
+                data={project.scatterData1 || { points: [], line: [] }} 
+                color={color} 
+                xTitle="Subscribers (Mil)" 
+                yTitle="Average Monthly Earnings"
+                />
           </div>
+          {/* Scatter 2: Views vs Earnings */}
           <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-50">
-             <p className="text-xs text-slate-400 mb-2 text-center font-medium uppercase tracking-wider">Subs vs Earnings</p>
-            <CustomScatterPlot data={project.scatterData2 || { points: [], line: [] }} color={color} />
+             <p className="text-xs text-slate-400 mb-2 text-center font-medium uppercase tracking-wider">Views vs Earnings</p>
+            <CustomScatterPlot 
+              data={project.scatterData2 || { points: [], line: [] }} 
+              color={color} 
+              xTitle="Views (Mil)" 
+              yTitle="Average Monthly Earnings"
+              />
           </div>
+          {/* Scatter 3: Views vs Subs */}
           <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-50">
-             <p className="text-xs text-slate-400 mb-2 text-center font-medium uppercase tracking-wider">Uploads vs Views</p>
-            <CustomScatterPlot data={project.scatterData3 || { points: [], line: [] }} color={color} />
+             <p className="text-xs text-slate-400 mb-2 text-center font-medium uppercase tracking-wider">Views vs Subs</p>
+            <CustomScatterPlot 
+              data={project.scatterData3 || { points: [], line: [] }} 
+              color={color} 
+              xTitle="Views (Mil)" 
+              yTitle="Subscribers (Mil)"
+              />
           </div>
         </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">

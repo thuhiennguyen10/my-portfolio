@@ -143,13 +143,13 @@ const Dashboard = ({ project }: { project: ProjectData }) => {
 
           {/* 2. Column Chart */}
           <div className="bg-white p-6 rounded-3xl shadow-sm border border-white">
-            <p className="text-xs text-slate-400 mb-4 text-center font-medium uppercase tracking-wider">Churn Rate by Number of Products</p>
+            <p className="text-xs text-slate-400 mb-4 text-center font-medium uppercase tracking-wider">Churn Rate by Product Number</p>
             <GradientBarChart data={project.chartDataMain} />
           </div>
               
 {/* 3. Box Plot */}
     <div className="bg-white p-6 rounded-3xl shadow-sm border border-white">
-      <p className="text-xs text-slate-400 mb-4 text-center font-medium uppercase tracking-wider">Age Distribution by Churn Status</p>
+      <p className="text-xs text-slate-400 mb-4 text-center font-medium uppercase tracking-wider">Age Distribution by Churn</p>
       <CustomBoxPlot data={project.chartDataSecondary || []}  />
     </div>
 

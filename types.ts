@@ -28,6 +28,7 @@ export interface BoxPlotDataPoint { // Box plot data structure
   median: number;
   q3: number;
   high: number;
+  outliers: number[];
 }
 
 export interface ProjectData {

@@ -265,7 +265,7 @@ export const CustomBoxPlot: React.FC<{ data: any[] }> = ({ data }) => {
               <ReferenceLine segment={[{ x: d.x - 0.1, y: d.low }, { x: d.x + 0.1, y: d.low }]} stroke="#15803d" strokeWidth={1.5} />
 
               {/* Thân hộp (Box): Vẽ vùng từ Q1 đến Q3 */}
-              <ReferenceArea x1={d.x - 0.2} x2={d.x + 0.2} y1={d.q1} y2={d.q3} fill="#bbf7d0" stroke="#15803d" strokeWidth={1.5} fillOpacity={1} />
+              <ReferenceArea x1={d.x - 0.2} x2={d.x + 0.2} y1={Math.min(d.q1, d.q3)} y2={Math.max(d.q1, d.q3)} fill="#bbf7d0" stroke="#15803d" strokeWidth={1.5} fillOpacity={1} />
 
               {/* Đường trung vị (Median): Vạch đậm nằm trong hộp */}
               <ReferenceLine segment={[{ x: d.x - 0.2, y: d.median }, { x: d.x + 0.2, y: d.median }]} stroke="#166534" strokeWidth={3} />
@@ -273,7 +273,7 @@ export const CustomBoxPlot: React.FC<{ data: any[] }> = ({ data }) => {
           ))}
 
           {/* Cần một thành phần Scatter rỗng để Tooltip có thể hoạt động */}
-          <Scatter data={plotData} fill="none" />
+          <Scatter data={plotData} dataKey="y" fill="transparent" />
         </ScatterChart>
       </ResponsiveContainer>
     </div>

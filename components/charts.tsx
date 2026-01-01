@@ -4,41 +4,31 @@ import {
   PieChart, Pie, Cell, Legend, BarChart, Bar,
   ScatterChart, Scatter, ZAxis
 } from 'recharts';
-import { DataPoint, ScatterPoint } from '../types';
-
-interface ScatterPlotData {
-  points: ScatterPoint[];
-  line: ScatterPoint[];
-}
+import { DataPoint, ScatterPoint, ScatterPlotData } from '../types';
 
 // Component Scatter Plot
-export const CustomScatterPlot: React.FC<{ data: any[], color: string }> = ({ data, color }) => (
+export const CustomScatterPlot: React.FC<{ data: ScatterPlotData, color: string }> = ({ data, color }) => (
   <div className="h-[250px] w-full">
     <ResponsiveContainer width="100%" height="100%">
       <ScatterChart margin={{ top: 20, right: 20, bottom: 10, left: 10 }}>
-        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
-        <XAxis 
-          type="number" 
-          dataKey="x" 
-          name="X Axis" 
-          axisLine={false} 
-          tickLine={false} 
-          tick={{ fill: '#64748b', fontSize: 10 }}
-        />
-        <YAxis 
-          type="number" 
-          dataKey="y" 
-          name="Y Axis" 
-          axisLine={false} 
-          tickLine={false} 
-          tick={{ fill: '#64748b', fontSize: 10 }}
-        />
-        <ZAxis type="number" range={[60, 400]} />
-        <Tooltip cursor={{ strokeDasharray: '3 3' }} />
-        <Scatter name="Data" data={data} fill={color} fillOpacity={0.6} stroke={color} strokeWidth={1} />
-        {/*Regression Line */}
-        <Scatter name="Regression Line" data={data.line} fill="#8b0000" line={{ stroke: '#8b0000', strokeWidth: 2 }} shape={() => null} />
-      </ScatterChart>
+          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
+          <XAxis type="number" dataKey="x" axisLine={false} tickLine={false} />
+          <YAxis type="number" dataKey="y" axisLine={false} tickLine={false} />
+          <ZAxis type="number" range={[60, 400]} />
+          <Tooltip cursor={{ strokeDasharray: '3 3' }} />
+          
+          {/* Scatter points */}
+          <Scatter name="Data" data={data.points} fill={color} fillOpacity={0.6} stroke={color} />
+          
+          {/* Regression Line */}
+          <Scatter 
+            name="Regression Line" 
+            data={data.line} 
+            fill="#8b0000" 
+            line={{ stroke: '#8b0000', strokeWidth: 2 }} 
+            shape={<rect width={0} height={0} />} 
+          />
+        </ScatterChart>
     </ResponsiveContainer>
   </div>
 );

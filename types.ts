@@ -10,6 +10,11 @@ export interface ScatterPoint {
   y: number;
 }
 
+export interface ScatterPlotData {
+  points: ScatterPoint[];
+  line: ScatterPoint[];
+}
+
 export interface ProjectData {
   id: string;
   title: string;
@@ -25,18 +30,9 @@ export interface ProjectData {
   tableData: any[];
   reportPath?: string;  // Path to the code file
 
-scatterData1?: {
-    points: ScatterPoint[];
-    line: ScatterPoint[];
-  };
-  scatterData2?: {
-    points: ScatterPoint[];
-    line: ScatterPoint[];
-  };
-  scatterData3?: {
-    points: ScatterPoint[];
-    line: ScatterPoint[];
-  };
+scatterData1?: ScatterPlotData;
+scatterData2?: ScatterPlotData;
+scatterData3?: ScatterPlotData;
 }
 
 export interface ProfileData {

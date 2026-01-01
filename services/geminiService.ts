@@ -13,13 +13,13 @@ export const analyzeProjectData = async (project: ProjectData): Promise<string> 
     // Lấy model (Lưu ý: hiện tại là gemini-1.5-flash, chưa có 2.5)
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-    const kpiSummary = project.kpis.map(k => `${k.label}: ${k.value} (${k.percentage})`).join(', ');
+    
     const chartSummary = JSON.stringify(project.chartDataMain.slice(0, 5));
     
     const prompt = `
       You are a Business Intelligence Analyst. Analyze the following project data for "${project.title}".
       
-      KPIs: ${kpiSummary}
+      
       Trend Data Sample: ${chartSummary}
       Description: ${project.description}
 

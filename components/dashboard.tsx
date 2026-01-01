@@ -33,15 +33,15 @@ const Dashboard = ({ project }: { project: ProjectData }) => {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
           <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-50">
             <p className="text-xs text-slate-400 mb-2 text-center font-medium uppercase tracking-wider">Views vs Earnings</p>
-            <CustomScatterPlot data={project.scatterData1 || []} color={color} />
+            <CustomScatterPlot data={project.scatterData1 || { points: [], line: [] }} color={color} />
           </div>
           <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-50">
              <p className="text-xs text-slate-400 mb-2 text-center font-medium uppercase tracking-wider">Subs vs Earnings</p>
-            <CustomScatterPlot data={project.scatterData2 || []} color={color} />
+            <CustomScatterPlot data={project.scatterData2 || { points: [], line: [] }} color={color} />
           </div>
           <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-50">
              <p className="text-xs text-slate-400 mb-2 text-center font-medium uppercase tracking-wider">Uploads vs Views</p>
-            <CustomScatterPlot data={project.scatterData3 || []} color={color} />
+            <CustomScatterPlot data={project.scatterData3 || { points: [], line: [] }} color={color} />
           </div>
         </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">

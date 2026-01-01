@@ -158,77 +158,89 @@ export const DonutChart: React.FC<{ data: any[] }> = ({ data }) => {
             dataKey="value"
           >
             {data.map((_, index) => (
-              <Cell key={`cell-${index}`} fill={GREEN_PALETTE[index % GREEN_PALETTE.length]} stroke="#000" strokeWidth={1} />
+              <Cell key={`cell-${index}`} fill={GREEN_PALETTE[index % GREEN_PALETTE.length]} />
             ))}
           </Pie>
           <Tooltip formatter={(value: number) => [`${value}%`, 'Percentage']} />
+            <Legend 
+            verticalAlign="bottom" 
+            iconType="circle" 
+            wrapperStyle={{ fontSize: '10px', paddingTop: '10px' }} 
+          />
         </PieChart>
       </ResponsiveContainer>
     </div>
   );
 };
 
-export const GradientBarChart: React.FC<{ data: any[], color: string }> = ({ data, color }) => (
-  <div className="h-[350px] w-full">
-    <ResponsiveContainer width="100%" height="100%">
-      <BarChart data={data}>
-        <defs>
-          <linearGradient id="barGradient" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor={color} stopOpacity={1}/>
-            <stop offset="100%" stopColor={color} stopOpacity={0.6}/>
-          </linearGradient>
-        </defs>
-        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
-        <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#64748b', fontSize: 12}} />
-        <YAxis axisLine={false} tickLine={false} tick={{fill: '#64748b', fontSize: 12}} tickFormatter={(val) => `${val}%`} />
-        <Tooltip cursor={{fill: '#f8fafc'}} formatter={(val) => [`${val}%`, 'Churn Rate']} />
-        <Bar 
-          dataKey="value" 
-          fill="url(#barGradient)" 
-          radius={[6, 6, 0, 0]} 
-          label={{ position: 'top', formatter: (val: any) => `${val}%`, fontSize: 11, fill: '#64748b' }}
-        />
-      </BarChart>
-    </ResponsiveContainer>
-  </div>
-);
+export const GradientBarChart: React.FC<{ data: any[] }> = ({ data }) => {
+  const BAR_COLORS = ['#166534', '#15803d', '#22c55e', '#4ade80']; // Palette xanh từ đậm đến nhạt
 
-export const CustomBoxPlot: React.FC<{ data: any[], color: string }> = ({ data, color }) => (
+  return (
+    <div className="h-[350px] w-full">
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart data={data} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
+          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
+          <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#64748b', fontSize: 12}} />
+          <YAxis axisLine={false} tickLine={false} tick={{fill: '#64748b', fontSize: 12}} tickFormatter={(v) => `${v}%`} />
+          <Tooltip cursor={{fill: '#f8fafc'}} formatter={(v) => [`${v}%`, 'Tỷ lệ Churn']} />
+          <Bar dataKey="value" radius={[6, 6, 0, 0]}>
+            {data.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={BAR_COLORS[index % BAR_COLORS.length]} />
+            ))}
+          </Bar>
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
+  );
+};
+
+const RenderBoxPlotShape = (props: any) => {
+  const { x, width, low, q1, median, q3, high, yAxisScale } = props;
+  
+  // Chuyển đổi giá trị data sang tọa độ pixel trên biểu đồ
+  const yLow = yAxisScale(low);
+  const yQ1 = yAxisScale(q1);
+  const yMedian = yAxisScale(median);
+  const yQ3 = yAxisScale(q3);
+  const yHigh = yAxisScale(high);
+  const center = x + width / 2;
+
+  return (
+    <g stroke="#15803d" strokeWidth={2} fill="none">
+      {/* 1. Vẽ Whisker (Râu) - Đường thẳng từ cực thấp đến cực cao */}
+      <line x1={center} y1={yLow} x2={center} y2={yHigh} strokeDasharray="4 4" />
+      <line x1={center - 10} y1={yLow} x2={center + 10} y2={yLow} /> {/* Chốt dưới */}
+      <line x1={center - 10} y1={yHigh} x2={center + 10} y2={yHigh} /> {/* Chốt trên */}
+
+      {/* 2. Vẽ Box (Từ Q1 đến Q3) */}
+      <rect 
+        x={x} 
+        y={yQ3} 
+        width={width} 
+        height={Math.abs(yQ3 - yQ1)} 
+        fill="#bbf7d0" 
+        stroke="#15803d" 
+      />
+
+      {/* 3. Vẽ đường Median (Trung vị) */}
+      <line x1={x} y1={yMedian} x2={x + width} y2={yMedian} stroke="#166534" strokeWidth={3} />
+    </g>
+  );
+};
+
+export const CustomBoxPlot: React.FC<{ data: any[] }> = ({ data }) => (
   <div className="h-[350px] w-full">
     <ResponsiveContainer width="100%" height="100%">
-      <BarChart data={data} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
+      <BarChart data={data} margin={{ top: 20, right: 30, left: 10, bottom: 5 }}>
         <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
-        <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#64748b', fontSize: 12}} />
-        <YAxis axisLine={false} tickLine={false} tick={{fill: '#64748b', fontSize: 12}} />
-        <Tooltip 
-          content={({ active, payload }) => {
-            if (active && payload && payload.length) {
-              const d = payload[0].payload;
-              return (
-                <div className="bg-white p-3 shadow-lg rounded-xl border border-slate-100 text-xs">
-                  <p className="font-bold mb-1">{d.name}</p>
-                  <p>Max: {d.high}</p>
-                  <p>Q3: {d.q3}</p>
-                  <p className="text-blue-600 font-bold">Median: {d.median}</p>
-                  <p>Q1: {d.q1}</p>
-                  <p>Min: {d.low}</p>
-                </div>
-              );
-            }
-            return null;
-          }}
-        />
-        {/* Distanct from Q1 to Q3 */}
-        <Bar dataKey="q1" stackId="a" fill="transparent" />
+        <XAxis dataKey="name" axisLine={false} tickLine={false} />
+        <YAxis domain={['auto', 'auto']} axisLine={false} tickLine={false} />
+        <Tooltip />
         <Bar 
           dataKey="q3" 
-          stackId="a" 
-          fill={color} 
-          fillOpacity={0.6} 
-          radius={[4, 4, 4, 4]}
-          stroke={color}
-          strokeWidth={1}
-          // Custom vẽ đường Median và Râu (Whisker) đơn giản qua Tooltip
+          shape={(props: any) => <RenderBoxPlotShape {...props} yAxisScale={props.yScale} />} 
+          // Truyền các giá trị thống kê vào để shape xử lý
         />
       </BarChart>
     </ResponsiveContainer>

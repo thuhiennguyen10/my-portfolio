@@ -325,18 +325,67 @@ export const CustomBoxPlot = ({ data }: { data: BoxPlotDataPoint[] }) => {
   );
 };
 
+export const Table: React.FC<{ data: any[] }> = ({ data }) => {
+  if (!data || data.length === 0) return <p className="text-slate-400 text-sm">No data available</p>;
+  const columns = Object.keys(data[0]).filter(k => k !== 'id');
+  
+  return (
+    <div className="overflow-x-auto">
+      <table className="w-full text-left text-sm text-slate-600">
+        <thead>
+          <tr className="border-b border-slate-100">
+            {columns.map(col => <th key={col} className="py-3 px-4 font-semibold text-slate-700 capitalize">{col.replace(/_/g, ' ')}</th>)}
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((row, i) => (
+            <tr key={i} className="border-b border-slate-50 hover:bg-slate-50/50 transition-colors">
+              {columns.map(col => {
+                let value = row[col];
+                if (typeof value === 'number' && col.toLowerCase().includes('auc')) {
+                  value = `${(value * 100).toFixed(2)}%`;
+                }
+                return <td key={col} className="py-3 px-4">{value}</td>
+              })}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
 export const AUCComparisonChart: React.FC<{ data: any[], color: string }> = ({ data, color }) => (
-  <div className="h-[400px] w-full">
+  <div className="h-[450px] w-full"> {/* Tăng chiều cao một chút vì có tới 10 model */}
     <ResponsiveContainer width="100%" height="100%">
-      <BarChart layout="vertical" data={data} margin={{ top: 5, right: 40, bottom: 40, left: 50 }}>
+      <BarChart layout="vertical" data={data} margin={{ top: 5, right: 45, bottom: 20, left: 20 }}>
         <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} stroke="#e2e8f0" />
-        <XAxis type="number" domain={[0, 1]} tick={{fontSize: 10}} />
-        <YAxis dataKey="name" type="category" tick={{fontSize: 10}} width={100} axisLine={false} tickLine={false} />
-        <Tooltip cursor={{fill: '#f8fafc'}} />
+        <XAxis 
+          type="number" 
+          domain={[0, 100]} 
+          tickFormatter={(v) => `${v}%`} 
+          tick={{fontSize: 10}}
+        />
+        <YAxis 
+          dataKey="name" 
+          type="category" 
+          tick={{fontSize: 9}} 
+          width={110} 
+          axisLine={false} 
+          tickLine={false} 
+        />
+        <Tooltip 
+          formatter={(v: number) => [`${(v * 100).toFixed(2)}%`]} 
+          labelStyle={{ fontWeight: 'bold', color: '#1e293b' }}
+        />
         <Legend verticalAlign="top" align="right" wrapperStyle={{ paddingBottom: '20px', fontSize: '11px' }} />
         
-        <Bar name="Validation AUC" dataKey="value" fill={color} radius={[0, 4, 4, 0]} barSize={12} />
-        <Bar name="Training AUC" dataKey="secondaryValue" fill={`${color}40`} radius={[0, 4, 4, 0]} barSize={12} />
+        {/* Chuyển dataKey sang giá trị đã nhân 100 nếu bạn muốn vẽ dựa trên thang 100 */}
+        <Bar name="Validation AUC" dataKey="value" fill={color} radius={[0, 4, 4, 0]} barSize={10}>
+          {/* Nhân 100 trực tiếp trong lúc vẽ nếu data gốc là 0.89 */}
+          {data.map((entry, index) => <Cell key={`cell-${index}`} fill={color} />)}
+        </Bar>
+        <Bar name="Training AUC" dataKey="secondaryValue" fill={`${color}40`} radius={[0, 4, 4, 0]} barSize={10} />
       </BarChart>
     </ResponsiveContainer>
   </div>
@@ -398,25 +447,4 @@ export const DistributionChart: React.FC<{data: DataPoint[], theme: string}> = (
 };
 
 
-export const Table: React.FC<{ data: any[] }> = ({ data }) => {
-  if (!data || data.length === 0) return <p className="text-slate-400 text-sm">No data available</p>;
-  const columns = Object.keys(data[0]).filter(k => k !== 'id');
-  return (
-    <div className="overflow-x-auto">
-      <table className="w-full text-left text-sm text-slate-600">
-        <thead>
-          <tr className="border-b border-slate-100">
-            {columns.map(col => <th key={col} className="py-3 px-4 font-semibold text-slate-700 capitalize">{col.replace(/_/g, ' ')}</th>)}
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((row, i) => (
-            <tr key={i} className="border-b border-slate-50 hover:bg-slate-50/50 transition-colors">
-              {columns.map(col => <td key={col} className="py-3 px-4">{row[col]}</td>)}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-};
+

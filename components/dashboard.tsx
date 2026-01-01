@@ -150,17 +150,19 @@
   {/* 3. Box Plot */}
       <div className="bg-white p-6 rounded-3xl shadow-sm border border-white">
         <p className="text-xs text-slate-400 mb-4 text-center font-medium uppercase tracking-wider">Age Distribution by Churn</p>
-        <CustomBoxPlot data={project.boxplotData as BoxPlotDataPoint[]} />
+        <CustomBoxPlot data={project.boxplotData  as BoxPlotDataPoint[]} />
       </div>
 
                 </div>
               </section>
               <section>
                 <h3 className="font-semibold text-slate-700 mb-4">Model Performance Comparison</h3>
-                <div className="bg-white p-6 rounded-3xl shadow-sm mb-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
                   {/* AUC Table */}
-    <div className="bg-white p-6 rounded-3xl shadow-sm border border-white">
-      <p className="text-xs text-slate-400 mb-6 text-center font-medium uppercase">AUC Metrics by Model</p>
+    <div className="bg-white p-4 rounded-3xl shadow-sm border border-white overflow-hidden">
+      <p className="text-[10px] text-slate-400 mb-4 text-center font-bold uppercase tracking-widest">
+        AUC Metrics by Model
+      </p>
       <Table data={project.tableData} />
     </div>
 
@@ -168,6 +170,21 @@
     <div className="bg-white p-6 rounded-3xl shadow-sm border border-white">
       <p className="text-xs text-slate-400 mb-6 text-center font-medium uppercase">Training vs Validation AUC</p>
       <AUCComparisonChart data={project.chartDataMain} color={color} />
+    </div>
+
+    <div className="bg-white p-4 rounded-3xl shadow-sm border border-white">
+      <p className="text-[10px] text-slate-400 mb-4 text-center font-bold uppercase tracking-widest">
+        Training vs Validation AUC
+      </p>
+      {/* Format lại data AUC về thang 100 trước khi truyền vào */}
+      <AUCComparisonChart 
+        data={project.aucData?.map(d => ({
+          ...d, 
+          value: Number((d.value * 100).toFixed(2)), 
+          secondaryValue: (d.secondaryValue || 0) * 100
+        })) || []} 
+        color={color} 
+      />
     </div>
                 </div>
               </section>

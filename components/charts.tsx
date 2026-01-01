@@ -2,7 +2,8 @@ import React from 'react';
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   PieChart, Pie, Cell, Legend, BarChart, Bar,
-  ScatterChart, Scatter, ZAxis
+  ScatterChart, Scatter, ZAxis,
+  LabelList
 } from 'recharts';
 import { DataPoint, ScatterPoint, ScatterPlotData } from '../types';
 
@@ -161,8 +162,8 @@ export const DonutChart: React.FC<{ data: any[] }> = ({ data }) => {
               <Cell key={`cell-${index}`} fill={GREEN_PALETTE[index % GREEN_PALETTE.length]} />
             ))}
           </Pie>
-          <Tooltip formatter={(value: number) => [`${value}%`, 'Percentage']} />
-            <Legend 
+          <Tooltip formatter={(value: number, name: string) => [`${value}%`, name]} />
+          <Legend 
             verticalAlign="bottom" 
             iconType="circle" 
             wrapperStyle={{ fontSize: '10px', paddingTop: '10px' }} 
@@ -174,17 +175,20 @@ export const DonutChart: React.FC<{ data: any[] }> = ({ data }) => {
 };
 
 export const GradientBarChart: React.FC<{ data: any[] }> = ({ data }) => {
-  const BAR_COLORS = ['#166534', '#15803d', '#22c55e', '#4ade80']; // Palette xanh từ đậm đến nhạt
+  const BAR_COLORS = ['#166534', '#15803d', '#22c55e', '#4ade80']; // Green Palette 
 
   return (
     <div className="h-[350px] w-full">
       <ResponsiveContainer width="100%" height="100%">
-        <BarChart data={data} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
+        <BarChart data={data} margin={{ top: 25, right: 30, left: 0, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
           <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#64748b', fontSize: 12}} />
           <YAxis axisLine={false} tickLine={false} tick={{fill: '#64748b', fontSize: 12}} tickFormatter={(v) => `${v}%`} />
-          <Tooltip cursor={{fill: '#f8fafc'}} formatter={(v) => [`${v}%`, 'Tỷ lệ Churn']} />
+          
+          <Tooltip cursor={{fill: '#f8fafc'}} formatter={(v) => [`${v}%`, 'Churn Rate']} />
           <Bar dataKey="value" radius={[6, 6, 0, 0]}>
+            {/* Thêm Label trên đầu cột */}
+            <LabelList dataKey="value" position="top" formatter={(v: any) => `${v}%`} style={{ fontSize: 11, fill: '#64748b' }} />
             {data.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={BAR_COLORS[index % BAR_COLORS.length]} />
             ))}
@@ -196,13 +200,14 @@ export const GradientBarChart: React.FC<{ data: any[] }> = ({ data }) => {
 };
 
 const RenderBoxPlotShape = (props: any) => {
-  // Lấy các giá trị thống kê từ payload (dữ liệu gốc)
-  const { x, width, payload, yScale } = props;
+  const { x, width, payload } = props;
+  // Lấy yScale từ đối tượng background nếu không có trực tiếp
+  const yScale = props.yScale || props.xAxisMap?.[0]?.yScale; 
+  
   if (!payload || !yScale) return null;
 
   const { low, q1, median, q3, high } = payload;
   
-  // Chuyển đổi giá trị data sang tọa độ pixel
   const yLow = yScale(low);
   const yQ1 = yScale(q1);
   const yMedian = yScale(median);
@@ -212,12 +217,12 @@ const RenderBoxPlotShape = (props: any) => {
 
   return (
     <g stroke="#15803d" strokeWidth={2} fill="none">
-      {/* 1. Whisker (Râu) */}
+      {/* Whiskers (Râu) */}
       <line x1={center} y1={yLow} x2={center} y2={yHigh} strokeDasharray="4 4" />
       <line x1={center - 10} y1={yLow} x2={center + 10} y2={yLow} />
       <line x1={center - 10} y1={yHigh} x2={center + 10} y2={yHigh} />
 
-      {/* 2. Box (Q1 to Q3) */}
+      {/* Box (Thân hộp) */}
       <rect 
         x={x} 
         y={yQ3} 
@@ -227,27 +232,26 @@ const RenderBoxPlotShape = (props: any) => {
         stroke="#15803d" 
       />
 
-      {/* 3. Median Line */}
+      {/* Median Line (Đường trung vị) */}
       <line x1={x} y1={yMedian} x2={x + width} y2={yMedian} stroke="#166534" strokeWidth={3} />
     </g>
   );
 };
 
 export const CustomBoxPlot: React.FC<{ data: any[] }> = ({ data }) => {
-  if (!data || data.length === 0) return <div className="h-[350px] flex items-center justify-center text-slate-400">No Data</div>;
-
   return (
     <div className="h-[350px] w-full">
       <ResponsiveContainer width="100%" height="100%">
+        {/* Quan trọng: BarChart phải biết nó đang vẽ dải dữ liệu nào */}
         <BarChart data={data} margin={{ top: 20, right: 30, left: 10, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
           <XAxis dataKey="name" axisLine={false} tickLine={false} />
-          {/* Domain 'auto' rất quan trọng để tránh crash nếu age = 0 */}
-          <YAxis domain={['auto', 'auto']} axisLine={false} tickLine={false} />
+          <YAxis domain={['dataMin - 5', 'dataMax + 5']} axisLine={false} tickLine={false} />
           <Tooltip />
           <Bar 
             dataKey="q3" 
-            shape={<RenderBoxPlotShape />} 
+            // shape truyền dưới dạng function để nhận được context của chart
+            shape={(props: any) => <RenderBoxPlotShape {...props} />} 
           />
         </BarChart>
       </ResponsiveContainer>

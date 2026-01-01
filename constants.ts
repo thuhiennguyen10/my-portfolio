@@ -416,6 +416,26 @@ line:[{"x":0.4391,"y":11.8743},{"x":228000,"y":230.8477}]}
     "value": 44.0
   }
     ],
+
+    chartDataSecondary: [ // box plot
+{
+    "name": "Churn",
+    "low": 18,
+    "q1": 38.0,
+    "median": 45.0,
+    "q3": 52.0,
+    "high": 84
+  },
+  {
+    "name": "Not Churn",
+    "low": 18,
+    "q1": 31.0,
+    "median": 36.0,
+    "q3": 41.0,
+    "high": 92
+  }
+    ],
+
     tableData: [
       { id: 1, type: 'Technical', volume: 450, avg_time: '5h', satisfaction: '4.8/5' },
       { id: 2, type: 'Billing', volume: 300, avg_time: '2h', satisfaction: '4.2/5' },

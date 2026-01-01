@@ -193,6 +193,48 @@ export const GradientBarChart: React.FC<{ data: any[], color: string }> = ({ dat
   </div>
 );
 
+export const CustomBoxPlot: React.FC<{ data: any[], color: string }> = ({ data, color }) => (
+  <div className="h-[350px] w-full">
+    <ResponsiveContainer width="100%" height="100%">
+      <BarChart data={data} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
+        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
+        <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#64748b', fontSize: 12}} />
+        <YAxis axisLine={false} tickLine={false} tick={{fill: '#64748b', fontSize: 12}} />
+        <Tooltip 
+          content={({ active, payload }) => {
+            if (active && payload && payload.length) {
+              const d = payload[0].payload;
+              return (
+                <div className="bg-white p-3 shadow-lg rounded-xl border border-slate-100 text-xs">
+                  <p className="font-bold mb-1">{d.name}</p>
+                  <p>Max: {d.high}</p>
+                  <p>Q3: {d.q3}</p>
+                  <p className="text-blue-600 font-bold">Median: {d.median}</p>
+                  <p>Q1: {d.q1}</p>
+                  <p>Min: {d.low}</p>
+                </div>
+              );
+            }
+            return null;
+          }}
+        />
+        {/* Distanct from Q1 to Q3 */}
+        <Bar dataKey="q1" stackId="a" fill="transparent" />
+        <Bar 
+          dataKey="q3" 
+          stackId="a" 
+          fill={color} 
+          fillOpacity={0.6} 
+          radius={[4, 4, 4, 4]}
+          stroke={color}
+          strokeWidth={1}
+          // Custom vẽ đường Median và Râu (Whisker) đơn giản qua Tooltip
+        />
+      </BarChart>
+    </ResponsiveContainer>
+  </div>
+);
+
 export const MainChart: React.FC<ChartProps> = ({ data, color = "#3b82f6" }) => {
   return (
     <div className="h-[300px] w-full">

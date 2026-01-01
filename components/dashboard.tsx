@@ -1,6 +1,6 @@
 import React from 'react';
 import { ArrowUpRight } from 'lucide-react';
-import { MainChart, DistributionChart, Table, CustomBarChart, CustomScatterPlot, ContinentChart, TFIDFChart, RoomTypeChart, RMSEComparisonChart, DonutChart, GradientBarChart } from './charts';
+import { MainChart, DistributionChart, Table, CustomBarChart, CustomScatterPlot, ContinentChart, TFIDFChart, RoomTypeChart, RMSEComparisonChart, DonutChart, GradientBarChart, CustomBoxPlot } from './charts';
 import { ProjectData } from '../types';
 
 const Dashboard = ({ project }: { project: ProjectData }) => {
@@ -147,6 +147,12 @@ const Dashboard = ({ project }: { project: ProjectData }) => {
             <GradientBarChart data={project.chartDataMain} color={color} />
           </div>
               
+{/* 3. Box Plot */}
+    <div className="bg-white p-6 rounded-3xl shadow-sm border border-white">
+      <p className="text-xs text-slate-400 mb-4 text-center font-medium uppercase tracking-wider">Age Distribution by Churn Status</p>
+      <CustomBoxPlot data={project.chartDataSecondary || []} color={color} />
+    </div>
+
               </div>
             </section>
             <section>

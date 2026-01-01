@@ -21,6 +21,15 @@ export interface FacetDataPoint { // TD-IDF data structure
   tf_idf: number;
 }
 
+export interface BoxPlotDataPoint { // Box plot data structure
+  name: string;
+  low: number;
+  q1: number;
+  median: number;
+  q3: number;
+  high: number;
+}
+
 export interface ProjectData {
   id: string;
   title: string;
@@ -29,7 +38,7 @@ export interface ProjectData {
   projectSummary: string; // Project summary for all 3 projects
   layoutType?: 'default' | 'summary' | 'detailed'; // Layout control
   chartDataDistribution: DataPoint[]; // Pie/Donut 
-  chartDataSecondary?: DataPoint[]; // Other graph types
+  chartDataSecondary?: DataPoint[] | BoxPlotDataPoint[]; // Other graph types
   scatterData?: any[]; 
   tableTitle?: string;
   tableData: any[];

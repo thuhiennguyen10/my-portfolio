@@ -38,7 +38,7 @@ const Dashboard = ({ project }: { project: ProjectData }) => {
                 data={project.scatterData1 || { points: [], line: [] }} 
                 color={color} 
                 xTitle="Subscribers (Mil)" 
-                yTitle="Average Monthly Earnings"
+                yTitle="Monthly Earnings (Mil)"
                 />
           </div>
           {/* Scatter 2: Views vs Earnings */}
@@ -48,7 +48,7 @@ const Dashboard = ({ project }: { project: ProjectData }) => {
               data={project.scatterData2 || { points: [], line: [] }} 
               color={color} 
               xTitle="Views (Mil)" 
-              yTitle="Average Monthly Earnings"
+              yTitle="Monthly Earnings (Mil)"
               />
           </div>
           {/* Scatter 3: Views vs Subs */}

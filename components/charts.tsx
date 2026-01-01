@@ -5,7 +5,7 @@ import {
   ScatterChart, Scatter, ZAxis,
   LabelList, ComposedChart, ErrorBar, ReferenceLine, ReferenceArea
 } from 'recharts';
-import { DataPoint, ScatterPoint, ScatterPlotData } from '../types';
+import { DataPoint, ScatterPoint, ScatterPlotData, BoxPlotDataPoint } from '../types';
 
 // Component Scatter Plot
 export const CustomScatterPlot: React.FC<{ data: ScatterPlotData | any; color: string; xTitle?: string; yTitle?: string }> = ({ 
@@ -203,50 +203,61 @@ export const GradientBarChart: React.FC<{ data: any[] }> = ({ data }) => {
   );
 };
 
-export const CustomBoxPlot: React.FC<{ data: any[] }> = ({ data }) => {
+export const CustomBoxPlot = ({ data }: { data: BoxPlotDataPoint[] }) => {
   if (!data || data.length === 0) return null;
 
-  // 1. Tạo trục X ảo bằng số để Recharts định vị (0, 1, 2...)
-  const plotData = data.map((d, i) => ({ ...d, x: i, y: d.median }));
+  // 🔑 tooltip CHỈ hoạt động nếu có x + y
+  const plotData = data.map((d, i) => ({
+    ...d,
+    x: i,
+    y: d.median, // anchor cho tooltip
+  }));
 
   return (
-    <div className="h-[350px] w-full">
-      <ResponsiveContainer width="100%" height="100%">
-        <ScatterChart margin={{ top: 20, right: 30, left: 10, bottom: 20 }}>
-          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
-          
-          <XAxis 
-            dataKey="x" 
-            type="number" 
-            domain={[-0.5, data.length - 0.5]} 
+    <div style={{ width: "100%", height: 360 }}>
+      <ResponsiveContainer>
+        <ScatterChart margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
+          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+
+          {/* X AXIS */}
+          <XAxis
+            type="number"
+            dataKey="x"
+            domain={[-0.5, plotData.length - 0.5]}
             ticks={plotData.map(d => d.x)}
-            tickFormatter={(v) => data[v]?.name}
+            tickFormatter={(v) => plotData[v]?.name}
             axisLine={false}
             tickLine={false}
           />
-          
-          <YAxis 
-            type="number" 
-            domain={[0, 100]} // Range Age từ 0-100
-            axisLine={false} 
-            tickLine={false} 
-          />
-          
-          <ZAxis range={[0, 0]} /> {/* Ẩn các chấm tròn mặc định */}
 
-          <Tooltip 
-            cursor={{ strokeDasharray: '3 3' }}
+          {/* Y AXIS: 20 - 30 - 40 - ... */}
+          <YAxis
+            type="number"
+            domain={[0, 100]}
+            ticks={[0,10,20,30,40,50,60,70,80,90,100]}
+            axisLine={false}
+            tickLine={false}
+          />
+
+          {/* 🔥 TOOLTIP */}
+          <Tooltip
+            cursor={{ strokeDasharray: "3 3" }}
             content={({ active, payload }) => {
               if (active && payload && payload.length) {
                 const d = payload[0].payload;
                 return (
-                  <div className="bg-white p-3 shadow-lg rounded-xl border border-slate-100 text-[11px]">
-                    <p className="font-bold mb-1 text-green-700 uppercase">{d.name}</p>
-                    <p>Max: {d.high}</p>
-                    <p>Q3: {d.q3}</p>
-                    <p className="text-blue-600 font-bold">Median: {d.median}</p>
-                    <p>Q1: {d.q1}</p>
-                    <p>Min: {d.low}</p>
+                  <div style={{
+                    background: "white",
+                    padding: 10,
+                    border: "1px solid #e5e7eb",
+                    fontSize: 12
+                  }}>
+                    <strong>{d.name}</strong>
+                    <div>High: {d.high}</div>
+                    <div>Q3: {d.q3}</div>
+                    <div><b>Median: {d.median}</b></div>
+                    <div>Q1: {d.q1}</div>
+                    <div>Low: {d.low}</div>
                   </div>
                 );
               }
@@ -254,26 +265,60 @@ export const CustomBoxPlot: React.FC<{ data: any[] }> = ({ data }) => {
             }}
           />
 
-          {/* 2. Vẽ các thành phần của Box Plot cho từng điểm dữ liệu */}
-          {plotData.map((d) => (
-            <React.Fragment key={d.x}>
-              {/* Râu (Whiskers): Đường thẳng từ Low đến High */}
-              <ReferenceLine segment={[{ x: d.x, y: d.low }, { x: d.x, y: d.high }]} stroke="#15803d" strokeWidth={1.5} strokeDasharray="3 3" />
-              
-              {/* Thanh ngang đầu Râu */}
-              <ReferenceLine segment={[{ x: d.x - 0.1, y: d.high }, { x: d.x + 0.1, y: d.high }]} stroke="#15803d" strokeWidth={1.5} />
-              <ReferenceLine segment={[{ x: d.x - 0.1, y: d.low }, { x: d.x + 0.1, y: d.low }]} stroke="#15803d" strokeWidth={1.5} />
+          {/* BOX + WHISKERS */}
+          {plotData.map(d => (
+            <g key={d.x}>
+              {/* whisker */}
+              <ReferenceLine
+                segment={[
+                  { x: d.x, y: d.low },
+                  { x: d.x, y: d.high },
+                ]}
+                stroke="#166534"
+              />
 
-              {/* Thân hộp (Box): Vẽ vùng từ Q1 đến Q3 */}
-              <ReferenceArea x1={d.x - 0.2} x2={d.x + 0.2} y1={Math.min(d.q1, d.q3)} y2={Math.max(d.q1, d.q3)} fill="#bbf7d0" stroke="#15803d" strokeWidth={1.5} fillOpacity={1} />
+              {/* caps */}
+              <ReferenceLine segment={[{ x: d.x - 0.1, y: d.high }, { x: d.x + 0.1, y: d.high }]} />
+              <ReferenceLine segment={[{ x: d.x - 0.1, y: d.low }, { x: d.x + 0.1, y: d.low }]} />
 
-              {/* Đường trung vị (Median): Vạch đậm nằm trong hộp */}
-              <ReferenceLine segment={[{ x: d.x - 0.2, y: d.median }, { x: d.x + 0.2, y: d.median }]} stroke="#166534" strokeWidth={3} />
-            </React.Fragment>
+              {/* box Q1-Q3 */}
+              <ReferenceArea
+                x1={d.x - 0.25}
+                x2={d.x + 0.25}
+                y1={Math.min(d.q1, d.q3)}
+                y2={Math.max(d.q1, d.q3)}
+                fill="#bbf7d0"
+                stroke="#166534"
+              />
+
+              {/* median */}
+              <ReferenceLine
+                segment={[
+                  { x: d.x - 0.25, y: d.median },
+                  { x: d.x + 0.25, y: d.median },
+                ]}
+                stroke="#14532d"
+                strokeWidth={3}
+              />
+
+              {/* 🔴 OUTLIERS */}
+              {d.outliers?.map((v, i) => (
+                <Scatter
+                  key={`${d.x}-o-${i}`}
+                  data={[{ x: d.x, y: v }]}
+                  fill="#1f2937"
+                  r={3}
+                />
+              ))}
+            </g>
           ))}
 
-          {/* Cần một thành phần Scatter rỗng để Tooltip có thể hoạt động */}
-          <Scatter data={plotData} dataKey="y" fill="transparent" />
+          {/* 🔑 scatter vô hình để tooltip trigger */}
+          <Scatter
+            data={plotData}
+            dataKey="y"
+            fill="transparent"
+          />
         </ScatterChart>
       </ResponsiveContainer>
     </div>

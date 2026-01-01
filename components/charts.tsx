@@ -185,7 +185,11 @@ export const GradientBarChart: React.FC<{ data: any[] }> = ({ data }) => {
           <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#64748b', fontSize: 12}} />
           <YAxis axisLine={false} tickLine={false} tick={{fill: '#64748b', fontSize: 12}} tickFormatter={(v) => `${v}%`} />
           
-          <Tooltip cursor={{fill: '#f8fafc'}} formatter={(v) => [`${v}%`, 'Churn Rate']} />
+          <Tooltip 
+            cursor={{fill: '#f8fafc'}} 
+            labelFormatter={(value) => `Product ${value}`} 
+            formatter={(v) => [`${v}%`, 'Churn Rate']} 
+          />
           <Bar dataKey="value" radius={[6, 6, 0, 0]}>
             {/* Thêm Label trên đầu cột */}
             <LabelList dataKey="value" position="top" formatter={(v: any) => `${v}%`} style={{ fontSize: 11, fill: '#64748b' }} />
@@ -200,14 +204,10 @@ export const GradientBarChart: React.FC<{ data: any[] }> = ({ data }) => {
 };
 
 const RenderBoxPlotShape = (props: any) => {
-  const { x, width, payload } = props;
-  // Lấy yScale từ đối tượng background nếu không có trực tiếp
-  const yScale = props.yScale || props.xAxisMap?.[0]?.yScale; 
-  
-  if (!payload || !yScale) return null;
+  const { x, width, low, q1, median, q3, high, yScale } = props;
+  if (!yScale) return null;
 
-  const { low, q1, median, q3, high } = payload;
-  
+  // Tính toán tọa độ pixel dựa trên yScale
   const yLow = yScale(low);
   const yQ1 = yScale(q1);
   const yMedian = yScale(median);
@@ -217,22 +217,23 @@ const RenderBoxPlotShape = (props: any) => {
 
   return (
     <g stroke="#15803d" strokeWidth={2} fill="none">
-      {/* Whiskers (Râu) */}
+      {/* 1. Whisker (Râu) */}
       <line x1={center} y1={yLow} x2={center} y2={yHigh} strokeDasharray="4 4" />
       <line x1={center - 10} y1={yLow} x2={center + 10} y2={yLow} />
       <line x1={center - 10} y1={yHigh} x2={center + 10} y2={yHigh} />
 
-      {/* Box (Thân hộp) */}
+      {/* 2. Box (Thân hộp từ Q1 đến Q3) */}
       <rect 
         x={x} 
         y={yQ3} 
         width={width} 
         height={Math.abs(yQ3 - yQ1)} 
         fill="#bbf7d0" 
+        fillOpacity={0.8}
         stroke="#15803d" 
       />
 
-      {/* Median Line (Đường trung vị) */}
+      {/* 3. Median Line (Đường trung vị) */}
       <line x1={x} y1={yMedian} x2={x + width} y2={yMedian} stroke="#166534" strokeWidth={3} />
     </g>
   );
@@ -242,16 +243,42 @@ export const CustomBoxPlot: React.FC<{ data: any[] }> = ({ data }) => {
   return (
     <div className="h-[350px] w-full">
       <ResponsiveContainer width="100%" height="100%">
-        {/* Quan trọng: BarChart phải biết nó đang vẽ dải dữ liệu nào */}
         <BarChart data={data} margin={{ top: 20, right: 30, left: 10, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
           <XAxis dataKey="name" axisLine={false} tickLine={false} />
-          <YAxis domain={['dataMin - 5', 'dataMax + 5']} axisLine={false} tickLine={false} />
-          <Tooltip />
+          {/* Cố định domain để biểu đồ không bị nhảy scale */}
+          <YAxis domain={[0, 100]} axisLine={false} tickLine={false} />
+          
+          {/* Sửa Tooltip để hiện tất cả thông số */}
+          <Tooltip 
+            content={({ active, payload }) => {
+              if (active && payload && payload.length) {
+                const d = payload[0].payload;
+                return (
+                  <div className="bg-white p-3 shadow-lg rounded-xl border border-slate-100 text-xs">
+                    <p className="font-bold mb-1 text-green-700">{d.name}</p>
+                    <p>Max: {d.high}</p>
+                    <p>Q3: {d.q3}</p>
+                    <p className="text-blue-600 font-bold">Median: {d.median}</p>
+                    <p>Q1: {d.q1}</p>
+                    <p>Min: {d.low}</p>
+                  </div>
+                );
+              }
+              return null;
+            }}
+          />
+          
           <Bar 
             dataKey="q3" 
-            // shape truyền dưới dạng function để nhận được context của chart
-            shape={(props: any) => <RenderBoxPlotShape {...props} />} 
+            // Truyền tất cả data vào shape để vẽ râu và median
+            shape={(props: any) => <RenderBoxPlotShape {...props} 
+              low={props.payload.low} 
+              q1={props.payload.q1} 
+              median={props.payload.median} 
+              high={props.payload.high} 
+              yScale={props.yScale} // Quan trọng nhất là cái này
+            />} 
           />
         </BarChart>
       </ResponsiveContainer>

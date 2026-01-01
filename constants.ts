@@ -266,7 +266,13 @@ line:[{"x":0.4391,"y":11.8743},{"x":228000,"y":230.8477}]}
     description: 'Developed machine learning models to predict Airbnb listing prices. Implemented and compared linear regression, regularized (Ridge and Lasso), and non-linear ensemble models (Regression Trees, Bagging, Random Forest, and XGBoost), with Random Forest achieving the best performance based on RMSE.',
     colorTheme: 'purple',
     reportPath: './airbnb-r.html', // Path to the PDF report file
-    projectSummary: 'This research utilizes R to investigate the key drivers of YouTube channel success, specifically focusing on the relationship between monthly earnings and engagement metrics across different geographical regions.',
+    projectSummary: 'This project focuses on building and evaluating various regression models to predict Airbnb listing prices, utilizing R for data analysis and model implementation.',
+    chartDataSecondary: [ // room type bar chart
+{"name": "Entire home/apt","value": 144.5},
+{"name": "Hotel room","value": 121.1},
+{"name": "Private room","value": 69.4},
+{"name": "Shared room","value": 50.3}],
+
     chartDataMain: [
       { name: 'Week 1', value: 120, secondaryValue: 100 },
       { name: 'Week 2', value: 132, secondaryValue: 110 },
@@ -295,7 +301,7 @@ line:[{"x":0.4391,"y":11.8743},{"x":228000,"y":230.8477}]}
     description: 'Developed machine learning models to predict customer churn in the banking industry. Implemented and compared parametric, semi-parametric, and non-parametric classification models, with CatBoost achieving the best performance based on AUC.',
     colorTheme: 'green',
     reportPath: './churn-py.html', // Path to the PDF report file
-    projectSummary: 'This research utilizes R to investigate the key drivers of YouTube channel success, specifically focusing on the relationship between monthly earnings and engagement metrics across different geographical regions.',
+    projectSummary: 'This project focuses on building and evaluating various classification models to predict customer churn in the banking sector, utilizing Python for data analysis and model implementation.',
     chartDataMain: [
       { name: 'Q1', value: 65, secondaryValue: 40 },
       { name: 'Q2', value: 68, secondaryValue: 35 },

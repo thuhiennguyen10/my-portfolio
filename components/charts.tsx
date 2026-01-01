@@ -67,7 +67,7 @@ export const ContinentChart: React.FC<{ data: any[], color: string }> = ({ data,
       <BarChart data={data} margin={{ bottom: 50 }}>
         <CartesianGrid strokeDasharray="3 3" vertical={false} />
         <XAxis dataKey="name" angle={-45} textAnchor="end" interval={0} tick={{fontSize: 12}} />
-        <YAxis tickFormatter={(value) => `$${value/1000}k`} />
+        <YAxis tickFormatter={(value) => `$${value/1000}k`} tick={{fontSize: 12}} />
         <Tooltip formatter={(value: number) => [`$${value.toLocaleString()}`, "Median Earnings"]} />
         <Bar dataKey="value" fill={color} radius={[4, 4, 0, 0]} />
       </BarChart>
@@ -100,6 +100,30 @@ export const TFIDFChart: React.FC<{ data: any[], color: string }> = ({ data, col
   );
 };
 
+// Room Type Chart (Horizontal Bar Chart)
+export const RoomTypeChart: React.FC<{ data: any[], color: string }> = ({ data, color }) => (
+  <div className="h-[400px] w-full">
+    <ResponsiveContainer width="100%" height="100%">
+      {/* Sử dụng layout="vertical" để vẽ cột ngang như coord_flip() trong R */}
+      <BarChart layout="vertical" data={data} margin={{ left: 40, right: 40 }}>
+        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
+        <XAxis type="number" hide /> 
+        <YAxis 
+          dataKey="name" 
+          type="category" 
+          axisLine={false} 
+          tickLine={false} 
+          tick={{ fill: '#64748b', fontSize: 12 }}
+        />
+        <Tooltip cursor={{ fill: 'transparent' }} />
+        <Bar dataKey="value" fill={color} radius={[0, 4, 4, 0]} label={{ position: 'right', fontSize: 12, fill: '#64748b' }} />
+      </BarChart>
+    </ResponsiveContainer>
+  </div>
+);
+
+
+
 export const MainChart: React.FC<ChartProps> = ({ data, color = "#3b82f6" }) => {
   return (
     <div className="h-[300px] w-full">
@@ -122,6 +146,7 @@ export const MainChart: React.FC<ChartProps> = ({ data, color = "#3b82f6" }) => 
   );
 };
 
+
 export const CustomBarChart: React.FC<ChartProps> = ({ data, color = "#3b82f6" }) => (
   <div className="h-[300px] w-full">
     <ResponsiveContainer width="100%" height="100%">
@@ -135,6 +160,7 @@ export const CustomBarChart: React.FC<ChartProps> = ({ data, color = "#3b82f6" }
     </ResponsiveContainer>
   </div>
 );
+
 
 export const DistributionChart: React.FC<{data: DataPoint[], theme: string}> = ({ data, theme }) => {
   const COLORS = theme === 'blue' ? ['#3b82f6', '#60a5fa', '#93c5fd'] : ['#a855f7', '#c084fc', '#d8b4fe'];
@@ -152,6 +178,7 @@ export const DistributionChart: React.FC<{data: DataPoint[], theme: string}> = (
     </div>
   );
 };
+
 
 export const Table: React.FC<{ data: any[] }> = ({ data }) => {
   if (!data || data.length === 0) return <p className="text-slate-400 text-sm">No data available</p>;

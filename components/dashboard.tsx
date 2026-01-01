@@ -1,6 +1,6 @@
 import React from 'react';
 import { ArrowUpRight } from 'lucide-react';
-import { MainChart, DistributionChart, Table, CustomBarChart, CustomScatterPlot, ContinentChart, TFIDFChart } from './charts';
+import { MainChart, DistributionChart, Table, CustomBarChart, CustomScatterPlot, ContinentChart, TFIDFChart, RoomTypeChart } from './charts';
 import { ProjectData } from '../types';
 
 const Dashboard = ({ project }: { project: ProjectData }) => {
@@ -89,8 +89,23 @@ const Dashboard = ({ project }: { project: ProjectData }) => {
             <section>
               <h3 className="font-semibold text-slate-700 mb-4">Visualization and Analysis</h3>
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div className="lg:col-span-2 bg-white p-6 rounded-3xl shadow-sm"><MainChart data={project.chartDataMain} color={color} /></div>
-                <div className="bg-white p-6 rounded-3xl shadow-sm"><CustomBarChart data={project.chartDataMain} color={color} /></div>
+
+                <div className="lg:col-span-2 bg-white p-6 rounded-3xl shadow-sm border border-white">
+            <p className="text-xs text-slate-400 mb-4 text-center font-medium uppercase tracking-wider">Chicago Airbnb Interactive Map</p>
+            {/* Sử dụng iframe để nhúng bản đồ Leaflet từ R */}
+            <iframe 
+              src="./airbnb_map.html" 
+              className="w-full h-[400px] rounded-2xl border-none shadow-inner" 
+              title="Airbnb Map"
+            />
+          </div>
+
+          {/* 2. Room Type Bar Chart */}
+          <div className="bg-white p-6 rounded-3xl shadow-sm border border-white">
+            <p className="text-xs text-slate-400 mb-4 text-center font-medium uppercase tracking-wider">Avg Price by Room Type</p>
+            <RoomTypeChart data={project.chartDataSecondary || []} color={color} />
+          </div>
+
               </div>
             </section>
             <section>

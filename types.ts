@@ -5,11 +5,9 @@ export interface DataPoint {
   category?: string;
 }
 
-export interface KPI {
-  label: string;
-  value: string | number;
-  trend: 'up' | 'down' | 'neutral';
-  percentage: string;
+export interface ScatterPoint {
+  x: number;
+  y: number;
 }
 
 export interface ProjectData {
@@ -17,11 +15,28 @@ export interface ProjectData {
   title: string;
   description: string;
   colorTheme: 'blue' | 'purple' | 'green' | 'rose';
-  kpis: KPI[];
-  chartDataMain: DataPoint[]; // Main Trend
-  chartDataDistribution: DataPoint[]; // Pie/Donut
+  projectSummary: string; // Project summary for all 3 projects
+  layoutType?: 'default' | 'summary' | 'detailed'; // Layout control
+  chartDataMain: DataPoint[]; // Column/Line
+  chartDataDistribution: DataPoint[]; // Pie/Donut 
+  chartDataSecondary?: DataPoint[]; // Other graph types
+  scatterData?: any[]; 
+  tableTitle?: string;
   tableData: any[];
-  reportPath?: string;  // Path to the PDF report file
+  reportPath?: string;  // Path to the code file
+
+scatterData1?: {
+    points: ScatterPoint[];
+    line: ScatterPoint[];
+  };
+  scatterData2?: {
+    points: ScatterPoint[];
+    line: ScatterPoint[];
+  };
+  scatterData3?: {
+    points: ScatterPoint[];
+    line: ScatterPoint[];
+  };
 }
 
 export interface ProfileData {

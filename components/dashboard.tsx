@@ -64,7 +64,7 @@ const Dashboard = ({ project }: { project: ProjectData }) => {
               />
           </div>
         </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
   <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-50">
       <p className="text-xs text-slate-400 mb-4 text-center font-medium uppercase tracking-wider">Median Earnings by Continent</p>
       <ContinentChart data={project.chartDataMain} color={color} />

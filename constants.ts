@@ -383,37 +383,37 @@ line:[{"x":0.4391,"y":11.8743},{"x":228000,"y":230.8477}]}
     chartDataMain: [ // Column Chart
       {
     "name": "1",
-    "value": 0.28
+    "value": 28.0
   },
   {
     "name": "2",
-    "value": 0.07
+    "value": 7.4
   },
   {
     "name": "3",
-    "value": 0.83
+    "value": 83.1
   },
   {
     "name": "4",
-    "value": 1.0
+    "value": 100.0
   }
     ],
     chartDataDistribution: [ // Donut chart
       {
     "name": "Not Active: Not Churn",
-    "value": 2831
+    "value": 35.4
   },
   {
     "name": "Not Active: Churn",
-    "value": 1068
+    "value": 13.4
   },
   {
     "name": "Active: Churn",
-    "value": 579
+    "value": 7.2
   },
   {
     "name": "Active: Not Churn",
-    "value": 3522
+    "value": 44.0
   }
     ],
     tableData: [

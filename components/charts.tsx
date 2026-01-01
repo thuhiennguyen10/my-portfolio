@@ -142,36 +142,56 @@ export const RMSEComparisonChart: React.FC<{ data: any[], color: string }> = ({ 
   </div>
 );
 
-export const DonutChart: React.FC<{ data: any[], title: string }> = ({ data, title }) => {
-  const COLORS = ['#ff6666', '#ffb3e6', '#66b3ff', '#c2c2f0'];
+export const DonutChart: React.FC<{ data: any[] }> = ({ data }) => {
+  const GREEN_PALETTE = ['#15803d', '#22c55e', '#86efac', '#dcfce7'];
   return (
-    <div className="h-[350px] w-full relative">
+    <div className="h-[350px] w-full">
       <ResponsiveContainer width="100%" height="100%">
         <PieChart>
           <Pie
             data={data}
             cx="50%"
             cy="50%"
-            innerRadius={70} // Space inside for Donut
-            outerRadius={100}
-            paddingAngle={5}
+            innerRadius={60} // Space inside for Donut
+            outerRadius={110}
+            paddingAngle={2}
             dataKey="value"
           >
             {data.map((_, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} stroke="#000" strokeWidth={1} />
+              <Cell key={`cell-${index}`} fill={GREEN_PALETTE[index % GREEN_PALETTE.length]} stroke="#000" strokeWidth={1} />
             ))}
           </Pie>
-          <Tooltip />
-          <Legend verticalAlign="bottom" iconType="circle" />
+          <Tooltip formatter={(value: number) => [`${value}%`, 'Percentage']} />
         </PieChart>
       </ResponsiveContainer>
-      {/* Text in the center of Donut */}
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center pointer-events-none">
-        <p className="text-[10px] font-bold text-slate-400 uppercase leading-tight">{title}</p>
-      </div>
     </div>
   );
 };
+
+export const GradientBarChart: React.FC<{ data: any[], color: string }> = ({ data, color }) => (
+  <div className="h-[350px] w-full">
+    <ResponsiveContainer width="100%" height="100%">
+      <BarChart data={data}>
+        <defs>
+          <linearGradient id="barGradient" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor={color} stopOpacity={1}/>
+            <stop offset="100%" stopColor={color} stopOpacity={0.6}/>
+          </linearGradient>
+        </defs>
+        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
+        <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#64748b', fontSize: 12}} />
+        <YAxis axisLine={false} tickLine={false} tick={{fill: '#64748b', fontSize: 12}} tickFormatter={(val) => `${val}%`} />
+        <Tooltip cursor={{fill: '#f8fafc'}} formatter={(val) => [`${val}%`, 'Churn Rate']} />
+        <Bar 
+          dataKey="value" 
+          fill="url(#barGradient)" 
+          radius={[6, 6, 0, 0]} 
+          label={{ position: 'top', formatter: (val: any) => `${val}%`, fontSize: 11, fill: '#64748b' }}
+        />
+      </BarChart>
+    </ResponsiveContainer>
+  </div>
+);
 
 export const MainChart: React.FC<ChartProps> = ({ data, color = "#3b82f6" }) => {
   return (

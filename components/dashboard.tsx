@@ -1,6 +1,6 @@
 import React from 'react';
 import { ArrowUpRight } from 'lucide-react';
-import { MainChart, DistributionChart, Table, CustomBarChart, CustomScatterPlot, ContinentChart, TFIDFChart, RoomTypeChart, RMSEComparisonChart, DonutChart } from './charts';
+import { MainChart, DistributionChart, Table, CustomBarChart, CustomScatterPlot, ContinentChart, TFIDFChart, RoomTypeChart, RMSEComparisonChart, DonutChart, GradientBarChart } from './charts';
 import { ProjectData } from '../types';
 
 const Dashboard = ({ project }: { project: ProjectData }) => {
@@ -138,17 +138,13 @@ const Dashboard = ({ project }: { project: ProjectData }) => {
                 {/* 1. Donut Chart */}
           <div className="bg-white p-6 rounded-3xl shadow-sm border border-white">
             <p className="text-xs text-slate-400 mb-4 text-center font-medium uppercase tracking-wider">Churn Distribution by Active Membership</p>
-            <DonutChart data={project.chartDataDistribution} title="Membership Status" />
+            <DonutChart data={project.chartDataDistribution} />
           </div>
 
           {/* 2. Column Chart */}
           <div className="bg-white p-6 rounded-3xl shadow-sm border border-white">
             <p className="text-xs text-slate-400 mb-4 text-center font-medium uppercase tracking-wider">Churn Rate by Number of Products</p>
-            
-            <CustomBarChart 
-              data={project.chartDataMain} 
-              color={color} 
-            />
+            <GradientBarChart data={project.chartDataMain} color={color} />
           </div>
               
               </div>

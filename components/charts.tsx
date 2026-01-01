@@ -3,7 +3,7 @@ import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   PieChart, Pie, Cell, Legend, BarChart, Bar,
   ScatterChart, Scatter, ZAxis,
-  LabelList, ComposedChart, ErrorBar
+  LabelList, ComposedChart, ErrorBar, ReferenceLine, ReferenceArea
 } from 'recharts';
 import { DataPoint, ScatterPoint, ScatterPlotData } from '../types';
 
@@ -207,7 +207,7 @@ export const CustomBoxPlot: React.FC<{ data: any[] }> = ({ data }) => {
   if (!data || data.length === 0) return null;
 
   // 1. Tạo trục X ảo bằng số để Recharts định vị (0, 1, 2...)
-  const plotData = data.map((d, i) => ({ ...d, x: i }));
+  const plotData = data.map((d, i) => ({ ...d, x: i, y: d.median }));
 
   return (
     <div className="h-[350px] w-full">

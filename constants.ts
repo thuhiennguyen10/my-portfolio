@@ -374,7 +374,7 @@ line:[{"x":0.4391,"y":11.8743},{"x":228000,"y":230.8477}]}
     
   },
   [TabView.PROJECT_3]: {
-    id: 'churn-classification',
+    id: 'churn-py',
     title: 'Classification Models for Customer Churn',
     description: 'Developed machine learning models to predict customer churn in the banking industry. Implemented and compared parametric, semi-parametric, and non-parametric classification models, with CatBoost achieving the best performance based on AUC.',
     colorTheme: 'green',

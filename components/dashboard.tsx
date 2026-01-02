@@ -118,7 +118,7 @@
               
                   {/* Table Comparison */}
             <div className="w-full lg:w-1/2 bg-white p-8 rounded-3xl shadow-sm border border-slate-50 flex flex-col">
-      <p className="text-sm font-bold text-slate-500 mb-6 text-center uppercase tracking-widest">
+      <p className="text-xs text-slate-400 mb-4 text-center font-medium uppercase tracking-wider">
         RMSE Metrics by Model
       </p>
       <div className="flex-1 overflow-auto">
@@ -128,10 +128,10 @@
 
             {/* Clustered Bar Chart */}
             <div className="w-full lg:w-1/2 bg-white p-8 rounded-3xl shadow-sm border border-slate-50 flex flex-col min-h-[500px]">
-      <p className="text-sm font-bold text-slate-500 mb-6 text-center uppercase tracking-widest">
+      <p className="text-xs text-slate-400 mb-4 text-center font-medium uppercase tracking-wider">
         Training vs Validation RMSE
       </p>
-      <div className="flex-1 w-full">
+      <div className="flex-1 flex items-center justify-center w-full">
         <RMSEComparisonChart data={project.chartDataMain} color={color} />
       </div>
     </div>
@@ -185,7 +185,7 @@
                 <div className="flex flex-col lg:flex-row gap-6 items-stretch">
                   {/* AUC Table */}
     <div className="w-full lg:w-1/2 bg-white p-8 rounded-3xl shadow-sm border border-slate-50 flex flex-col">
-    <p className="text-sm font-bold text-slate-500 mb-6 text-center uppercase tracking-widest">
+    <p className="text-xs text-slate-400 mb-4 text-center font-medium uppercase tracking-wider">
       AUC Metrics by Model
     </p>
     <div className="flex-1 overflow-auto">
@@ -196,7 +196,7 @@
     {/* AUC graph */}
 
     <div className="w-full lg:w-1/2 bg-white p-8 rounded-3xl shadow-sm border border-slate-50 flex flex-col min-h-[450px]">
-    <p className="text-sm font-bold text-slate-500 mb-6 text-center uppercase tracking-widest">
+    <p className="text-xs text-slate-400 mb-4 text-center font-medium uppercase tracking-wider">
       Training vs Validation AUC
     </p>
     {/* flex-1 đảm bảo biểu đồ chiếm hết không gian còn lại và tự giãn dòng */}

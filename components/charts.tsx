@@ -237,19 +237,20 @@ export const Table: React.FC<{ data: any[] }> = ({ data }) => {
 export const AUCComparisonChart: React.FC<{ data: any[], color: string }> = ({ data, color }) => (
   <div className="h-[450px] w-full"> {/* Tăng chiều cao một chút vì có tới 10 model */}
     <ResponsiveContainer width="100%" height="100%">
-      <BarChart layout="vertical" data={data} margin={{ left: 10, right: 40, bottom: 10 }}>
+      <BarChart layout="vertical" data={data} margin={{ left: 0, right: 40, bottom: 0 }}>
         <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} stroke="#e2e8f0" />
         <XAxis 
           type="number" 
           domain={[0, 1]} 
           tickFormatter={(v) => `${(v * 100).toFixed(0)}%`} 
           tick={{fontSize: 12}}
+          height={40}
         />
         <YAxis 
           dataKey="name" 
           type="category" 
           tick={{fontSize: 12}} 
-          width={110} 
+          width={100} 
           axisLine={false} 
           tickLine={false} 
         />
@@ -257,7 +258,7 @@ export const AUCComparisonChart: React.FC<{ data: any[], color: string }> = ({ d
           formatter={(v: number) => [`${(v * 100).toFixed(2)}%`]} 
           labelStyle={{ fontWeight: 'bold', color: '#1e293b' }}
         />
-        <Legend verticalAlign="top" align="right" wrapperStyle={{ paddingBottom: '20px', fontSize: '12px' }} />
+        <Legend verticalAlign="top" align="right" wrapperStyle={{ paddingBottom: '0px', fontSize: '12px' }} />
         
         {/* Chuyển dataKey sang giá trị đã nhân 100 nếu bạn muốn vẽ dựa trên thang 100 */}
         <Bar name="Validation AUC" dataKey="value" fill={color} radius={[0, 4, 4, 0]} barSize={15}>

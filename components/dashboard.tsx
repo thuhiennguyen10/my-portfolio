@@ -149,7 +149,7 @@
                 
   {/* 3. Box Plot */}
 <div className="bg-white p-6 rounded-3xl shadow-sm border border-white h-[500px] flex flex-col">
-  <p className="text-sm font-semibold text-slate-500 mb-4 text-center uppercase tracking-wider">
+  <p className="text-xs text-slate-400 mb-4 text-center font-medium uppercase tracking-wider">
     Age Distribution by Churn Status
   </p>
   
@@ -183,6 +183,7 @@
       <p className="text-xs text-slate-400 mb-4 text-center font-medium uppercase tracking-wider">
         Training vs Validation AUC
       </p>
+      <div className="flex-1 w-full mt-auto"></div>
       <AUCComparisonChart 
         data={project.aucData?.map(d => ({
           ...d, 

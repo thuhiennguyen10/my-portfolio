@@ -124,9 +124,9 @@ export const RoomTypeChart: React.FC<{ data: any[], color: string }> = ({ data, 
 );
 
 export const RMSEComparisonChart: React.FC<{ data: any[], color: string }> = ({ data, color }) => (
-  <div className="h-[400px] w-full">
+  <div className="h-[350px] w-full w-full h-full flex flex-col justify-center">
     <ResponsiveContainer width="100%" height="100%">
-      <BarChart layout="vertical" data={data} margin={{ left: 10, right: 40, bottom: 10 }}>
+      <BarChart layout="vertical" data={data} margin={{ left: 10, right: 30, top: 10, bottom: 10 }}>
         <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} stroke="#e2e8f0" /> 
         <XAxis type="number" tick={{fontSize: 12}} />
         <YAxis dataKey="name" type="category" tick={{fontSize: 12}} width={100} />

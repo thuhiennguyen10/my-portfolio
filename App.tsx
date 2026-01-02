@@ -14,7 +14,7 @@ function App() {
     if (Object.values(TabView).includes(hash as TabView)) {
       return hash as TabView;
     }
-    return TabView.PROJECT_1; // Mặc định nếu không khớp
+    return TabView.PROJECT_AIRBNB; // Default tabview
   });
 
   // 2. Cập nhật Hash khi thay đổi Tab (Ví dụ: nhấn vào Prj 2 sẽ hiện .../#project2)

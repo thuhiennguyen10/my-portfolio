@@ -14,7 +14,266 @@ export const PROFILE: ProfileData = {
 };
 
 export const PROJECTS: Record<TabView, ProjectData> = {
-  [TabView.PROJECT_1]: {
+  
+  [TabView.PROJECT_AIRBNB]: {
+    id: 'project-airbnb',
+    title: 'Airbnb Price Prediction',
+    description: 'Developed machine learning models to predict Airbnb listing prices. Implemented and compared linear regression, regularized (Ridge and Lasso), and non-linear ensemble models (Regression Trees, Bagging, Random Forest, and XGBoost), with Random Forest achieving the best performance based on RMSE.',
+    colorTheme: 'purple',
+    reportPath: './airbnb-r.html', // Path to the PDF report file
+    projectSummary: 'This project focuses on building and evaluating various regression models to predict Airbnb listing prices, utilizing R for data analysis and model implementation.',
+    chartDataSecondary: [ // room type bar chart
+{"name": "Entire home/apt","value": 144.5},
+{"name": "Hotel room","value": 121.1},
+{"name": "Private room","value": 69.4},
+{"name": "Shared room","value": 50.3}],
+
+    chartDataMain: [
+      {
+    "name": "Random Forest",
+    "value": 56.0558,
+    "secondaryValue": 29.8187
+  },
+  {
+    "name": "Tuned Random Forest",
+    "value": 56.4509,
+    "secondaryValue": 37.9661
+  },
+  {
+    "name": "XGBoost",
+    "value": 57.4043,
+    "secondaryValue": 45.1759
+  },
+  {
+    "name": "Bagging",
+    "value": 57.606,
+    "secondaryValue": 24.7194
+  },
+  {
+    "name": "Regression Trees",
+    "value": 61.9737,
+    "secondaryValue": 55.5387
+  },
+  {
+    "name": "Ridge Regression",
+    "value": 62.7136,
+    "secondaryValue": 61.6114
+  },
+  {
+    "name": "Linear Regression",
+    "value": 62.749,
+    "secondaryValue": 61.5553
+  },
+  {
+    "name": "Lasso Regression",
+    "value": 62.7494,
+    "secondaryValue": 61.5564
+  }
+    ],
+    chartDataDistribution: [
+      { name: 'Instagram', value: 45 },
+      { name: 'TikTok', value: 35 },
+      { name: 'Facebook', value: 10 },
+      { name: 'Email', value: 10 },
+    ],
+    tableData: [
+{
+    "model": "Random Forest",
+    "RMSE_training": 29.819,
+    "RMSE_validation": 56.056,
+    "id": 1
+  },
+  {
+    "model": "Tuned Random Forest",
+    "RMSE_training": 37.966,
+    "RMSE_validation": 56.451,
+    "id": 2
+  },
+  {
+    "model": "XGBoost",
+    "RMSE_training": 45.176,
+    "RMSE_validation": 57.404,
+    "id": 3
+  },
+  {
+    "model": "Bagging",
+    "RMSE_training": 24.719,
+    "RMSE_validation": 57.606,
+    "id": 4
+  },
+  {
+    "model": "Regression Trees",
+    "RMSE_training": 55.539,
+    "RMSE_validation": 61.974,
+    "id": 5
+  },
+  {
+    "model": "Ridge Regression",
+    "RMSE_training": 61.611,
+    "RMSE_validation": 62.714,
+    "id": 6
+  },
+  {
+    "model": "Linear Regression",
+    "RMSE_training": 61.555,
+    "RMSE_validation": 62.749,
+    "id": 7
+  },
+  {
+    "model": "Lasso Regression",
+    "RMSE_training": 61.556,
+    "RMSE_validation": 62.749,
+    "id": 8
+  }
+    ]
+    
+  },
+  [TabView.PROJECT_CHURN]: {
+    id: 'project-churn',
+    title: 'Classification Models for Customer Churn',
+    description: 'Developed machine learning models to predict customer churn in the banking industry. Implemented and compared parametric, semi-parametric, and non-parametric classification models, with CatBoost achieving the best performance based on AUC.',
+    colorTheme: 'green',
+    reportPath: './churn-py.html', // Path to the PDF report file
+    projectSummary: 'This project focuses on building and evaluating various classification models to predict customer churn in the banking sector, utilizing Python for data analysis and model implementation.',
+    chartDataMain: [ // Column Chart
+      {
+    "name": "1",
+    "value": 28.0
+  },
+  {
+    "name": "2",
+    "value": 7.4
+  },
+  {
+    "name": "3",
+    "value": 83.1
+  },
+  {
+    "name": "4",
+    "value": 100.0
+  }
+    ],
+    chartDataDistribution: [ // Donut chart
+      {
+    "name": "Not Active: Not Churn",
+    "value": 35.4
+  },
+  {
+    "name": "Not Active: Churn",
+    "value": 13.4
+  },
+  {
+    "name": "Active: Churn",
+    "value": 7.2
+  },
+  {
+    "name": "Active: Not Churn",
+    "value": 44.0
+  }
+    ],
+
+    boxplotData: [ // box plot
+{
+    "name": "Not Churn",
+    "low": 18,
+    "q1": 31.0,
+    "median": 36.0,
+    "q3": 41.0,
+    "high": 56,
+    "outliers": [
+      61,
+  
+      59,
+      58,
+      59,
+      57,
+      72,
+      70,
+      81,
+      67
+    ]
+  },
+  {
+    "name": "Churn",
+    "low": 18,
+    "q1": 38.0,
+    "median": 45.0,
+    "q3": 52.0,
+    "high": 73,
+    "outliers": [
+      74,
+      84
+    ]
+  }
+    ],
+
+    aucData: [
+      {
+    "name": "Cat Boost",
+    "value": 0.8909,
+    "secondaryValue": 0.8967
+  },
+  {
+    "name": "XGBoost",
+    "value": 0.8884,
+    "secondaryValue": 0.9093
+  },
+  {
+    "name": "Neural Networks",
+    "value": 0.878,
+    "secondaryValue": 0.8753
+  },
+  {
+    "name": "Random Forest",
+    "value": 0.876,
+    "secondaryValue": 0.9228
+  },
+  {
+    "name": "SVM",
+    "value": 0.8683,
+    "secondaryValue": 0.8578
+  },
+  {
+    "name": "Logistic Regression",
+    "value": 0.8494,
+    "secondaryValue": 0.8351
+  },
+  {
+    "name": "LDA",
+    "value": 0.8488,
+    "secondaryValue": 0.8341
+  },
+  {
+    "name": "SVC",
+    "value": 0.8482,
+    "secondaryValue": 0.8346
+  },
+  {
+    "name": "KNN",
+    "value": 0.8337,
+    "secondaryValue": 0.862
+  },
+  {
+    "name": "Naive Bayes",
+    "value": 0.8132,
+    "secondaryValue": 0.8172
+  }
+    ],
+
+    tableData: [
+      {"Model":"Cat Boost","Training AUC":0.8966503217,"Validation AUC":0.8908812198,"id":1},
+      {"Model":"XGBoost","Training AUC":0.9092532691,"Validation AUC":0.8883917362,"id":2},
+      {"Model":"Neural Networks","Training AUC":0.8752628367,"Validation AUC":0.8779674717,"id":3},
+      {"Model":"Random Forest","Training AUC":0.9228163431,"Validation AUC":0.8760256266,"id":4},
+      {"Model":"SVM","Training AUC":0.8577706494,"Validation AUC":0.8682797692,"id":5},
+      {"Model":"Logistic Regression","Training AUC":0.8351101122,"Validation AUC":0.8493946083,"id":6},
+      {"Model":"LDA","Training AUC":0.834117887,"Validation AUC":0.8487728352,"id":7},
+      {"Model":"SVC","Training AUC":0.8346184785,"Validation AUC":0.8481510622,"id":8},
+      {"Model":"KNN","Training AUC":0.8619864122,"Validation AUC":0.8336876643,"id":9},
+      {"Model":"Naive Bayes","Training AUC":0.8172025818,"Validation AUC":0.8131906763,"id":10}
+    ]
+  },
+  [TabView.PROJECT_YOUTUBE]: {
     id: 'project-youtube',
     title: 'Youtube Data Analysis',
     description: 'Developed regression models to analyze global YouTube statistics.',
@@ -259,263 +518,5 @@ line:[{"x":0.4391,"y":11.8743},{"x":228000,"y":230.8477}]}
   { id: 9, Variable: "num_category", "Log-Transformed Regression": "—", "Weighted Regression": "—", "Robust Regression": "-0.0001" },
   { id: 10, Variable: "num_type", "Log-Transformed Regression": "—", "Weighted Regression": "—", "Robust Regression": "0.0007" },
 ]
-  },
-  [TabView.PROJECT_2]: {
-    id: 'project-airbnb',
-    title: 'Airbnb Price Prediction',
-    description: 'Developed machine learning models to predict Airbnb listing prices. Implemented and compared linear regression, regularized (Ridge and Lasso), and non-linear ensemble models (Regression Trees, Bagging, Random Forest, and XGBoost), with Random Forest achieving the best performance based on RMSE.',
-    colorTheme: 'purple',
-    reportPath: './airbnb-r.html', // Path to the PDF report file
-    projectSummary: 'This project focuses on building and evaluating various regression models to predict Airbnb listing prices, utilizing R for data analysis and model implementation.',
-    chartDataSecondary: [ // room type bar chart
-{"name": "Entire home/apt","value": 144.5},
-{"name": "Hotel room","value": 121.1},
-{"name": "Private room","value": 69.4},
-{"name": "Shared room","value": 50.3}],
-
-    chartDataMain: [
-      {
-    "name": "Random Forest",
-    "value": 56.0558,
-    "secondaryValue": 29.8187
-  },
-  {
-    "name": "Tuned Random Forest",
-    "value": 56.4509,
-    "secondaryValue": 37.9661
-  },
-  {
-    "name": "XGBoost",
-    "value": 57.4043,
-    "secondaryValue": 45.1759
-  },
-  {
-    "name": "Bagging",
-    "value": 57.606,
-    "secondaryValue": 24.7194
-  },
-  {
-    "name": "Regression Trees",
-    "value": 61.9737,
-    "secondaryValue": 55.5387
-  },
-  {
-    "name": "Ridge Regression",
-    "value": 62.7136,
-    "secondaryValue": 61.6114
-  },
-  {
-    "name": "Linear Regression",
-    "value": 62.749,
-    "secondaryValue": 61.5553
-  },
-  {
-    "name": "Lasso Regression",
-    "value": 62.7494,
-    "secondaryValue": 61.5564
-  }
-    ],
-    chartDataDistribution: [
-      { name: 'Instagram', value: 45 },
-      { name: 'TikTok', value: 35 },
-      { name: 'Facebook', value: 10 },
-      { name: 'Email', value: 10 },
-    ],
-    tableData: [
-{
-    "model": "Random Forest",
-    "RMSE_training": 29.819,
-    "RMSE_validation": 56.056,
-    "id": 1
-  },
-  {
-    "model": "Tuned Random Forest",
-    "RMSE_training": 37.966,
-    "RMSE_validation": 56.451,
-    "id": 2
-  },
-  {
-    "model": "XGBoost",
-    "RMSE_training": 45.176,
-    "RMSE_validation": 57.404,
-    "id": 3
-  },
-  {
-    "model": "Bagging",
-    "RMSE_training": 24.719,
-    "RMSE_validation": 57.606,
-    "id": 4
-  },
-  {
-    "model": "Regression Trees",
-    "RMSE_training": 55.539,
-    "RMSE_validation": 61.974,
-    "id": 5
-  },
-  {
-    "model": "Ridge Regression",
-    "RMSE_training": 61.611,
-    "RMSE_validation": 62.714,
-    "id": 6
-  },
-  {
-    "model": "Linear Regression",
-    "RMSE_training": 61.555,
-    "RMSE_validation": 62.749,
-    "id": 7
-  },
-  {
-    "model": "Lasso Regression",
-    "RMSE_training": 61.556,
-    "RMSE_validation": 62.749,
-    "id": 8
-  }
-    ]
-    
-  },
-  [TabView.PROJECT_3]: {
-    id: 'project-churn',
-    title: 'Classification Models for Customer Churn',
-    description: 'Developed machine learning models to predict customer churn in the banking industry. Implemented and compared parametric, semi-parametric, and non-parametric classification models, with CatBoost achieving the best performance based on AUC.',
-    colorTheme: 'green',
-    reportPath: './churn-py.html', // Path to the PDF report file
-    projectSummary: 'This project focuses on building and evaluating various classification models to predict customer churn in the banking sector, utilizing Python for data analysis and model implementation.',
-    chartDataMain: [ // Column Chart
-      {
-    "name": "1",
-    "value": 28.0
-  },
-  {
-    "name": "2",
-    "value": 7.4
-  },
-  {
-    "name": "3",
-    "value": 83.1
-  },
-  {
-    "name": "4",
-    "value": 100.0
-  }
-    ],
-    chartDataDistribution: [ // Donut chart
-      {
-    "name": "Not Active: Not Churn",
-    "value": 35.4
-  },
-  {
-    "name": "Not Active: Churn",
-    "value": 13.4
-  },
-  {
-    "name": "Active: Churn",
-    "value": 7.2
-  },
-  {
-    "name": "Active: Not Churn",
-    "value": 44.0
-  }
-    ],
-
-    boxplotData: [ // box plot
-{
-    "name": "Not Churn",
-    "low": 18,
-    "q1": 31.0,
-    "median": 36.0,
-    "q3": 41.0,
-    "high": 56,
-    "outliers": [
-      61,
-  
-      59,
-      58,
-      59,
-      57,
-      72,
-      70,
-      81,
-      67
-    ]
-  },
-  {
-    "name": "Churn",
-    "low": 18,
-    "q1": 38.0,
-    "median": 45.0,
-    "q3": 52.0,
-    "high": 73,
-    "outliers": [
-      74,
-      84
-    ]
-  }
-    ],
-
-    aucData: [
-      {
-    "name": "Cat Boost",
-    "value": 0.8909,
-    "secondaryValue": 0.8967
-  },
-  {
-    "name": "XGBoost",
-    "value": 0.8884,
-    "secondaryValue": 0.9093
-  },
-  {
-    "name": "Neural Networks",
-    "value": 0.878,
-    "secondaryValue": 0.8753
-  },
-  {
-    "name": "Random Forest",
-    "value": 0.876,
-    "secondaryValue": 0.9228
-  },
-  {
-    "name": "SVM",
-    "value": 0.8683,
-    "secondaryValue": 0.8578
-  },
-  {
-    "name": "Logistic Regression",
-    "value": 0.8494,
-    "secondaryValue": 0.8351
-  },
-  {
-    "name": "LDA",
-    "value": 0.8488,
-    "secondaryValue": 0.8341
-  },
-  {
-    "name": "SVC",
-    "value": 0.8482,
-    "secondaryValue": 0.8346
-  },
-  {
-    "name": "KNN",
-    "value": 0.8337,
-    "secondaryValue": 0.862
-  },
-  {
-    "name": "Naive Bayes",
-    "value": 0.8132,
-    "secondaryValue": 0.8172
-  }
-    ],
-
-    tableData: [
-      {"Model":"Cat Boost","Training AUC":0.8966503217,"Validation AUC":0.8908812198,"id":1},
-      {"Model":"XGBoost","Training AUC":0.9092532691,"Validation AUC":0.8883917362,"id":2},
-      {"Model":"Neural Networks","Training AUC":0.8752628367,"Validation AUC":0.8779674717,"id":3},
-      {"Model":"Random Forest","Training AUC":0.9228163431,"Validation AUC":0.8760256266,"id":4},
-      {"Model":"SVM","Training AUC":0.8577706494,"Validation AUC":0.8682797692,"id":5},
-      {"Model":"Logistic Regression","Training AUC":0.8351101122,"Validation AUC":0.8493946083,"id":6},
-      {"Model":"LDA","Training AUC":0.834117887,"Validation AUC":0.8487728352,"id":7},
-      {"Model":"SVC","Training AUC":0.8346184785,"Validation AUC":0.8481510622,"id":8},
-      {"Model":"KNN","Training AUC":0.8619864122,"Validation AUC":0.8336876643,"id":9},
-      {"Model":"Naive Bayes","Training AUC":0.8172025818,"Validation AUC":0.8131906763,"id":10}
-    ]
   },
 };

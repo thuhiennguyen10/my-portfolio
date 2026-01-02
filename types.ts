@@ -62,7 +62,7 @@ export interface ProfileData {
 }
 
 export enum TabView {
-  PROJECT_1 = 'project-youtube',
-  PROJECT_2 = 'project-airbnb',
-  PROJECT_3 = 'project-churn'
+  PROJECT_AIRBNB = 'project-airbnb',
+  PROJECT_YOUTUBE = 'project-youtube',
+  PROJECT_CHURN = 'project-churn'
 }

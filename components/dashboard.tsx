@@ -123,7 +123,7 @@
     </div>
 
             {/* Clustered Bar Chart */}
-            <div className="w-full lg:w-1/2 bg-white p-8 rounded-3xl shadow-sm border border-slate-50 flex flex-col min-h-[600px]">
+            <div className="w-full lg:w-1/2 bg-white p-8 rounded-3xl shadow-sm border border-slate-50 flex flex-col min-h-[500px]">
       <p className="text-sm font-bold text-slate-500 mb-6 text-center uppercase tracking-widest">
         Training vs Validation RMSE
       </p>
@@ -157,7 +157,7 @@
             </div>
                 
   {/* 3. Box Plot */}
-<div className="bg-white p-6 rounded-3xl shadow-sm border border-white h-[500px] flex flex-col">
+<div className="bg-white p-6 rounded-3xl shadow-sm border border-white h-[400px] flex flex-col">
   <p className="text-xs text-slate-400 mb-4 text-center font-medium uppercase tracking-wider">
     Age Distribution by Churn Status
   </p>
@@ -190,7 +190,7 @@
 
     {/* AUC graph */}
 
-    <div className="w-full lg:w-1/2 bg-white p-8 rounded-3xl shadow-sm border border-slate-50 flex flex-col min-h-[600px]">
+    <div className="w-full lg:w-1/2 bg-white p-8 rounded-3xl shadow-sm border border-slate-50 flex flex-col min-h-[500px]">
     <p className="text-sm font-bold text-slate-500 mb-6 text-center uppercase tracking-widest">
       Training vs Validation AUC
     </p>

@@ -177,7 +177,7 @@
         data={project.aucData?.map(d => ({
           ...d, 
           value: d.value || 0, 
-          secondaryValue: (d.secondaryValue || 0) * 100
+          secondaryValue: (d.secondaryValue || 0) 
         })) || []} 
         color={color} 
       />

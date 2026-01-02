@@ -19,7 +19,7 @@ export const CustomScatterPlot: React.FC<{ data: ScatterPlotData | any; color: s
   return (
     <div className="h-[250px] w-full">
       <ResponsiveContainer width="100%" height="100%">
-        <ScatterChart margin={{ top: 20, right: 30, bottom: 20, left: 10 }}>
+        <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 10 }}>
           <XAxis 
             type="number" 
             dataKey="x" 
@@ -126,10 +126,10 @@ export const RoomTypeChart: React.FC<{ data: any[], color: string }> = ({ data, 
 export const RMSEComparisonChart: React.FC<{ data: any[], color: string }> = ({ data, color }) => (
   <div className="h-[400px] w-full">
     <ResponsiveContainer width="100%" height="100%">
-      <BarChart layout="vertical" data={data} margin={{ left: 40, right: 40, bottom: 20 }}>
+      <BarChart layout="vertical" data={data} margin={{ left: 10, right: 40, bottom: 10 }}>
         <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} stroke="#e2e8f0" /> 
-        <XAxis type="number" tick={{fontSize: 10}} label={{ value: 'RMSE', position: 'insideBottom', offset: -5 }} />
-        <YAxis dataKey="name" type="category" tick={{fontSize: 10}} width={100} />
+        <XAxis type="number" tick={{fontSize: 12}} />
+        <YAxis dataKey="name" type="category" tick={{fontSize: 12}} width={100} />
         <Tooltip cursor={{fill: '#f8fafc'}} />
         <Legend verticalAlign="top" align="right" wrapperStyle={{ paddingBottom: '20px', fontSize: '12px' }} />
         
@@ -166,7 +166,7 @@ export const DonutChart: React.FC<{ data: any[] }> = ({ data }) => {
           <Legend 
             verticalAlign="bottom" 
             iconType="circle" 
-            wrapperStyle={{ fontSize: '10px', paddingTop: '10px' }} 
+            wrapperStyle={{ fontSize: '12px', paddingTop: '10px' }} 
           />
         </PieChart>
       </ResponsiveContainer>
@@ -358,18 +358,18 @@ export const Table: React.FC<{ data: any[] }> = ({ data }) => {
 export const AUCComparisonChart: React.FC<{ data: any[], color: string }> = ({ data, color }) => (
   <div className="h-[450px] w-full"> {/* Tăng chiều cao một chút vì có tới 10 model */}
     <ResponsiveContainer width="100%" height="100%">
-      <BarChart layout="vertical" data={data} margin={{ top: 5, right: 45, bottom: 20, left: 20 }}>
+      <BarChart layout="vertical" data={data} margin={{ left: 10, right: 40, bottom: 10 }}>
         <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} stroke="#e2e8f0" />
         <XAxis 
           type="number" 
           domain={[0, 1]} 
           tickFormatter={(v) => `${(v * 100).toFixed(0)}%`} 
-          tick={{fontSize: 10}}
+          tick={{fontSize: 12}}
         />
         <YAxis 
           dataKey="name" 
           type="category" 
-          tick={{fontSize: 9}} 
+          tick={{fontSize: 12}} 
           width={110} 
           axisLine={false} 
           tickLine={false} 
@@ -378,14 +378,14 @@ export const AUCComparisonChart: React.FC<{ data: any[], color: string }> = ({ d
           formatter={(v: number) => [`${(v * 100).toFixed(2)}%`]} 
           labelStyle={{ fontWeight: 'bold', color: '#1e293b' }}
         />
-        <Legend verticalAlign="top" align="right" wrapperStyle={{ paddingBottom: '20px', fontSize: '11px' }} />
+        <Legend verticalAlign="top" align="right" wrapperStyle={{ paddingBottom: '20px', fontSize: '12px' }} />
         
         {/* Chuyển dataKey sang giá trị đã nhân 100 nếu bạn muốn vẽ dựa trên thang 100 */}
-        <Bar name="Validation AUC" dataKey="value" fill={color} radius={[0, 4, 4, 0]} barSize={10}>
+        <Bar name="Validation AUC" dataKey="value" fill={color} radius={[0, 4, 4, 0]} barSize={15}>
           {/* Nhân 100 trực tiếp trong lúc vẽ nếu data gốc là 0.89 */}
           {data.map((entry, index) => <Cell key={`cell-${index}`} fill={color} />)}
         </Bar>
-        <Bar name="Training AUC" dataKey="secondaryValue" fill={`${color}40`} radius={[0, 4, 4, 0]} barSize={10} />
+        <Bar name="Training AUC" dataKey="secondaryValue" fill={`${color}40`} radius={[0, 4, 4, 0]} barSize={15} />
       </BarChart>
     </ResponsiveContainer>
   </div>

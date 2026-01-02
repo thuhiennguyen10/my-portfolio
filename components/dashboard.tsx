@@ -114,13 +114,13 @@
                   
                   {/* Table Comparison */}
             <div className="bg-white p-6 rounded-3xl shadow-sm border border-white overflow-hidden">
-              <p className="text-xs text-slate-400 mb-6 text-center font-medium uppercase">RMSE Metrics by Model</p>
+              <p className="text-xs text-slate-400 mb-4 text-center font-medium uppercase tracking-wider">RMSE Metrics by Model</p>
               <Table data={project.tableData} />
             </div>
 
             {/* Clustered Bar Chart */}
             <div className="bg-white p-6 rounded-3xl shadow-sm border border-white">
-              <p className="text-xs text-slate-400 mb-6 text-center font-medium uppercase">Training vs Validation RMSE</p>
+              <p className="text-xs text-slate-400 mb-4 text-center font-medium uppercase tracking-wider">Training vs Validation RMSE</p>
               <RMSEComparisonChart data={project.chartDataMain} color={color} />
             </div>
           </div>
@@ -160,7 +160,7 @@
                 <div className="flex flex-col lg:flex-row gap-6 items-stretch">
                   {/* AUC Table */}
     <div className="w-full lg:w-1/2 bg-white p-6 rounded-3xl shadow-sm border border-white overflow-hidden">
-      <p className="text-[10px] text-slate-400 mb-6 text-center font-bold uppercase tracking-widest">
+      <p className="text-xs text-slate-400 mb-4 text-center font-medium uppercase tracking-wider">
         AUC Metrics by Model
       </p>
       <Table data={project.tableData} />
@@ -169,7 +169,7 @@
     {/* AUC graph */}
 
     <div className="w-full lg:w-1/2 bg-white p-6 rounded-3xl shadow-sm border border-white flex flex-col">
-      <p className="text-[10px] text-slate-400 mb-6 text-center font-bold uppercase tracking-widest">
+      <p className="text-xs text-slate-400 mb-4 text-center font-medium uppercase tracking-wider">
         Training vs Validation AUC
       </p>
       <AUCComparisonChart 

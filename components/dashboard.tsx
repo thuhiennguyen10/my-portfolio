@@ -127,7 +127,7 @@
     </div>
 
             {/* Clustered Bar Chart */}
-            <div className="w-full lg:w-1/2 bg-white p-8 rounded-3xl shadow-sm border border-slate-50 flex flex-col min-h-[500px]">
+            <div className="w-full lg:w-1/2 bg-white p-8 rounded-3xl shadow-sm border border-slate-50 flex flex-col min-h-[300px]">
       <p className="text-xs text-slate-400 mb-4 text-center font-medium uppercase tracking-wider">
         Training vs Validation RMSE
       </p>

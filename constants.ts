@@ -15,7 +15,7 @@ export const PROFILE: ProfileData = {
 
 export const PROJECTS: Record<TabView, ProjectData> = {
   [TabView.PROJECT_1]: {
-    id: 'youtube-r',
+    id: 'project-youtube',
     title: 'Youtube Data Analysis',
     description: 'Developed regression models to analyze global YouTube statistics.',
     colorTheme: 'blue',
@@ -261,7 +261,7 @@ line:[{"x":0.4391,"y":11.8743},{"x":228000,"y":230.8477}]}
 ]
   },
   [TabView.PROJECT_2]: {
-    id: 'airbnb-r',
+    id: 'project-airbnb',
     title: 'Airbnb Price Prediction',
     description: 'Developed machine learning models to predict Airbnb listing prices. Implemented and compared linear regression, regularized (Ridge and Lasso), and non-linear ensemble models (Regression Trees, Bagging, Random Forest, and XGBoost), with Random Forest achieving the best performance based on RMSE.',
     colorTheme: 'purple',
@@ -374,7 +374,7 @@ line:[{"x":0.4391,"y":11.8743},{"x":228000,"y":230.8477}]}
     
   },
   [TabView.PROJECT_3]: {
-    id: 'churn-py',
+    id: 'project-churn',
     title: 'Classification Models for Customer Churn',
     description: 'Developed machine learning models to predict customer churn in the banking industry. Implemented and compared parametric, semi-parametric, and non-parametric classification models, with CatBoost achieving the best performance based on AUC.',
     colorTheme: 'green',

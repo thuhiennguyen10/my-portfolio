@@ -5,23 +5,21 @@ import ProjectCard from './components/ProjectCard';
 import Dashboard from './components/dashboard';
 import { Linkedin, FileText, ExternalLink } from 'lucide-react';
 
-const App: React.FC = () => {
-  // 1. Logic khởi tạo Tab từ URL Hash (để giữ vị trí trang khi F5)
+function App() {
+  // 1. Khởi tạo tab từ URL Hash mới
   const [activeTab, setActiveTab] = useState<TabView>(() => {
     const hash = window.location.hash.replace('#', '');
-    if (hash === 'project2') return TabView.PROJECT_2;
-    if (hash === 'project3') return TabView.PROJECT_3;
-    return TabView.PROJECT_1;
+    
+    // Kiểm tra nếu hash khớp với bất kỳ giá trị nào trong TabView
+    if (Object.values(TabView).includes(hash as TabView)) {
+      return hash as TabView;
+    }
+    return TabView.PROJECT_1; // Mặc định nếu không khớp
   });
 
   // 2. Cập nhật Hash khi thay đổi Tab (Ví dụ: nhấn vào Prj 2 sẽ hiện .../#project2)
   useEffect(() => {
-    const tabToHash: Record<string, string> = {
-      [TabView.PROJECT_1]: 'project1',
-      [TabView.PROJECT_2]: 'project2',
-      [TabView.PROJECT_3]: 'project3',
-    };
-    window.location.hash = tabToHash[activeTab];
+    window.location.hash = activeTab;
   }, [activeTab]);
 
   const activeProject: ProjectData = PROJECTS[activeTab];

@@ -1,6 +1,6 @@
   import React from 'react';
   import { ArrowUpRight } from 'lucide-react';
-  import { MainChart, DistributionChart, Table, CustomBarChart, CustomScatterPlot, ContinentChart, TFIDFChart, RoomTypeChart, RMSEComparisonChart, DonutChart, GradientBarChart, CustomBoxPlot, AUCComparisonChart } from './charts';
+  import { MainChart, DistributionChart, Table, CustomBarChart, CustomScatterPlot, ContinentChart, TFIDFChart, RoomTypeChart, RMSEComparisonChart, DonutChart, GradientBarChart, AUCComparisonChart } from './charts';
   import { BoxPlotDataPoint, ProjectData } from '../types';
 
   const Dashboard = ({ project }: { project: ProjectData }) => {
@@ -27,7 +27,7 @@
     const renderLayout = () => {
       const color = getThemeColor();
       switch (project.id) {
-        case 'youtube-r':
+        case 'project-youtube':
           return (
             <div className="space-y-8">
               <section>
@@ -83,7 +83,7 @@
             </div>
           );
 
-        case 'airbnb-r':
+        case 'project-airbnb':
           return (
             <div className="space-y-8">
               <section>
@@ -128,7 +128,7 @@
             </div>
           );
 
-        case 'churn-py':
+        case 'project-churn':
           return (
             <div className="space-y-8">
               <section>
@@ -148,10 +148,21 @@
             </div>
                 
   {/* 3. Box Plot */}
-      <div className="bg-white p-6 rounded-3xl shadow-sm border border-white">
-        <p className="text-xs text-slate-400 mb-4 text-center font-medium uppercase tracking-wider">Age Distribution by Churn</p>
-        <CustomBoxPlot data={project.boxplotData  as BoxPlotDataPoint[]} />
-      </div>
+<div className="bg-white p-6 rounded-3xl shadow-sm border border-white h-[500px] flex flex-col">
+  <p className="text-sm font-semibold text-slate-500 mb-4 text-center uppercase tracking-wider">
+    Age Distribution by Churn Status
+  </p>
+  
+  {/* Nhúng file HTML thông qua iframe */}
+  <div className="flex-1 w-full overflow-hidden rounded-xl">
+    <iframe 
+      src="./boxplot_age.html" 
+      className="w-full h-full border-none"
+      title="Age Box Plot"
+      loading="lazy"
+    />
+  </div>
+</div>
 
                 </div>
               </section>

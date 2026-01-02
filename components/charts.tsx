@@ -362,8 +362,8 @@ export const AUCComparisonChart: React.FC<{ data: any[], color: string }> = ({ d
         <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} stroke="#e2e8f0" />
         <XAxis 
           type="number" 
-          domain={[0, 100]} 
-          tickFormatter={(v) => `${v}%`} 
+          domain={[0, 1]} 
+          tickFormatter={(v) => `${(v * 100).toFixed(0)}%`} 
           tick={{fontSize: 10}}
         />
         <YAxis 

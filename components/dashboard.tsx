@@ -157,7 +157,7 @@
               </section>
               <section>
                 <h3 className="font-semibold text-slate-700 mb-4">Model Performance Comparison</h3>
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+                <div className="flex flex-col lg:flex-row gap-6 items-stretch">
                   {/* AUC Table */}
     <div className="bg-white p-4 rounded-3xl shadow-sm border border-white overflow-hidden">
       <p className="text-[10px] text-slate-400 mb-4 text-center font-bold uppercase tracking-widest">
@@ -172,7 +172,6 @@
       <p className="text-[10px] text-slate-400 mb-4 text-center font-bold uppercase tracking-widest">
         Training vs Validation AUC
       </p>
-      {/* Format lại data AUC về thang 100 trước khi truyền vào */}
       <AUCComparisonChart 
         data={project.aucData?.map(d => ({
           ...d, 

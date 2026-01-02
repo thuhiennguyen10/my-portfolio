@@ -131,7 +131,7 @@ export const RMSEComparisonChart: React.FC<{ data: any[], color: string }> = ({ 
         <XAxis type="number" tick={{fontSize: 12}} />
         <YAxis dataKey="name" type="category" tick={{fontSize: 12}} width={100} />
         <Tooltip cursor={{fill: '#f8fafc'}} />
-        <Legend verticalAlign="top" align="right" wrapperStyle={{ paddingBottom: '20px', fontSize: '12px' }} />
+        <Legend verticalAlign="top" align="center" wrapperStyle={{ paddingBottom: '20px', fontSize: '12px' }} />
         
         {/* Validation RMSE */}
         <Bar name="Validation RMSE" dataKey="value" fill={color} radius={[0, 4, 4, 0]} barSize={15} />
@@ -235,9 +235,9 @@ export const Table: React.FC<{ data: any[] }> = ({ data }) => {
 };
 
 export const AUCComparisonChart: React.FC<{ data: any[], color: string }> = ({ data, color }) => (
-  <div className="h-[600px] w-full"> {/* Tăng chiều cao một chút vì có tới 10 model */}
+  <div className="h-[500px] w-full"> {/* Tăng chiều cao một chút vì có tới 10 model */}
     <ResponsiveContainer width="100%" height="100%">
-      <BarChart layout="vertical" data={data} margin={{ left: 10, right: 10, top: 10, bottom: 10 }}>
+      <BarChart layout="vertical" data={data} margin={{ left: 10, right: 30, top: 10, bottom: 10 }}>
         <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} stroke="#e2e8f0" />
         <XAxis 
           type="number" 
@@ -258,7 +258,7 @@ export const AUCComparisonChart: React.FC<{ data: any[], color: string }> = ({ d
           formatter={(v: number) => [`${(v * 100).toFixed(2)}%`]} 
           labelStyle={{ fontWeight: 'bold', color: '#1e293b' }}
         />
-        <Legend verticalAlign="top" align="right" wrapperStyle={{ paddingBottom: '0px', fontSize: '12px' }} />
+        <Legend verticalAlign="top" align="center" wrapperStyle={{ paddingBottom: '20px', fontSize: '12px' }} />
         
         {/* Chuyển dataKey sang giá trị đã nhân 100 nếu bạn muốn vẽ dựa trên thang 100 */}
         <Bar name="Validation AUC" dataKey="value" fill={color} radius={[0, 4, 4, 0]} barSize={15}>

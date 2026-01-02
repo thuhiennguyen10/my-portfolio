@@ -110,19 +110,28 @@
               </section>
               <section>
                 <h3 className="font-semibold text-slate-700 mb-4">Model Performance Comparison</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  
+                <div className="flex flex-col lg:flex-row gap-6 items-stretch">
+              
                   {/* Table Comparison */}
-            <div className="bg-white p-6 rounded-3xl shadow-sm border border-white overflow-hidden">
-              <p className="text-xs text-slate-400 mb-4 text-center font-medium uppercase tracking-wider">RMSE Metrics by Model</p>
-              <Table data={project.tableData} />
-            </div>
+            <div className="w-full lg:w-1/2 bg-white p-8 rounded-3xl shadow-sm border border-slate-50 flex flex-col">
+      <p className="text-sm font-bold text-slate-500 mb-6 text-center uppercase tracking-widest">
+        RMSE Metrics by Model
+      </p>
+      <div className="flex-1 overflow-auto">
+        <Table data={project.tableData} />
+      </div>
+    </div>
 
             {/* Clustered Bar Chart */}
-            <div className="bg-white p-6 rounded-3xl shadow-sm border border-white">
-              <p className="text-xs text-slate-400 mb-4 text-center font-medium uppercase tracking-wider">Training vs Validation RMSE</p>
-              <RMSEComparisonChart data={project.chartDataMain} color={color} />
-            </div>
+            <div className="w-full lg:w-1/2 bg-white p-8 rounded-3xl shadow-sm border border-slate-50 flex flex-col min-h-[600px]">
+      <p className="text-sm font-bold text-slate-500 mb-6 text-center uppercase tracking-widest">
+        Training vs Validation RMSE
+      </p>
+      <div className="flex-1 w-full">
+        <RMSEComparisonChart data={project.chartDataMain} color={color} />
+      </div>
+    </div>
+
           </div>
               </section>
             </div>

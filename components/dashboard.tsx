@@ -159,8 +159,8 @@
                 <h3 className="font-semibold text-slate-700 mb-4">Model Performance Comparison</h3>
                 <div className="flex flex-col lg:flex-row gap-6 items-stretch">
                   {/* AUC Table */}
-    <div className="bg-white p-4 rounded-3xl shadow-sm border border-white overflow-hidden">
-      <p className="text-[10px] text-slate-400 mb-4 text-center font-bold uppercase tracking-widest">
+    <div className="w-full lg:w-1/2 bg-white p-6 rounded-3xl shadow-sm border border-white overflow-hidden">
+      <p className="text-[10px] text-slate-400 mb-6 text-center font-bold uppercase tracking-widest">
         AUC Metrics by Model
       </p>
       <Table data={project.tableData} />
@@ -168,8 +168,8 @@
 
     {/* AUC graph */}
 
-    <div className="bg-white p-4 rounded-3xl shadow-sm border border-white">
-      <p className="text-[10px] text-slate-400 mb-4 text-center font-bold uppercase tracking-widest">
+    <div className="w-full lg:w-1/2 bg-white p-6 rounded-3xl shadow-sm border border-white flex flex-col">
+      <p className="text-[10px] text-slate-400 mb-6 text-center font-bold uppercase tracking-widest">
         Training vs Validation AUC
       </p>
       <AUCComparisonChart 

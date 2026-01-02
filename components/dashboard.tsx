@@ -78,7 +78,11 @@
               </section>
               <section>
                 <h3 className="font-semibold text-slate-700 mb-4">Model Performance Comparison</h3>
-                <div className="bg-white p-6 rounded-3xl shadow-sm"><Table data={project.tableData} /></div>
+                <div className="bg-white p-6 rounded-3xl shadow-sm min-h-[300px] flex flex-col">
+                  <div className="flex-1 overflow-auto">
+                  <Table data={project.tableData} />
+                  </div>
+                </div>
               </section>
             </div>
           );
@@ -158,7 +162,7 @@
             </div>
                 
   {/* 3. Box Plot */}
-<div className="bg-white p-6 rounded-3xl shadow-sm border border-white h-[350px] flex flex-col">
+<div className="bg-white p-6 rounded-3xl shadow-sm border border-white min-h-[350px] flex flex-col">
   <p className="text-xs text-slate-400 mb-4 text-center font-medium uppercase tracking-wider">
     Age Distribution by Churn Status
   </p>

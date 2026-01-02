@@ -130,7 +130,8 @@ export const RMSEComparisonChart: React.FC<{ data: any[], color: string }> = ({ 
         <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} stroke="#e2e8f0" /> 
         <XAxis type="number" tick={{fontSize: 12}} />
         <YAxis dataKey="name" type="category" tick={{fontSize: 12}} width={100} />
-        <Tooltip cursor={{fill: '#f8fafc'}} />
+        <Tooltip cursor={{fill: '#f8fafc'}} 
+        formatter={(value: number) => [value.toFixed(3), "RMSE"]} />
         <Legend verticalAlign="top" align="center" wrapperStyle={{ paddingBottom: '20px', fontSize: '12px' }} />
         
         {/* Validation RMSE */}

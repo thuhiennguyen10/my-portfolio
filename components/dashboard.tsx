@@ -170,29 +170,26 @@
                 <h3 className="font-semibold text-slate-700 mb-4">Model Performance Comparison</h3>
                 <div className="flex flex-col lg:flex-row gap-6 items-stretch">
                   {/* AUC Table */}
-    <div className="w-full lg:w-1/2 bg-white p-6 rounded-3xl shadow-sm border border-white overflow-hidden">
-      <p className="text-xs text-slate-400 mb-4 text-center font-medium uppercase tracking-wider">
-        AUC Metrics by Model
-      </p>
-      <Table data={project.tableData} />
+    <div className="w-full lg:w-1/2 bg-white p-8 rounded-3xl shadow-sm border border-slate-50 flex flex-col">
+    <p className="text-sm font-bold text-slate-500 mb-6 text-center uppercase tracking-widest">
+      AUC Metrics by Model
+    </p>
+    <div className="flex-1 overflow-auto">
+       <Table data={project.tableData} />
     </div>
+  </div>
 
     {/* AUC graph */}
 
-    <div className="w-full lg:w-1/2 bg-white p-6 rounded-3xl shadow-sm border border-white flex flex-col">
-      <p className="text-xs text-slate-400 mb-4 text-center font-medium uppercase tracking-wider">
-        Training vs Validation AUC
-      </p>
-      <div className="flex-1 w-full mt-auto"></div>
-      <AUCComparisonChart 
-        data={project.aucData?.map(d => ({
-          ...d, 
-          value: d.value || 0, 
-          secondaryValue: (d.secondaryValue || 0) 
-        })) || []} 
-        color={color} 
-      />
+    <div className="w-full lg:w-1/2 bg-white p-8 rounded-3xl shadow-sm border border-slate-50 flex flex-col min-h-[600px]">
+    <p className="text-sm font-bold text-slate-500 mb-6 text-center uppercase tracking-widest">
+      Training vs Validation AUC
+    </p>
+    {/* flex-1 đảm bảo biểu đồ chiếm hết không gian còn lại và tự giãn dòng */}
+    <div className="flex-1 w-full">
+      <AUCComparisonChart data={project.aucData || []} color={color} />
     </div>
+  </div>
                 </div>
               </section>
             </div>

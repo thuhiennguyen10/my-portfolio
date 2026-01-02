@@ -235,9 +235,9 @@ export const Table: React.FC<{ data: any[] }> = ({ data }) => {
 };
 
 export const AUCComparisonChart: React.FC<{ data: any[], color: string }> = ({ data, color }) => (
-  <div className="h-[450px] w-full"> {/* Tăng chiều cao một chút vì có tới 10 model */}
+  <div className="h-[600px] w-full"> {/* Tăng chiều cao một chút vì có tới 10 model */}
     <ResponsiveContainer width="100%" height="100%">
-      <BarChart layout="vertical" data={data} margin={{ left: 0, right: 40, bottom: 0 }}>
+      <BarChart layout="vertical" data={data} margin={{ left: 10, right: 10, top: 10, bottom: 10 }}>
         <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} stroke="#e2e8f0" />
         <XAxis 
           type="number" 

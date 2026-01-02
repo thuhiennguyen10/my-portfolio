@@ -151,24 +151,25 @@
             </div>
 
             {/* 2. Column Chart */}
-            <div className="bg-white p-6 rounded-3xl shadow-sm border border-white">
+            <div className="bg-white p-6 rounded-3xl shadow-sm border border-white flex flex-col min-h-[350px]">
               <p className="text-xs text-slate-400 mb-4 text-center font-medium uppercase tracking-wider">Churn Rate by Product Number</p>
-              <GradientBarChart data={project.chartDataMain} />
+              <div className="flex-1 flex items-center justify-center"> <GradientBarChart data={project.chartDataMain} /> </div>
+              
             </div>
                 
   {/* 3. Box Plot */}
-<div className="bg-white p-6 rounded-3xl shadow-sm border border-white h-[400px] flex flex-col">
+<div className="bg-white p-6 rounded-3xl shadow-sm border border-white h-[350px] flex flex-col">
   <p className="text-xs text-slate-400 mb-4 text-center font-medium uppercase tracking-wider">
     Age Distribution by Churn Status
   </p>
   
   {/* Nhúng file HTML thông qua iframe */}
-  <div className="flex-1 w-full overflow-hidden rounded-xl">
+  <div className="flex-1 flex items-center justify-center w-full overflow-hidden rounded-xl">
     <iframe 
       src="./boxplot_age.html" 
       className="w-full h-full border-none"
       title="Age Box Plot"
-      loading="lazy"
+      
     />
   </div>
 </div>
@@ -190,7 +191,7 @@
 
     {/* AUC graph */}
 
-    <div className="w-full lg:w-1/2 bg-white p-8 rounded-3xl shadow-sm border border-slate-50 flex flex-col min-h-[500px]">
+    <div className="w-full lg:w-1/2 bg-white p-8 rounded-3xl shadow-sm border border-slate-50 flex flex-col min-h-[450px]">
     <p className="text-sm font-bold text-slate-500 mb-6 text-center uppercase tracking-widest">
       Training vs Validation AUC
     </p>

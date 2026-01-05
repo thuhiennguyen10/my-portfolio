@@ -13,16 +13,97 @@
       }
     };
 
-    const renderSummary = () => (
-      <div className="mb-8">
-      <h3 className="font-semibold text-slate-700 mb-4">Project Summary</h3> 
-      <div className="bg-white/60 backdrop-blur-xl p-6 rounded-3xl border border-white shadow-sm">
-        <p className="text-slate-600 leading-relaxed text-justify w-full max-w-none">
-          {project.projectSummary}
-        </p>
+    const renderSummary = () => {
+  const s = project.projectSummary;
+
+  return (
+    <div className="mb-10 space-y-6">
+      <h3 className="font-semibold text-slate-700 mb-4 text-xl px-2">
+        Project Summary
+      </h3>
+
+      <div className="bg-white/60 backdrop-blur-md p-8 rounded-3xl border border-white shadow-sm space-y-8">
+
+        {/* 1. Objective */}
+        <div>
+          <h4 className="text-[10px] font-bold text-slate-400 uppercase mb-2 tracking-widest">
+            Objective
+          </h4>
+          <p className="text-slate-600 leading-relaxed text-sm text-justify">
+            {s.objective}
+          </p>
+        </div>
+
+        {/* 2. Technical Overview */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 py-6 border-y border-slate-100/50">
+          <div>
+            <span className="block text-[10px] font-bold text-slate-400 uppercase mb-1">
+              Dataset
+            </span>
+            <span className="text-slate-700 text-sm">
+              {s.datasets}
+            </span>
+          </div>
+
+          <div>
+            <span className="block text-[10px] font-bold text-slate-400 uppercase mb-1">
+              Models
+            </span>
+            <span className="text-slate-700 text-sm">
+              {s.models}
+            </span>
+          </div>
+
+          <div>
+            <span className="block text-[10px] font-bold text-slate-400 uppercase mb-1">
+              Evaluation Metric
+            </span>
+            <span className="text-slate-700 text-sm">
+              {s.metrics}
+            </span>
+          </div>
+        </div>
+
+        {/* 3. Methodology & Process */}
+        <div>
+          <h4 className="text-[10px] font-bold text-slate-400 uppercase mb-4 tracking-widest">
+            Process
+          </h4>
+
+          <ul className="space-y-3">
+            {s.process.map((step: string, index: number) => (
+              <li key={index} className="flex items-start gap-3">
+                <span className="mt-2 h-1.5 w-1.5 rounded-full bg-slate-400 flex-shrink-0" />
+                <p className="text-slate-600 text-sm leading-relaxed text-justify">
+                  {step}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* 4. Key Results */}
+        <div>
+          <h4 className="text-[10px] font-bold text-slate-400 uppercase mb-4 tracking-widest">
+            Key Results & Findings
+          </h4>
+
+          <ul className="space-y-4">
+            {s.results.map((result: string, index: number) => (
+              <li key={index} className="flex items-start gap-3">
+                <span className="mt-2 h-1.5 w-1.5 rounded-full bg-blue-500 flex-shrink-0" />
+                <p className="text-slate-600 text-sm leading-relaxed text-justify">
+                  {result}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </div>
+
       </div>
     </div>
-    );
+  );
+};
 
     const renderLayout = () => {
       const color = getThemeColor();

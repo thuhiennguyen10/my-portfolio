@@ -21,7 +21,23 @@ export const PROJECTS: Record<TabView, ProjectData> = {
     description: 'Developed machine learning models to predict Airbnb listing prices. Implemented and compared linear regression, regularized (Ridge and Lasso), and non-linear ensemble models (Regression Trees, Bagging, Random Forest, and XGBoost), with Random Forest achieving the best performance based on RMSE.',
     colorTheme: 'purple',
     reportPath: './airbnb-r.html', // Path to the PDF report file
-    projectSummary: 'This project focuses on building and evaluating various regression models to predict Airbnb listing prices, utilizing R for data analysis and model implementation.',
+    projectSummary: {
+      objective: 'Develop predictive machine learning models to estimate Airbnb listing prices in Chicago (2017–2019), supporting data-driven pricing strategies.',
+      datasets: 'Training data has approximately 5000 listings and 14 features such as location, room type, number of reviews, availability, etc.',
+      models: 'Linear regression, Regularized models (Ridge and LASSO), Non-linear ensemble methods (Regression Tree, Bagging, Random Forest, and XGBoost)',
+      metrics: 'Root Mean Squared Error (RMSE) for model evaluation and comparison',
+      process: [
+        "Data preprocessing: Transforming variables, handling outliers, feature engineering and feature scaling.",
+        "Exploratory Data Analysis (EDA): Analyzing feature distributions and relationships with the target variable (price).",
+        "Model implementation: Building and tuning various regression models using R.",
+        "Model evaluation: Assessing model performance using RMSE on training and validation datasets."
+      ],
+      results: [
+        "Among all models, Random Forest achieved the lowest validation RMSE (56.1).",
+        "Overall, non-linear ensemble methods achieved substantially lower errors compared to linear and regularized models, suggesting that these models are better suited to capturing complex relationships in the data.",
+        "Variable importance analysis indicated that room type is the most influential determinant of price, followed by neighborhood and minimum nights required."
+      ]
+    },
     chartDataSecondary: [ // room type bar chart
 {"name": "Entire home/apt","value": 144.5},
 {"name": "Hotel room","value": 121.1},
@@ -134,7 +150,23 @@ export const PROJECTS: Record<TabView, ProjectData> = {
     description: 'Developed machine learning models to predict customer churn in the banking industry. Implemented and compared parametric, semi-parametric, and non-parametric classification models, with CatBoost achieving the best performance based on AUC.',
     colorTheme: 'green',
     reportPath: './churn-py.html', // Path to the PDF report file
-    projectSummary: 'This project focuses on building and evaluating various classification models to predict customer churn in the banking sector, utilizing Python for data analysis and model implementation.',
+    projectSummary: {
+      objective: 'Develop predictive machine learning models to estimate customer churn for an online banking platform, enhancing customer loyalty.',
+      datasets: 'Training data has approximately 8000 listings and 12 features such as credit score, balance, credit card, etc.',
+      models: 'Parametric and semi-parametric models (Logistic Regression, LDA, Naive Bayes, SVC, SVM), Non-parametric models (KNN, Random Forest, XGBoost, CatBoost, Neural Networks)',
+      metrics: 'Area Under the ROC Curve (AUC) for model evaluation and comparison',
+      process: [
+        "Data preprocessing: Transforming variables, one hot encoding and feature scaling.",
+        "Exploratory Data Analysis (EDA): Analyzing feature distributions and relationships with the target variable (churn).",
+        "Model implementation: Building and tuning various classification models using Python.",
+        "Model evaluation: Assessing model performance using AUC on training and validation datasets."
+      ],
+      results: [
+        "Among all models, CatBoost achieved the highest validation AUC (0.8967).",
+        "Overall, non-parametric tree-based models perform relatively better, while models with linearity assumptions or sensitivity to class imbalance perform less effectively.",
+        "Information Value (IV) score indicated that products, age, active membership are the most critical determinants of churn."
+      ]
+    },
     chartDataMain: [ // Column Chart
       {
     "name": "1",
@@ -279,7 +311,22 @@ export const PROJECTS: Record<TabView, ProjectData> = {
     description: 'Developed regression models to analyze global YouTube statistics.',
     colorTheme: 'blue',
     reportPath: './youtube-r.html', // Path to the PDF report file
-    projectSummary: 'This research utilizes R to investigate the key drivers of YouTube channel success, specifically focusing on the relationship between monthly earnings and engagement metrics across different geographical regions.',
+    projectSummary: {
+      objective: 'Identidy factors that drive YouTube performance with a focus on creators\' earnings by analyzing a dataset of global video statistics and developing regression models.',
+      datasets: 'A dataset of the top 995 channels worldwide ranked by subscribers, including features such as views, subscribers, uploads, channel types, etc.',
+      models: 'Log-transformed regression, Weighted regression, Robust regression.',
+      metrics: '',
+      process: [
+        "Data preprocessing: Standardizing data types, handling outliers, feature engineering and feature scaling.",
+        "Exploratory Data Analysis (EDA): Analyzing correlations of numerical variable and distributions across categorical variables with the variable of interest (earnings).",
+        "Statistical Modeling: Building and comparing coefficient estimates across 3 models using R.",
+      ],
+      results: [
+        "Among all models, CatBoost achieved the highest validation AUC (0.8967).",
+        "Overall, non-parametric tree-based models perform relatively better, while models with linearity assumptions or sensitivity to class imbalance perform less effectively.",
+        "Information Value (IV) score indicated that products, age, active membership are the most critical determinants of churn."
+      ]
+    },
     layoutType: 'default',
 
     scatterData1: 

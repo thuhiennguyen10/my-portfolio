@@ -31,12 +31,21 @@ export interface BoxPlotDataPoint { // Box plot data structure
   outliers: number[];
 }
 
+export interface ProjectSummary {
+  objective: string;
+  datasets: string;
+  models: string;
+  metrics: string;
+  process: string[];
+  results: string[];
+}
+
 export interface ProjectData {
   id: string;
   title: string;
   description: string;
   colorTheme: 'blue' | 'purple' | 'green' | 'rose';
-  projectSummary: string; // Project summary for all 3 projects
+  projectSummary: ProjectSummary; // Project summary for all 3 projects
   layoutType?: 'default' | 'summary' | 'detailed'; // Layout control
   chartDataDistribution: DataPoint[]; // Pie/Donut 
   chartDataSecondary?: DataPoint[] ; // Other graph types

@@ -322,9 +322,9 @@ export const PROJECTS: Record<TabView, ProjectData> = {
         "Statistical Modeling: Building and comparing coefficient estimates across 3 models using R.",
       ],
       results: [
-        "Among all models, CatBoost achieved the highest validation AUC (0.8967).",
-        "Overall, non-parametric tree-based models perform relatively better, while models with linearity assumptions or sensitivity to class imbalance perform less effectively.",
-        "Information Value (IV) score indicated that products, age, active membership are the most critical determinants of churn."
+        "Subscribers and views are significantly associated with earnings.",
+        "Macro factors such as country GDP per capita or unemployment rate show weak effects.",
+        "The findings suggest Youtube creators focus on audience engagement and high-potential segments (channel types with high median earnings per view and low competitors)."
       ]
     },
     layoutType: 'default',

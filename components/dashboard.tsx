@@ -22,7 +22,7 @@
         Project Summary
       </h3>
 
-      <div className="bg-white/60 backdrop-blur-md p-8 rounded-3xl border border-white shadow-sm space-y-8">
+      <div className="bg-white/60 backdrop-blur-md p-8 rounded-3xl border border-white shadow-sm space-y-5">
 
         {/* 1. Objective */}
         <div>
@@ -35,7 +35,7 @@
         </div>
 
         {/* 2. Technical Overview */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 py-6 border-y border-slate-100/50">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 py-4 border-y border-slate-100/50">
           <div>
             <span className="block text-[10px] font-bold text-slate-400 uppercase mb-1">
               Dataset
@@ -70,7 +70,7 @@
             Process
           </h4>
 
-          <ul className="space-y-3">
+          <ul className="space-y-2">
             {s.process.map((step: string, index: number) => (
               <li key={index} className="flex items-start gap-3">
                 <span className="mt-2 h-1.5 w-1.5 rounded-full bg-slate-400 flex-shrink-0" />
@@ -88,7 +88,7 @@
             Key Results & Findings
           </h4>
 
-          <ul className="space-y-4">
+          <ul className="space-y-2">
             {s.results.map((result: string, index: number) => (
               <li key={index} className="flex items-start gap-3">
                 <span className="mt-2 h-1.5 w-1.5 rounded-full bg-blue-500 flex-shrink-0" />

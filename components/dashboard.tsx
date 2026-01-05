@@ -22,11 +22,11 @@
         Project Summary
       </h3>
 
-      <div className="bg-white/60 backdrop-blur-md p-8 rounded-3xl border border-white shadow-sm space-y-5">
+      <div className="bg-white/60 backdrop-blur-md p-8 rounded-3xl border border-white shadow-sm space-y-3">
 
         {/* 1. Objective */}
         <div>
-          <h4 className="text-[10px] font-bold text-slate-400 uppercase mb-2 tracking-widest">
+          <h4 className="text-[10px] font-bold text-slate-400 uppercase mb-1 tracking-widest">
             Objective
           </h4>
           <p className="text-slate-600 leading-relaxed text-sm text-justify">
@@ -35,22 +35,13 @@
         </div>
 
         {/* 2. Technical Overview */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 py-4 border-y border-slate-100/50">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 py-3 border-y border-slate-100/50">
           <div>
             <span className="block text-[10px] font-bold text-slate-400 uppercase mb-1">
               Dataset
             </span>
             <span className="text-slate-700 text-sm">
               {s.datasets}
-            </span>
-          </div>
-
-          <div>
-            <span className="block text-[10px] font-bold text-slate-400 uppercase mb-1">
-              Models
-            </span>
-            <span className="text-slate-700 text-sm">
-              {s.models}
             </span>
           </div>
 
@@ -67,10 +58,27 @@
         {/* 3. Methodology & Process */}
         <div>
           <h4 className="text-[10px] font-bold text-slate-400 uppercase mb-4 tracking-widest">
+            Models
+          </h4>
+
+          <ul className="space-y-1">
+            {s.models.map((step: string, index: number) => (
+              <li key={index} className="flex items-start gap-3">
+                <span className="mt-2 h-1.5 w-1.5 rounded-full bg-slate-400 flex-shrink-0" />
+                <p className="text-slate-600 text-sm leading-relaxed text-justify">
+                  {step}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <h4 className="text-[10px] font-bold text-slate-400 uppercase mb-4 tracking-widest">
             Process
           </h4>
 
-          <ul className="space-y-2">
+          <ul className="space-y-1">
             {s.process.map((step: string, index: number) => (
               <li key={index} className="flex items-start gap-3">
                 <span className="mt-2 h-1.5 w-1.5 rounded-full bg-slate-400 flex-shrink-0" />
@@ -88,7 +96,7 @@
             Key Results & Findings
           </h4>
 
-          <ul className="space-y-2">
+          <ul className="space-y-1">
             {s.results.map((result: string, index: number) => (
               <li key={index} className="flex items-start gap-3">
                 <span className="mt-2 h-1.5 w-1.5 rounded-full bg-blue-500 flex-shrink-0" />

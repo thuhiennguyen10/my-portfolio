@@ -24,7 +24,10 @@ export const PROJECTS: Record<TabView, ProjectData> = {
     projectSummary: {
       objective: 'Develop predictive machine learning models to estimate Airbnb listing prices in Chicago (2017–2019), supporting data-driven pricing strategies.',
       datasets: 'Training data has approximately 5000 listings and 14 features such as location, room type, number of reviews, availability, etc.',
-      models: 'Linear regression, Regularized models (Ridge and LASSO), Non-linear ensemble methods (Regression Tree, Bagging, Random Forest, and XGBoost)',
+      models: [
+        'Linear regression, Regularized models (Ridge and LASSO)',
+        'Non-linear ensemble methods (Regression Tree, Bagging, Random Forest, and XGBoost)'
+      ],
       metrics: 'Root Mean Squared Error (RMSE) for model evaluation and comparison',
       process: [
         "Data preprocessing: Transforming variables, handling outliers, feature engineering and feature scaling.",
@@ -153,7 +156,10 @@ export const PROJECTS: Record<TabView, ProjectData> = {
     projectSummary: {
       objective: 'Develop predictive machine learning models to estimate customer churn for an online banking platform, enhancing customer loyalty.',
       datasets: 'Training data has approximately 8000 listings and 12 features such as credit score, balance, credit card, etc.',
-      models: 'Parametric and semi-parametric models (Logistic Regression, LDA, Naive Bayes, SVC, SVM), Non-parametric models (KNN, Random Forest, XGBoost, CatBoost, Neural Networks)',
+      models: [
+        'Parametric and semi-parametric models (Logistic Regression, LDA, Naive Bayes, SVC, SVM)', 
+        'Non-parametric models (KNN, Random Forest, XGBoost, CatBoost, Neural Networks)'
+      ],
       metrics: 'Area Under the ROC Curve (AUC) for model evaluation and comparison',
       process: [
         "Data preprocessing: Transforming variables, one hot encoding and feature scaling.",
@@ -314,7 +320,7 @@ export const PROJECTS: Record<TabView, ProjectData> = {
     projectSummary: {
       objective: 'Identidy factors that drive YouTube performance with a focus on creators\' earnings by analyzing a dataset of global video statistics and developing regression models.',
       datasets: 'A dataset of the top 995 channels worldwide ranked by subscribers, including features such as views, subscribers, uploads, channel types, etc.',
-      models: 'Log-transformed regression, Weighted regression, Robust regression.',
+      models: ['Log-transformed regression, Weighted regression, Robust regression.'],
       metrics: '',
       process: [
         "Data preprocessing: Standardizing data types, handling outliers, feature engineering and feature scaling.",

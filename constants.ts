@@ -28,7 +28,7 @@ export const PROJECTS: Record<TabView, ProjectData> = {
         'Linear regression, Regularized models (Ridge and LASSO)',
         'Non-linear ensemble methods (Regression Tree, Bagging, Random Forest, and XGBoost)'
       ],
-      metrics: 'Root Mean Squared Error (RMSE) for model evaluation and comparison',
+      metrics: 'Root Mean Squared Error (RMSE) for model evaluation',
       process: [
         "Data preprocessing: Transforming variables, handling outliers, feature engineering and feature scaling.",
         "Exploratory Data Analysis (EDA): Analyzing feature distributions and relationships with the target variable (price).",
@@ -160,7 +160,7 @@ export const PROJECTS: Record<TabView, ProjectData> = {
         'Parametric and semi-parametric models (Logistic Regression, LDA, Naive Bayes, SVC, SVM)', 
         'Non-parametric models (KNN, Random Forest, XGBoost, CatBoost, Neural Networks)'
       ],
-      metrics: 'Area Under the ROC Curve (AUC) for model evaluation and comparison',
+      metrics: 'Area Under the ROC Curve (AUC) for model evaluation',
       process: [
         "Data preprocessing: Transforming variables, one hot encoding and feature scaling.",
         "Exploratory Data Analysis (EDA): Analyzing feature distributions and relationships with the target variable (churn).",

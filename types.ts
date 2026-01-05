@@ -34,7 +34,7 @@ export interface BoxPlotDataPoint { // Box plot data structure
 export interface ProjectSummary {
   objective: string;
   datasets: string;
-  models: string;
+  models: string[];
   metrics: string;
   process: string[];
   results: string[];

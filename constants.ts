@@ -6,7 +6,7 @@ import { ProjectData, TabView, ProfileData } from './types';
 
 export const PROFILE: ProfileData = {
   name: "Thu Hien Nguyen", // Your Name
-  role: "Looking for a Working Student position in Data Analytics", // Your Job Title
+  role: "Master's student in Business Analytics & Econometrics at the University of Cologne", // Your Job Title
   linkedinUrl: "https://www.linkedin.com/in/hien-nguyen-thu10/", // Your LinkedIn Profile URL
   // INSTRUCTION: Put your PDF file in the 'public' folder and reference it here
   // Example: if file is public/cv.pdf, put '/cv.pdf'
@@ -318,7 +318,7 @@ export const PROJECTS: Record<TabView, ProjectData> = {
     colorTheme: 'blue',
     reportPath: './youtube-r.html', // Path to the PDF report file
     projectSummary: {
-      objective: 'Identidy factors that drive YouTube performance with a focus on creators\' earnings by analyzing a dataset of global video statistics and developing regression models.',
+      objective: 'Identify factors that drive YouTube performance with a focus on creators\' earnings by analyzing a dataset of global video statistics and developing regression models.',
       datasets: 'A dataset of the top 995 channels worldwide ranked by subscribers, including features such as views, subscribers, uploads, channel types, etc.',
       models: ['Log-transformed regression, Weighted regression, Robust regression.'],
       metrics: '',

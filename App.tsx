@@ -25,7 +25,7 @@ function App() {
   const activeProject: ProjectData = PROJECTS[activeTab];
 
   return (
-    <div className="min-h-screen relative overflow-hidden text-slate-800 selection:bg-blue-100 font-sans">
+    <div className="min-h-screen relative overflow-x-clip text-slate-800 selection:bg-blue-100 font-sans">
       
       {/* 1. Decorative Background Elements  */}
       <div className="fixed top-0 left-0 w-full h-full -z-10 bg-[#f8fafc]">
